@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { connect } from "react-redux"; // This is going to connect to the state
-import { createTrip } from "../../actions/tripActions";
+import { connect } from "react-redux";
+import { createTripGroup } from "../../actions/tripGroupActions";
+import classnames from "classnames";
 
 class AddTripGroup extends Component {
+    constructor() {
+        super();
+        this.state = {
+            name: "",
+            tripGroupIdentifier: "",
+            description: "",
+            errors: {}
+        };
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
     componentDidMount() {
         if (!this.props.security.validToken) {
@@ -11,38 +24,28 @@ class AddTripGroup extends Component {
         }
     }
 
-    constructor() {
-        super();
-
-        this.state = {
-            name: "",
-            tripIdentifier: "",
-            description: "",
-            start_date: "",
-            end_date: ""
-        };
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
+        }
+    }
+
     onSubmit(e) {
         e.preventDefault();
-        /*const newTrip = {
+        const newTripGroup = {
             name: this.state.name,
-            tripIdentifier: this.state.tripIdentifier,
-            description: this.state.description,
-            start_date: this.state.start_date,
-            end_date: this.state.end_date
+            tripGroupIdentifier: this.state.tripGroupIdentifier,
+            description: this.state.description
         };
-        this.props.createTrip(newTrip, this.props.history);*/
+        this.props.createTripGroup(newTripGroup, this.props.history);
     }
 
     render() {
+        const { errors } = this.state;
         return (
             <div className="trip">
                 <div className="container">
@@ -54,33 +57,48 @@ class AddTripGroup extends Component {
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg "
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid": errors.name
+                                        })}
                                         placeholder="Trip Group Name"
                                         name="name"
                                         value={this.state.name}
                                         onChange={this.onChange}
                                     />
+                                    {errors.name && (
+                                        <div className="invalid-feedback">{errors.name}</div>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid": errors.tripGroupIdentifier
+                                        })}
                                         placeholder="Unique Trip Group ID"
-                                        name="tripIdentifier"
-                                        value={this.state.tripIdentifier}
+                                        name="tripGroupIdentifier"
+                                        value={this.state.tripGroupIdentifier}
                                         onChange={this.onChange}
                                     />
+                                    {errors.tripGroupIdentifier && (
+                                        <div className="invalid-feedback">{errors.tripGroupIdentifier}</div>
+                                    )}
                                 </div>
 
                                 <div className="form-group">
                                     <textarea
-                                        className="form-control form-control-lg"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid": errors.description
+                                        })}
                                         placeholder="Trip Group Description"
                                         name="description"
                                         value={this.state.description}
                                         onChange={this.onChange}
                                     >
                                     </textarea>
+                                    {errors.description && (
+                                        <div className="invalid-feedback">{errors.description}</div>
+                                    )}
                                 </div>
                                 <input
                                     type="submit"
@@ -95,7 +113,7 @@ class AddTripGroup extends Component {
 }
 
 AddTripGroup.propTypes = {
-    //createTripGroup: PropTypes.func.isRequired
+    createTripGroup: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 }
@@ -107,5 +125,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { /*createTripGroup*/ })
+    { createTripGroup })
     (AddTripGroup);

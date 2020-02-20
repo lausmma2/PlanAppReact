@@ -22,14 +22,15 @@ export const getTrips = () => async dispatch => {
     });
 };
 
-/*export const getTripById = (id, history) => async dispatch => {
+export const deleteTrip = (trip, history) => async dispatch => {
     try {
-        const res = await axios.get(`/api/trip/${id}`);
+        const res = await axios.post(`http://localhost:8081/api/trip/{tripId}`, trip)
+        history.push("/dashboard")
+    } catch (err) {
         dispatch({
-            type: GET_TRIP,
-            payload: res.data
-        });
-    } catch (error) {
-        history.push("/dashboard");
+            type: GET_ERRORS,
+            payload: err.response.data
+        })
     }
-};*/
+
+}

@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux"; // This is going to connect to the state
 import { createTrip } from "../../actions/tripActions";
+import classnames from "classnames";
 
 class AddTrip extends Component {
     constructor() {
         super();
-
         this.state = {
             name: "",
             tripIdentifier: "",
             description: "",
             start_date: "",
-            end_date: ""
+            end_date: "",
+            errors: {}
         };
 
         this.onChange = this.onChange.bind(this);
@@ -22,6 +23,11 @@ class AddTrip extends Component {
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
+        }
+    }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
         }
     }
 
@@ -42,6 +48,7 @@ class AddTrip extends Component {
     }
 
     render() {
+        const { errors } = this.state;
         return (
             <div className="trip">
                 <div className="container">
@@ -53,32 +60,47 @@ class AddTrip extends Component {
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg "
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid": errors.name
+                                        })}
                                         placeholder="Trip Name"
                                         name="name"
                                         value={this.state.name}
                                         onChange={this.onChange}
                                     />
+                                    {errors.name && (
+                                        <div className="invalid-feedback">{errors.name}</div>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid": errors.tripIdentifier
+                                        })}
                                         placeholder="Unique Trip ID"
                                         name="tripIdentifier"
                                         value={this.state.tripIdentifier}
                                         onChange={this.onChange}
                                     />
+                                    {errors.tripIdentifier && (
+                                        <div className="invalid-feedback">{errors.tripIdentifier}</div>
+                                    )}
                                 </div>
 
                                 <div className="form-group">
                                     <textarea
-                                        className="form-control form-control-lg"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid": errors.description
+                                        })}
                                         placeholder="Trip Description"
                                         name="description"
                                         value={this.state.description}
                                         onChange={this.onChange}
                                     >
+                                        {errors.description && (
+                                            <div className="invalid-feedback">{errors.description}</div>
+                                        )}
                                     </textarea>
                                 </div>
                                 <h6>Start Date</h6>
@@ -116,11 +138,13 @@ class AddTrip extends Component {
 
 AddTrip.propTypes = {
     createTrip: PropTypes.func.isRequired,
-    security: PropTypes.object.isRequired
+    security: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    security: state.security
+    security: state.security,
+    errors: state.errors
 })
 
 export default connect(

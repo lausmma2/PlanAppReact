@@ -2,7 +2,7 @@ import axios from "axios";
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import SetJWTToken from "../securityUtils/SetJWTToken";
 import jwt_decode from "jwt-decode";
-import {getUsersInfo} from './userActions'
+import { getUsersInfo } from './userActions'
 export const createNewUser = (newUser, history) => async dispatch => {
   try {
     await axios.post("http://localhost:8081/register", newUser);

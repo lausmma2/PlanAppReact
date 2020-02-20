@@ -37,13 +37,13 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
     trip: PropTypes.object.isRequired,
     getTrips: PropTypes.func.isRequired
-  };
-  
-  const mapStateToProps = state => ({
+};
+
+const mapStateToProps = state => ({
     trip: state.trip
-  });
-  
-  export default connect(
+});
+
+export default connect(
     mapStateToProps,
     { getTrips }
-  )(Dashboard);
+)(Dashboard);

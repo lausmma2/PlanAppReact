@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { updateUser } from "../../actions/userActions";
 import { Link } from "react-router-dom";
+import { getTripGroups } from "../../actions/tripGroupActions";
 import {
     Button,
     Card,
@@ -17,6 +18,7 @@ import {
     Row,
     Col
 } from "reactstrap";
+import TripGroupItem from '../tripGroup/TripGroupItem';
 
 class UserInfo extends Component {
     constructor() {
@@ -32,9 +34,18 @@ class UserInfo extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if (!this.props.security.validToken) {
+            this.props.history.push("/")
+        } else {
+            this.props.getUsersInfo();
+            this.props.getTripGroups();
+            this.setState({ ...this.props.userData.userData });
+        }
+    }
+
     onSubmit(e) {
         e.preventDefault();
-        //const { firstname, lastname, phone, country, aboutMe } = this.state;
 
         const updatedUser = {
             firstname: this.state.firstname,
@@ -44,21 +55,18 @@ class UserInfo extends Component {
             aboutMe: this.state.aboutMe
         };
         this.props.updateUser(updatedUser, this.props.history);
+
         this.props.userData.userData.firstname = this.state.firstname;
         this.props.userData.userData.lastname = this.state.lastname;
         this.props.userData.userData.phone = this.state.phone;
         this.props.userData.userData.country = this.state.country;
         this.props.userData.userData.aboutMe = this.state.aboutMe;
-        window.location.reload(true);
-    }
 
-    componentDidMount() {
-        if (!this.props.security.validToken) {
-            this.props.history.push("/")
-        } else {
-            this.props.getUsersInfo();
-            this.setState({ ...this.props.userData.userData });
-        }
+        this.props.security.user.firstname = this.state.firstname;
+        this.props.security.user.lastname = this.state.lastname;
+        this.props.security.user.phone = this.state.phone;
+        this.props.security.user.country = this.state.country;
+        this.props.security.user.aboutMe = this.state.aboutMe;
     }
 
     onChange(e) {
@@ -67,9 +75,9 @@ class UserInfo extends Component {
 
     render() {
         const { userData } = this.props.userData;
+        const { tripGroups } = this.props.tripGroup;
         return (
             <div className="content">
-
                 <Row>
                     <Col md="4">
                         <Card className="card-user">
@@ -122,93 +130,9 @@ class UserInfo extends Component {
                             </CardHeader>
                             <CardBody>
                                 <ul className="list-unstyled team-members">
-                                    <li>
-                                        <Row>
-                                            <Col md="2" xs="2">
-                                                <div className="avatar">
-                                                    <img
-                                                        alt="..."
-                                                        className="img-circle img-no-padding img-responsive"
-                                                        src={require("../../images/cina.jpg")}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col md="7" xs="7">
-                                                Šumava <br />
-                                                <span className="text-muted">
-                                                    <small>Offline</small>
-                                                </span>
-                                            </Col>
-                                            <Col className="text-right" md="3" xs="3">
-                                                <Button
-                                                    className="btn-round btn-icon"
-                                                    color="success"
-                                                    outline
-                                                    size="sm"
-                                                >
-                                                    <i className="fa fa-envelope" />
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </li>
-                                    <li>
-                                        <Row>
-                                            <Col md="2" xs="2">
-                                                <div className="avatar">
-                                                    <img
-                                                        alt="..."
-                                                        className="img-circle img-no-padding img-responsive"
-                                                        src={require("../../images/cina.jpg")}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col md="7" xs="7">
-                                                Trip na Sněžku <br />
-                                                <span className="text-success">
-                                                    <small>Available</small>
-                                                </span>
-                                            </Col>
-                                            <Col className="text-right" md="3" xs="3">
-                                                <Button
-                                                    className="btn-round btn-icon"
-                                                    color="success"
-                                                    outline
-                                                    size="sm"
-                                                >
-                                                    <i className="fa fa-envelope" />
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </li>
-                                    <li>
-                                        <Row>
-                                            <Col md="2" xs="2">
-                                                <div className="avatar">
-                                                    <img
-                                                        alt="..."
-                                                        className="img-circle img-no-padding img-responsive"
-                                                        src={require("../../images/cina.jpg")}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col className="col-ms-7" xs="7">
-                                                Vranov 2020 <br />
-                                                <span className="text-danger">
-                                                    <small>Busy</small>
-                                                </span>
-                                            </Col>
-                                            <Col className="text-right" md="3" xs="3">
-                                                <Button
-                                                    className="btn-round btn-icon"
-                                                    color="success"
-                                                    outline
-                                                    size="sm"
-                                                >
-                                                    <i className="fa fa-envelope" />
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </li>
+                                    {tripGroups.map(tripGroup => (
+                                        <TripGroupItem key={tripGroup.id} tripGroup={tripGroup} />
+                                    ))}
                                 </ul>
                                 <Row>
                                     <div className="update ml-auto mr-auto">
@@ -343,8 +267,7 @@ class UserInfo extends Component {
                                                 //onChange={(e)=> this.handleOnChange(e)}
                                                 className="btn-round"
                                                 color="primary"
-                                                type="submit"
-                                            >
+                                                type="submit">
                                                 Update Profile
                         </Button>
                                         </div>
@@ -354,7 +277,6 @@ class UserInfo extends Component {
                         </Card>
                     </Col>
                 </Row>
-
             </div >
         )
     }
@@ -364,15 +286,18 @@ UserInfo.propTypes = {
     userData: PropTypes.object.isRequired,
     getUsersInfo: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
-    security: PropTypes.object.isRequired
+    security: PropTypes.object.isRequired,
+    tripGroup: PropTypes.object.isRequired,
+    getTripGroups: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     userData: state.userData,
-    security: state.security
+    security: state.security,
+    tripGroup: state.tripGroups
 });
 
 export default connect(
     mapStateToProps,
-    { getUsersInfo, updateUser }
+    { getUsersInfo, updateUser, getTripGroups }
 )(UserInfo);

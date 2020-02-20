@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 class TripItem extends Component {
     render() {
@@ -26,9 +27,14 @@ class TripItem extends Component {
                                         <i className="fa fa-edit pr-1">Update Trip Info</i>
                                     </li>
                                 </a>
-                                <a href="">
+                                <a href="#">
                                     <li className="list-group-item delete">
                                         <i className="fa fa-minus-circle pr-1">Delete Trip</i>
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li className="list-group-item">
+                                        <i className="fa fa-edit pr-1">Add to group</i>
                                     </li>
                                 </a>
                             </ul>
