@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { deleteTrip } from "../../actions/tripActions";
 
 class TripItem extends Component {
+
+    onDeleteClick = id => {
+        this.props.deleteTrip(id);
+      };
+
     render() {
         const { trip } = this.props;
         return (
@@ -27,11 +34,9 @@ class TripItem extends Component {
                                         <i className="fa fa-edit pr-1">Update Trip Info</i>
                                     </li>
                                 </a>
-                                <a href="#">
-                                    <li className="list-group-item delete">
-                                        <i className="fa fa-minus-circle pr-1">Delete Trip</i>
-                                    </li>
-                                </a>
+                                <li className="list-group-item delete" onClick={this.onDeleteClick.bind(this, trip.tripIdentifier)}>
+                                    <i className="fa fa-minus-circle pr-1">Delete Trip</i>
+                                </li>
                                 <a href="#">
                                     <li className="list-group-item">
                                         <i className="fa fa-edit pr-1">Add to group</i>
@@ -42,9 +47,12 @@ class TripItem extends Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }
 
-export default TripItem;
+TripItem.propTypes = {
+    deleteTrip: PropTypes.func.isRequired
+}
+
+export default connect(null, { deleteTrip })(TripItem);

@@ -1,6 +1,6 @@
 //Redux
 import axios from "axios";
-import { GET_ERRORS, GET_TRIPS } from "./types";
+import { GET_ERRORS, GET_TRIPS, DELETE_TRIP } from "./types";
 
 export const createTrip = (trip, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
     try {
@@ -22,15 +22,16 @@ export const getTrips = () => async dispatch => {
     });
 };
 
-export const deleteTrip = (trip, history) => async dispatch => {
-    try {
-        const res = await axios.post(`http://localhost:8081/api/trip/{tripId}`, trip)
-        history.push("/dashboard")
-    } catch (err) {
+export const deleteTrip = id => async dispatch => {
+    if (
+        window.confirm(
+            "Are you sure? This will delete the trip and all the data related to it"
+        )
+    ) {
+        await axios.delete(`http://localhost:8081/api/trip/${id}`);
         dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data
-        })
+            type: DELETE_TRIP,
+            payload: id
+        });
     }
-
-}
+};
