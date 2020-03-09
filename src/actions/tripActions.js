@@ -1,6 +1,6 @@
 //Redux
 import axios from "axios";
-import { GET_ERRORS, GET_TRIPS, DELETE_TRIP } from "./types";
+import { GET_ERRORS, GET_TRIPS, DELETE_TRIP, ADD_TRIP_TO_TRIPGROUP } from "./types";
 
 export const createTrip = (trip, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
     try {
@@ -35,3 +35,18 @@ export const deleteTrip = id => async dispatch => {
         });
     }
 };
+
+export const addTripToTripGroup = (tripIdentifier, tripGroupIdentifier) => async dispatch => {
+    if (
+        window.confirm(
+            "Are you sure? This add trip to the trip group..."
+        )
+    ) {
+        const res = await axios.post(`http://localhost:8081/api/trip-group/add-trip-to-group/${tripIdentifier}/${tripGroupIdentifier}`);
+        dispatch({
+            type: ADD_TRIP_TO_TRIPGROUP,
+            payload: res.data
+        });
+        dispatch(getTrips());
+    }
+}

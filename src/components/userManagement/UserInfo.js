@@ -24,7 +24,7 @@ class UserInfo extends Component {
     constructor() {
         super();
         this.state = {
-            firstname: "", //this.props.firstname,
+            firstname: "",
             lastname: "",
             phone: "",
             country: "",
@@ -137,8 +137,6 @@ class UserInfo extends Component {
                                 <Row>
                                     <div className="update ml-auto mr-auto">
                                         <Link to="add-trip-group"
-                                            //onSubmit={this.handleSubmit}
-                                            //onChange={(e)=> this.handleOnChange(e)}
                                             className="btn-round"
                                             color="primary"
                                             type="submit"
@@ -175,7 +173,6 @@ class UserInfo extends Component {
                                                     Username (Email address)
                           </label>
                                                 <Input
-                                                    //defaultValue={this.state.userData.email}
                                                     disabled
                                                     placeholder="Email"
                                                     type="email"
@@ -189,7 +186,6 @@ class UserInfo extends Component {
                                             <FormGroup>
                                                 <label>First Name</label>
                                                 <Input
-                                                    //defaultValue={userData.firstname}
                                                     placeholder="Firstname"
                                                     type="text"
                                                     value={this.state.firstname}
@@ -203,14 +199,12 @@ class UserInfo extends Component {
                                             <FormGroup>
                                                 <label>Last Name</label>
                                                 <Input
-                                                    //defaultValue={this.state.userData.lastName}
                                                     placeholder="Lastname"
                                                     type="text"
                                                     value={this.state.lastname}
                                                     onChange={this.onChange}
                                                     required
                                                     name="lastname"
-                                                //value={this.state.lastname}
                                                 />
                                             </FormGroup>
                                         </Col>
@@ -220,7 +214,6 @@ class UserInfo extends Component {
                                             <FormGroup>
                                                 <label>Phone</label>
                                                 <Input
-                                                    //defaultValue={this.state.userData.phone}
                                                     placeholder="Phone"
                                                     type="text"
                                                     onChange={this.onChange}
@@ -233,10 +226,8 @@ class UserInfo extends Component {
                                             <FormGroup>
                                                 <label>Country</label>
                                                 <Input
-                                                    //defaultValue="Australia"
                                                     placeholder="Country"
                                                     type="text"
-                                                    // defaultValue={userData.country}
                                                     onChange={this.onChange}
                                                     name="country"
                                                     value={this.state.country}
@@ -251,11 +242,9 @@ class UserInfo extends Component {
                                                 <Input
                                                     type="textarea"
                                                     placeholder="About me..."
-                                                    //defaultValue={userData.aboutMe}
                                                     onChange={this.onChange}
                                                     name="aboutMe"
                                                     value={this.state.aboutMe}
-                                                //defaultValue="Oh so, your weak rhyme You doubt I'll bother, reading into it"
                                                 />
                                             </FormGroup>
                                         </Col>
@@ -263,8 +252,6 @@ class UserInfo extends Component {
                                     <Row>
                                         <div className="update ml-auto mr-auto">
                                             <Button
-                                                //onSubmit={this.handleSubmit}
-                                                //onChange={(e)=> this.handleOnChange(e)}
                                                 className="btn-round"
                                                 color="primary"
                                                 type="submit">

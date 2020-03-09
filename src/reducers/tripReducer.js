@@ -1,4 +1,4 @@
-import { GET_TRIP, GET_TRIPS, DELETE_TRIP } from "../actions/types";
+import { GET_TRIP, GET_TRIPS, DELETE_TRIP, ADD_TRIP_TO_TRIPGROUP, GET_TRIP_TYPE } from "../actions/types";
 
 const initialState = {
     trips: [],
@@ -10,11 +10,17 @@ export default function (state = initialState, action) { //The action is get tri
 
         case GET_TRIPS:
             return {
-                ...state,   
+                ...state,
                 trips: action.payload
             };
 
         case GET_TRIP:
+            return {
+                ...state,
+                trip: action.payload
+            };
+
+        case ADD_TRIP_TO_TRIPGROUP:
             return {
                 ...state,
                 trip: action.payload

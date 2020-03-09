@@ -2,7 +2,9 @@ import axios from "axios";
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import SetJWTToken from "../securityUtils/SetJWTToken";
 import jwt_decode from "jwt-decode";
-import { getUsersInfo } from './userActions'
+import { getUsersInfo } from './userActions';
+import { getTripGroups } from './tripGroupActions';
+
 export const createNewUser = (newUser, history) => async dispatch => {
   try {
     await axios.post("http://localhost:8081/register", newUser);
@@ -37,6 +39,7 @@ export const login = LoginRequest => async dispatch => {
       payload: decoded
     });
     dispatch(getUsersInfo())
+    dispatch(getTripGroups())
   } catch (err) {
     dispatch({
       type: GET_ERRORS,

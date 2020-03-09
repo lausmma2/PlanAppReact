@@ -123,7 +123,6 @@ class AddTrip extends Component {
                                         onChange={this.onChange}
                                     />
                                 </div>
-
                                 <input
                                     type="submit"
                                     className="btn btn-primary btn-block mt-4" />

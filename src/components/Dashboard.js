@@ -3,16 +3,38 @@ import TripItem from './trip/TripItem';
 import CreateTripButton from './trip/CreateTripButton';
 import { connect } from "react-redux";
 import { getTrips } from "../actions/tripActions";
+import { getTripGroups } from "../actions/tripGroupActions";
 import PropTypes from "prop-types";
+import { getTripTypes } from "../actions/tripTypeActions";
+import { getUsersLocation } from "../actions/locationActions";
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null,
+            isLoaded: false,
+            data: []
+        };
+    }
 
     componentDidMount() {
         this.props.getTrips();
+        this.props.getTripGroups();
+        this.props.getTripTypes();
+        this.props.getUsersLocation();
+
+        fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
+            .then(response => response.json())
+        //.then(json => console.log(json))
+
+        console.log(this.props)
     }
 
     render() {
         const { trips } = this.props.trip;
+        //const { coords } = this.props.coords;
+        console.log(this.props)
         return (
             <div className="trips">
                 <div className="container">
@@ -36,14 +58,20 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     trip: PropTypes.object.isRequired,
-    getTrips: PropTypes.func.isRequired
+    getTrips: PropTypes.func.isRequired,
+    getTripGroups: PropTypes.func.isRequired,
+    getTripTypes: PropTypes.func.isRequired,
+    coords: PropTypes.object.isRequired,
+    getUsersLocation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    trip: state.trip
+    trip: state.trip,
+    tripGroup: state.tripGroup,
+    coords: state.coords
 });
 
 export default connect(
     mapStateToProps,
-    { getTrips }
+    { getTrips, getTripGroups, getTripTypes, getUsersLocation }
 )(Dashboard);

@@ -10,7 +10,7 @@ class Header extends Component {
         window.location.href = "/";
     }
     render() {
-        const { validToken, user } = this.props.security;
+        const { validToken } = this.props.security;
         const { userData } = this.props.userData;
         return (
             <div>

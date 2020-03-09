@@ -1,7 +1,8 @@
-import { GET_TRIP_GROUPS } from "../actions/types";
+import { GET_TRIP_GROUPS, DELETE_TRIP_GROUP } from "../actions/types";
 
 const initialState = {
     tripGroups: []
+    //trip: {}
 };
 
 export default function (state = initialState, action) {
@@ -11,6 +12,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 tripGroups: action.payload
+            };
+
+        case DELETE_TRIP_GROUP:
+            return {
+                ...state,
+                tripGroups: state.tripGroups.filter(
+                    tripGroup => tripGroup.tripGroupIdentifier !== action.payload
+                )
             };
 
         default:

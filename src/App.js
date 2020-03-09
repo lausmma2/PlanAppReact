@@ -16,9 +16,10 @@ import SetJWTToken from "./securityUtils/SetJWTToken";
 import { SET_CURRENT_USER, GET_USER_INFO } from './actions/types';
 import { logout } from "./actions/securityActions";
 import UserInfo from './components/userManagement/UserInfo';
-import Sidebar from './components/layout/Sidebar';
-import UserLocation from "./UserLocation";
 import AddTripGroup from './components/tripGroup/AddTripGroup';
+import ChooseTripType from './components/trip/ChooseTripType';
+import ChooseTripPage from './components/trip/ChooseTripPage';
+import UpdateTripGroup from './components/tripGroup/UpdateTripGroup';
 
 const jwtToken = localStorage.jwtToken;
 
@@ -63,6 +64,9 @@ function App() {
           <Route exact path="/confirmation" component={AfterRegistrationPage} />
           <Route exact path="/user-info" component={UserInfo} />
           <Route exact path="/add-trip-group" component={AddTripGroup} />
+          <Route exact path="/choose-trip-type" component={ChooseTripType} />
+          <Route exact path="/choose-trip" component={ChooseTripPage} />
+          <Route exact path="/update-trip-group/:id" component={UpdateTripGroup} />
         </div>
       </Router>
     </Provider>

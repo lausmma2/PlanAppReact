@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import {
-    Button,
-    Row,
-    Col
-} from "reactstrap";
+import { deleteTripGroup } from "../../actions/tripGroupActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Button, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 
 class TripGroupItem extends Component {
+
+    onDeleteClick = id => {
+        this.props.deleteTripGroup(id);
+    }
+
     render() {
         const { tripGroup } = this.props
         return (
@@ -28,13 +33,23 @@ class TripGroupItem extends Component {
                             </span>
                         </Col>
                         <Col className="text-right" md="3" xs="3">
-                            <Button
-                                className="btn-round btn-icon"
-                                color="success"
+                            <Link to="/"
+                                className="btn btn-circle btn-lg"
                                 outline
                                 size="sm"
+                                title="Edit group"
                             >
-                                <i className="fa fa-envelope" />
+                                <i className="far fa-edit" />
+                            </Link>
+                            <Button
+                                className="btn btn-danger btn-circle btn-lg"
+                                color="white"
+                                outline
+                                size="sm"
+                                title="Delete group"
+                                onClick={this.onDeleteClick.bind(this, tripGroup.tripGroupIdentifier)}
+                            >
+                                <i className="fa fa-times" />
                             </Button>
                         </Col>
                     </Row>
@@ -44,4 +59,8 @@ class TripGroupItem extends Component {
     }
 }
 
-export default TripGroupItem;
+TripGroupItem.propTypes = {
+    deleteTrip: PropTypes.func.isRequired
+}
+
+export default connect(null, { deleteTripGroup })(TripGroupItem);

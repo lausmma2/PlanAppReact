@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createTripGroup } from "../../actions/tripGroupActions";
 import classnames from "classnames";
+import TripSelectionCard from '../trip/TripSelectionCard';
 
 class AddTripGroup extends Component {
     constructor() {
