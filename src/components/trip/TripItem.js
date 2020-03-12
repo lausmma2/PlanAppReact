@@ -1,15 +1,20 @@
 import React, { Component, useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { deleteTrip, addTripToTripGroup } from "../../actions/tripActions";
+import { deleteTrip, addTripToTripGroup, getTrip } from "../../actions/tripActions";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { getTripGroups } from "../../actions/tripGroupActions";
+import { Link } from "react-router-dom";
 
 class TripItem extends Component {
 
     onDeleteClick = id => {
         this.props.deleteTrip(id);
     };
+
+    onDetailClick = id => {
+        this.props.getTrip(id);
+    }
 
     render() {
         const { trip } = this.props;
@@ -23,22 +28,22 @@ class TripItem extends Component {
                         <div className="col-lg-6 col-md-4 col-8">
                             <h3>{trip.name}</h3>
                             <p>{trip.description}</p>
-                            <p>This trip belongs to group with ID: {trip.tripGroup ? trip.tripGroup.tripGroupIdentifier : ""}</p>
+                            <p>This trip belongs to group with ID: {trip.tripGroup ? "'" + trip.tripGroup.tripGroupIdentifier + "'" : ""}</p>
                         </div>
                         <div className="col-md-4 d-none d-lg-block">
                             <ul className="list-group">
-                                <a href="#">
-                                    <li className="list-group-item board">
-                                        <i className="fa fa-flag-checkered pr-1">Trip Detail? </i>
+                                <Link to={`/tripDetail/${trip.tripIdentifier}`}>
+                                    <li className="list-group-item board" onClick={this.onDetailClick.bind(this, trip.tripIdentifier)}>
+                                        <i className="fa fa-flag-checkered pr-1"> Trip Detail</i>
                                     </li>
-                                </a>
-                                <a href="#">
+                                </Link>
+                                <Link to={`/choose-trip-type/${trip.tripIdentifier}`}>
                                     <li className="list-group-item update">
-                                        <i className="fa fa-edit pr-1" title="Update Trip">Update Trip Info</i>
+                                        <i className="fa fa-edit pr-1" title="Update Trip"> Update Trip Info</i>
                                     </li>
-                                </a>
+                                </Link>
                                 <li className="list-group-item delete" onClick={this.onDeleteClick.bind(this, trip.tripIdentifier)}>
-                                    <i className="fa fa-minus-circle pr-1" title="Delete Trip">Delete Trip</i>
+                                    <i className="fa fa-minus-circle pr-1" title="Delete Trip"> Delete Trip</i>
                                 </li>
                                 <a>
                                     <li className="list-group-item update">
@@ -84,10 +89,11 @@ TripItem.propTypes = {
     deleteTrip: PropTypes.func.isRequired,
     tripGroup: PropTypes.object.isRequired,
     getTripGroups: PropTypes.func.isRequired,
-    addTripToTripGroup: PropTypes.func.isRequired
+    addTripToTripGroup: PropTypes.func.isRequired,
+    getTrip: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
     tripGroup: state.tripGroups
 });
 
-export default connect(mapStateToProps, { deleteTrip, getTripGroups, addTripToTripGroup })(TripItem);
+export default connect(mapStateToProps, { deleteTrip, getTripGroups, addTripToTripGroup, getTrip })(TripItem);

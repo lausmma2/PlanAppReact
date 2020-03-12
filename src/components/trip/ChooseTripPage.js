@@ -14,7 +14,7 @@ class ChooseTripPage extends Component {
             this.props.history.push("/")
         }
         this.props.getUsersLocation();
-        console.log(this.props)
+        //console.log(this.props.coords.coords.latitude)
         //this.props.getPlacesFromAPI("restaurant", this.props.coords.coords.latitude, this.props.coords.coords.longitude)
     }
 
@@ -24,7 +24,7 @@ class ChooseTripPage extends Component {
                 <div className="row">
                     <div className="col-sm-6">
 
-                        <Link to="/choose-trip-type" className="btn btn-lg btn-primary mr-2">Back</Link>
+                        <Link to="/choose-trip-type" className="btn btn-lg btn-success mr-2">Back</Link>
                         <WrappedMap
                             googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo"}
                             loadingElement={<div style={{ height: "100%" }} />}
@@ -48,6 +48,8 @@ ChooseTripPage.propTypes = {
     places: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
     coords: PropTypes.object.isRequired,
+    getUsersLocation: PropTypes.func.isRequired,
+    getPlacesFromAPI: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

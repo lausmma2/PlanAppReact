@@ -13,7 +13,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             error: null,
-            isLoaded: false,
+            //isLoading: true,
             data: []
         };
     }
@@ -24,23 +24,21 @@ class Dashboard extends Component {
         this.props.getTripTypes();
         this.props.getUsersLocation();
 
+        //this.setState({ isLoading: false })
+
         fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
             .then(response => response.json())
         //.then(json => console.log(json))
-
-        console.log(this.props)
     }
 
     render() {
         const { trips } = this.props.trip;
-        //const { coords } = this.props.coords;
-        console.log(this.props)
         return (
-            <div className="trips">
+            //this.state.isLoading ? <div>Načítá se to pyčo</div> : <div className="trips">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <h1 className="display-4 text-center">Your Trips</h1>
+                            <h1 className="display-4 text-center">Your Trip Dashboard</h1>
                             <br />
                             <CreateTripButton />
                             <br />
@@ -51,7 +49,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            //</div>
         );
     }
 }

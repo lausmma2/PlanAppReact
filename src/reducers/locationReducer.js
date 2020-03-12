@@ -9,7 +9,6 @@ export default function (state = initialState, action) {
     switch (action.type) {
 
         case GET_USERS_LOCATION:
-            console.log(action.payload)
             return {
                 ...state,
                 coords: action.payload

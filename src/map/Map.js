@@ -39,12 +39,12 @@ class MapGoogle extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedMyLocationMarker: null,
             selectedPlace: null
         }
     }
 
     render() {
-        console.log(this.props)
         const data = this.props.places.places.results.items;
         return (
             <GoogleMap
@@ -63,6 +63,16 @@ class MapGoogle extends Component {
                     />
                 ))}
 
+                <Marker
+                    position={{
+                        lat: this.props.props.coords.coords.latitude,
+                        lng: this.props.props.coords.coords.longitude
+                    }}
+                    icon={"http://maps.google.com/mapfiles/ms/icons/green.png"}
+                    onClick={() => this.setState({ selectedMyLocationMarker: "place" })}
+                    style={{ size: "200px" }}
+                />
+
                 {this.state.selectedPlace && (
                     <InfoWindow position={{
                         lat: this.state.selectedPlace.position[0],
@@ -74,6 +84,19 @@ class MapGoogle extends Component {
                             <div>{this.state.selectedPlace.title}</div>
                             <div>{this.state.selectedPlace.vicinity}</div>
                             <div>{this.state.selectedPlace.distance}m from your position</div>
+                        </div>
+                    </InfoWindow>
+                )}
+
+                {this.state.selectedMyLocationMarker && (
+                    <InfoWindow position={{
+                        lat: this.props.props.coords.coords.latitude,
+                        lng: this.props.props.coords.coords.longitude
+                    }}
+                        onCloseClick={() => { this.setState({ selectedMyLocationMarker: null }); }}
+                    >
+                        <div>
+                            <div>Your location</div>
                         </div>
                     </InfoWindow>
                 )}

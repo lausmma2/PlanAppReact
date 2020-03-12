@@ -6,12 +6,16 @@ class TablePage extends Component {
         super(props);
         //console.log(props)
         this.state = {
-            //items: {},
+            //items: [],
             headers: [{
                 name: '',
                 add: ''
             }]
         }
+    }
+
+    onClick(title, latitude, longitude, vicinity, distance) {
+        console.log("click:)")
     }
 
     renderTableHeader() {
@@ -22,19 +26,20 @@ class TablePage extends Component {
     }
 
     renderTableData() {
-        console.log(this.props)
         const { items } = this.props.props.places.places.results;
         return items.map((item, index) => {
             return (
                 <tr key={index}>
                     <td id='name'>{item.title} - {item.distance}m</td>
-                    <button class="fas fa-check"></button>
+                    <button class="fas fa-check" onClick={this.onClick.bind(this)}></button>
                 </tr>
             )
         })
     }
 
     render() {
+        //console.log("----")
+        //console.log(this.props)
         return (
             <div>
                 <h1 id='title'>Found places</h1>

@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 
 class TripSelectionCard extends Component {
     onClick(tripTypeIdentifier) {
+        console.log("before")
         this.props.getPlacesFromAPI(tripTypeIdentifier, this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude);
+        console.log("after")
     }
 
     render() {

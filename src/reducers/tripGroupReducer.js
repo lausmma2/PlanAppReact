@@ -2,7 +2,6 @@ import { GET_TRIP_GROUPS, DELETE_TRIP_GROUP } from "../actions/types";
 
 const initialState = {
     tripGroups: []
-    //trip: {}
 };
 
 export default function (state = initialState, action) {

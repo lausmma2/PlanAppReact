@@ -20,6 +20,7 @@ import AddTripGroup from './components/tripGroup/AddTripGroup';
 import ChooseTripType from './components/trip/ChooseTripType';
 import ChooseTripPage from './components/trip/ChooseTripPage';
 import UpdateTripGroup from './components/tripGroup/UpdateTripGroup';
+import TripDetail from './components/trip/TripDetail';
 
 const jwtToken = localStorage.jwtToken;
 
@@ -33,10 +34,8 @@ if (jwtToken) {
 
   const currentTime = Date.now() / 1000;
   if (decoded_jwtToken.exp < currentTime) {
-    //handle logout
     store.dispatch(logout());
     window.location.href = "/";
-    //window.location.href = "/";
   }
 }
 
@@ -46,9 +45,6 @@ function App() {
       <Router>
         <div className="App">
           <Header />
-          {
-            //<UserLocation />
-          }
           {
             //Public routes
           }
@@ -64,9 +60,10 @@ function App() {
           <Route exact path="/confirmation" component={AfterRegistrationPage} />
           <Route exact path="/user-info" component={UserInfo} />
           <Route exact path="/add-trip-group" component={AddTripGroup} />
-          <Route exact path="/choose-trip-type" component={ChooseTripType} />
+          <Route exact path="/choose-trip-type/:id" component={ChooseTripType} />
           <Route exact path="/choose-trip" component={ChooseTripPage} />
           <Route exact path="/update-trip-group/:id" component={UpdateTripGroup} />
+          <Route exact path="/tripDetail/:id" component={TripDetail} />
         </div>
       </Router>
     </Provider>

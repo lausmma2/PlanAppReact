@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getTripTypes } from "../../actions/tripTypeActions";
 import { getUsersLocation } from "../../actions/locationActions";
+import { Link } from "react-router-dom";
 
 class ChooseTripType extends Component {
 
@@ -16,14 +17,14 @@ class ChooseTripType extends Component {
 
     render() {
         const { tripType } = this.props.tripType;
-        
         return (
             <div>
                 <div className="card-columns">
                     {tripType.map(triptype => (
-                        <TripSelectionCard key={triptype.id} triptype={triptype} props={this.props}/>
+                        <TripSelectionCard key={triptype.id} triptype={triptype} props={this.props} />
                     ))}
                 </div>
+                <Link to="/dashboard" className="btn btn-lg btn-success" style={{ width: "31.7%", marginLeft: "0.5%", marginBottom: "0.7%" }}>Back to Dashboard</Link>
             </div>
         )
     }
