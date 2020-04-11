@@ -23,7 +23,7 @@ class Landing extends Component {
                                     Create your account to join active trips or start your own trips
                         </p>
                                 <hr />
-                                <Link to="/register" className="btn btn-lg btn-primary mr-2">
+                                <Link to="/register" className="btn btn-lg btn-primary mr-2" style={{backgroundColor: "#003554"}}>
                                     Sign Up
                         </Link>
                                 <Link to="/login" className="btn btn-lg btn-secondary mr-2">

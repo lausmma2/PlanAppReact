@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createTripGroup } from "../../actions/tripGroupActions";
 import classnames from "classnames";
+import { getTrip, createTrip } from "../../actions/tripActions";
+import { Link } from "react-router-dom";
 
-class AddTripGroup extends Component {
-    constructor() {
-        super();
+class TripUpdate extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props)
         this.state = {
+            tripId: "",
             name: "",
-            tripGroupIdentifier: "",
+            tripIdentifier: "",
             description: "",
             errors: {}
-        };
+        }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -22,6 +25,24 @@ class AddTripGroup extends Component {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
         }
+        const { id } = this.props.match.params;
+        this.props.getTrip(id, this.props.history);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {
+            tripId,
+            name,
+            tripIdentifier,
+            description
+        } = nextProps.trip.trip;
+
+        this.setState({
+            tripId,
+            name,
+            tripIdentifier,
+            description
+        })
     }
 
     onChange(e) {
@@ -36,14 +57,15 @@ class AddTripGroup extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const newTripGroup = {
+        const updatedTrip = {
+            tripId: this.state.tripId,
             name: this.state.name,
-            tripGroupIdentifier: this.state.tripGroupIdentifier,
+            tripIdentifier: this.state.tripIdentifier,
             description: this.state.description
         };
-        this.props.createTripGroup(newTripGroup, this.props.history);
+        this.props.createTrip(updatedTrip, this.props.history);
+        console.log(updatedTrip)
     }
-
     render() {
         const { errors } = this.state;
         return (
@@ -51,7 +73,7 @@ class AddTripGroup extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h5 className="display-4 text-center">Create Trip Group form</h5>
+                            <h5 className="display-4 text-center">Update Trip form</h5>
                             <hr />
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
@@ -60,7 +82,7 @@ class AddTripGroup extends Component {
                                         className={classnames("form-control form-control-lg", {
                                             "is-invalid": errors.name
                                         })}
-                                        placeholder="Trip Group Name"
+                                        placeholder="Trip Name"
                                         name="name"
                                         value={this.state.name}
                                         onChange={this.onChange}
@@ -73,15 +95,16 @@ class AddTripGroup extends Component {
                                     <input
                                         type="text"
                                         className={classnames("form-control form-control-lg", {
-                                            "is-invalid": errors.tripGroupIdentifier
+                                            "is-invalid": errors.tripIdentifier
                                         })}
-                                        placeholder="Unique Trip Group ID"
-                                        name="tripGroupIdentifier"
-                                        value={this.state.tripGroupIdentifier}
+                                        placeholder="Unique Trip ID"
+                                        name="tripIdentifier"
+                                        value={this.state.tripIdentifier}
                                         onChange={this.onChange}
+                                        disabled
                                     />
-                                    {errors.tripGroupIdentifier && (
-                                        <div className="invalid-feedback">{errors.tripGroupIdentifier}</div>
+                                    {errors.tripIdentifier && (
+                                        <div className="invalid-feedback">{errors.tripIdentifier}</div>
                                     )}
                                 </div>
 
@@ -90,7 +113,7 @@ class AddTripGroup extends Component {
                                         className={classnames("form-control form-control-lg", {
                                             "is-invalid": errors.description
                                         })}
-                                        placeholder="Trip Group Description"
+                                        placeholder="Trip Description"
                                         name="description"
                                         value={this.state.description}
                                         onChange={this.onChange}
@@ -102,8 +125,13 @@ class AddTripGroup extends Component {
                                 </div>
                                 <input
                                     type="submit"
-                                    className="btn btn-primary btn-block mt-4" 
-                                    style={{backgroundColor: "#003554"}} />
+                                    className="btn btn-primary btn-block mt-4"
+                                    style={{ backgroundColor: "#003554" }} />
+                                <Link to="/dashboard"
+                                    className="btn btn-primary btn-block btn-success mt-2"
+                                >
+                                    Back
+                                    </Link>
                             </form>
                         </div>
                     </div>
@@ -113,18 +141,20 @@ class AddTripGroup extends Component {
     }
 }
 
-AddTripGroup.propTypes = {
-    createTripGroup: PropTypes.func.isRequired,
+TripUpdate.propTypes = {
     errors: PropTypes.object.isRequired,
-    security: PropTypes.object.isRequired
+    security: PropTypes.object.isRequired,
+    trip: PropTypes.object.isRequired,
+    getTrip: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     security: state.security,
-    errors: state.errors
+    errors: state.errors,
+    trip: state.trip
 })
 
 export default connect(
     mapStateToProps,
-    { createTripGroup })
-    (AddTripGroup);
+    { getTrip, createTrip })
+    (TripUpdate);

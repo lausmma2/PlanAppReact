@@ -1,0 +1,29 @@
+import { GET_PLACES, DELETE_PLACE } from "../actions/types";
+
+const initialState = {
+    placesFromDb: {},
+    placeFromDb: {}
+};
+
+export default function (state = initialState, action) {
+    switch (action.type) {
+
+        case GET_PLACES:
+            return {
+                ...state,
+                placesFromDb: action.payload
+            };
+
+        case DELETE_PLACE:
+            console.log(action.payload)
+            return {
+                ...state,
+                placesFromDb: state.placesFromDb.filter(
+                    placeFromDb => placeFromDb.latitude !== action.payload
+                )
+            };
+
+        default:
+            return state;
+    }
+}

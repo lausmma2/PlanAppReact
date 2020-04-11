@@ -21,6 +21,8 @@ import ChooseTripType from './components/trip/ChooseTripType';
 import ChooseTripPage from './components/trip/ChooseTripPage';
 import UpdateTripGroup from './components/tripGroup/UpdateTripGroup';
 import TripDetail from './components/trip/TripDetail';
+import TripUpdate from './components/trip/TripUpdate';
+import TripGroupDashboard from './components/TripGroupDashboard';
 
 const jwtToken = localStorage.jwtToken;
 
@@ -64,6 +66,8 @@ function App() {
           <Route exact path="/choose-trip" component={ChooseTripPage} />
           <Route exact path="/update-trip-group/:id" component={UpdateTripGroup} />
           <Route exact path="/tripDetail/:id" component={TripDetail} />
+          <Route exact path="/update-trip/:id" component={TripUpdate} />
+          <Route exact path="/trip-group/dashboard/:id" component={TripGroupDashboard} />
         </div>
       </Router>
     </Provider>

@@ -1,6 +1,6 @@
 //Redux
 import axios from "axios";
-import { GET_ERRORS, GET_TRIPS, DELETE_TRIP, ADD_TRIP_TO_TRIPGROUP, GET_TRIP } from "./types";
+import { GET_ERRORS, GET_TRIPS, DELETE_TRIP, ADD_TRIP_TO_TRIPGROUP, GET_TRIP, GET_TRIPS_BY_TRIPGROUP, GET_TRIP_BY_TRIPGROUP } from "./types";
 
 export const createTrip = (trip, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
     try {
@@ -61,4 +61,21 @@ export const getTrip = (id, history) => async dispatch => {
     } catch (error) {
         history.push("/dashboard");
     }
+};
+
+export const getTripsByTripGroupIdentifier = (tripGroupIdentifier, history) => async dispatch => {
+    const res = await axios.get(`http://localhost:8081/api/trip/group/${tripGroupIdentifier}`);
+    dispatch({
+        type: GET_TRIPS_BY_TRIPGROUP,
+        payload: res.data
+    });
+    history.push(`/trip-group/dashboard/${tripGroupIdentifier}`)
+};
+
+export const getTripByTripIdentifierAndTripGroupIdentifier = (tripIdentifier, tripGroupIdentifier) => async dispatch => {
+    const res = await axios.get(`http://localhost:8081/api/trip/${tripIdentifier}/${tripGroupIdentifier}`);
+    dispatch({
+        type: GET_TRIP_BY_TRIPGROUP,
+        payload: res.data
+    });
 };

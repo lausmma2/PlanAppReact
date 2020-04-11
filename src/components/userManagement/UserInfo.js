@@ -76,6 +76,11 @@ class UserInfo extends Component {
     render() {
         const { userData } = this.props.userData;
         const { tripGroups } = this.props.tripGroup;
+        /*<img
+        alt="..."
+        className="avatar border-gray"
+        src={require("../../images/cina.jpg")}
+        />*/
         return (
             <div className="content">
                 <Row>
@@ -83,13 +88,15 @@ class UserInfo extends Component {
                         <Card className="card-user">
                             <CardBody>
                                 <div className="author">
-                                    <a href="#marek" onClick={e => e.preventDefault()}>
+                                    <a href="#user" onClick={e => e.preventDefault()}>
+
                                         <img
                                             alt="..."
                                             className="avatar border-gray"
                                             src={require("../../images/cina.jpg")}
                                         />
-                                        <h5 className="title">{userData.firstname} {userData.lastname}
+
+                                        <h5 className="title" style={{ color: "#003554" }}>{userData.firstname} {userData.lastname}
                                         </h5>
                                     </a>
                                 </div>
@@ -116,7 +123,7 @@ class UserInfo extends Component {
                                         </Col>
                                         <Col className="mr-auto" lg="3">
                                             <h5>
-                                                24,6$ <br />
+                                                283 Kč <br />
                                                 <small>Spent</small>
                                             </h5>
                                         </Col>
@@ -131,17 +138,17 @@ class UserInfo extends Component {
                             <CardBody>
                                 <ul className="list-unstyled team-members">
                                     {tripGroups.map(tripGroup => (
-                                        <TripGroupItem key={tripGroup.id} tripGroup={tripGroup} />
+                                        <TripGroupItem key={tripGroup.id} tripGroup={tripGroup} props={this.props} />
                                     ))}
                                 </ul>
                                 <Row>
                                     <div className="update ml-auto mr-auto">
                                         <Link to="add-trip-group"
                                             className="btn-round"
-                                            color="primary"
+                                            style={{ color: "#003554" }}
                                             type="submit"
                                         >
-                                            Create group
+                                            Create a Group
                                             </Link>
                                     </div>
                                 </Row>
@@ -254,7 +261,9 @@ class UserInfo extends Component {
                                             <Button
                                                 className="btn-round"
                                                 color="primary"
-                                                type="submit">
+                                                type="submit"
+                                                style={{ backgroundColor: "#003554" }}
+                                            >
                                                 Update Profile
                         </Button>
                                         </div>

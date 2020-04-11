@@ -5,9 +5,9 @@ import jwt_decode from "jwt-decode";
 import { getUsersInfo } from './userActions';
 import { getTripGroups } from './tripGroupActions';
 
-export const createNewUser = (newUser, history) => async dispatch => {
+export const createNewUser = (newUser, history) => dispatch => {
   try {
-    await axios.post("http://localhost:8081/register", newUser);
+    axios.post("http://localhost:8081/register", newUser);
     history.push("/confirmation");
     dispatch({
       type: GET_ERRORS,

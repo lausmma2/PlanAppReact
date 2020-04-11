@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CreateTripButton = () => {
     return (
         <React.Fragment>
-            <Link to="/addTrip" className="btn btn-lg btn-info">
+            <Link to="/addTrip" className="btn btn-lg btn-info" style={{backgroundColor: "#003554"}}>
                 Create a Trip
             </Link>
         </React.Fragment>

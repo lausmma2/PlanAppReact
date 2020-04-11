@@ -3,40 +3,40 @@ import "../css/dataTable.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { savePlaceToTrip } from "../actions/placesActions";
+import { deletePlace } from "../actions/placesDbActions";
 
-class TablePage extends Component {
+class DataTableDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
             headers: [{
                 name: '',
-                add: ''
+                delete: ''
             }]
         }
     }
 
-    onClick(title, latitude, longitude, distance, tripIdentifier) {
-        this.props.savePlaceToTrip(title, latitude, longitude, distance, tripIdentifier);
-    }
+    onDeleteClick = (latitude, longitude, tripIdentifier) => {
+        this.props.deletePlace(latitude, longitude, tripIdentifier);
+        console.log(this.props)
+    };
 
     renderTableHeader() {
         let header = Object.keys(this.state.headers[0])
         return header.map((key, index) => {
-            return <th key={index} style={{backgroundColor: "#003554"}}>{key.toUpperCase()}</th>
+            return <th key={index} style={{ backgroundColor: "#003554" }}>{key.toUpperCase()}</th>
         })
     }
 
     renderTableData() {
-        const { items } = this.props.props.places.places.results;
-        console.log(this.props)
-        return items.map((item, index) => {
+        const { placesFromDb } = this.props.props.placesFromDb;
+        return placesFromDb.map((item, index) => {
             return (
                 <tr key={index}>
                     <td id='name'>{item.title} - {item.distance}m</td>
-                    <button class="fas fa-check" onClick={this.onClick.bind(this, item.title,
-                        item.position[0],
-                        item.position[1],
-                        item.distance,
+                    <button class="fas fa-minus-circle" onClick={this.onDeleteClick.bind(this,
+                        item.latitude,
+                        item.longitude,
                         this.props.props.trip.trip.tripIdentifier)}>
                     </button>
                 </tr>
@@ -46,8 +46,8 @@ class TablePage extends Component {
 
     render() {
         return (
-            <div style={{ height: "500px" }}>
-                <h1 id='title'>Found places</h1>
+            <div style={{ height: "500px", marginTop: "25px" }}>
+                <h1 id='title'>Your chosen places</h1>
                 <table id='items'>
                     <tbody>
                         <tr>{this.renderTableHeader()}</tr>
@@ -59,12 +59,13 @@ class TablePage extends Component {
     }
 };
 
-TablePage.propTypes = {
+DataTableDetail.propTypes = {
     places: PropTypes.object.isRequired,
-    security: PropTypes.object.isRequired
+    security: PropTypes.object.isRequired,
+    deletePlace: PropTypes.func.isRequired
 };
 
 export default connect(
     null,
-    { savePlaceToTrip }
-)(TablePage);
+    { savePlaceToTrip, deletePlace }
+)(DataTableDetail);

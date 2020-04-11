@@ -8,6 +8,7 @@ import tripGroupReducer from "./tripGroupReducer";
 import tripTypeReducer from "./tripTypeReducer";
 import placesReducer from "./placesReducer";
 import locationReducer from "./locationReducer";
+import placesDbReducer from "./placesDbReducer";
 
 export default combineReducers({
     errors: errorReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
     tripGroups: tripGroupReducer,
     tripType: tripTypeReducer,
     places: placesReducer,
-    coords: locationReducer
+    coords: locationReducer,
+    placesFromDb: placesDbReducer
 });

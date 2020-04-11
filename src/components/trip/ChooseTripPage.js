@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getPlacesFromAPI } from "../../actions/placesActions";
 import WrappedMap from "../../map/Map";
-import { Link } from "react-router-dom";
 import TablePage from '../DataTablePage';
 import { getUsersLocation } from "../../actions/locationActions";
 
@@ -14,8 +13,10 @@ class ChooseTripPage extends Component {
             this.props.history.push("/")
         }
         this.props.getUsersLocation();
-        //console.log(this.props.coords.coords.latitude)
-        //this.props.getPlacesFromAPI("restaurant", this.props.coords.coords.latitude, this.props.coords.coords.longitude)
+    }
+
+    onClick() {
+        this.props.history.goBack();
     }
 
     render() {
@@ -23,8 +24,7 @@ class ChooseTripPage extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-sm-6">
-
-                        <Link to="/choose-trip-type" className="btn btn-lg btn-success mr-2">Back</Link>
+                        <button onClick={this.onClick.bind(this)} className="btn btn-lg btn-success mr-2">Back</button>
                         <WrappedMap
                             googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo"}
                             loadingElement={<div style={{ height: "100%" }} />}
@@ -35,7 +35,7 @@ class ChooseTripPage extends Component {
 
                     </div>
 
-                    <div className="col-sm-6" style={{ marginTop: "4%" }}>
+                    <div className="col-sm-6">
                         <TablePage props={this.props} />
                     </div>
                 </div>
@@ -49,13 +49,15 @@ ChooseTripPage.propTypes = {
     security: PropTypes.object.isRequired,
     coords: PropTypes.object.isRequired,
     getUsersLocation: PropTypes.func.isRequired,
-    getPlacesFromAPI: PropTypes.func.isRequired
+    getPlacesFromAPI: PropTypes.func.isRequired,
+    trip: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     places: state.places,
     security: state.security,
-    coords: state.coords
+    coords: state.coords,
+    trip: state.trip
 });
 
 export default connect(

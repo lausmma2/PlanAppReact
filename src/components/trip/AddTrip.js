@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux"; // This is going to connect to the state
 import { createTrip } from "../../actions/tripActions";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class AddTrip extends Component {
     constructor() {
@@ -125,7 +126,13 @@ class AddTrip extends Component {
                                 </div>
                                 <input
                                     type="submit"
-                                    className="btn btn-primary btn-block mt-4" />
+                                    className="btn btn-primary btn-block mt-4"
+                                    style={{ backgroundColor: "#003554" }}
+                                />
+                                <Link to="/dashboard"
+                                    className="btn btn-primary btn-block btn-success mt-2">
+                                    Back
+                                    </Link>
                             </form>
                         </div>
                     </div>

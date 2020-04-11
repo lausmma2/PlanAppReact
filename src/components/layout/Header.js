@@ -14,7 +14,7 @@ class Header extends Component {
         const { userData } = this.props.userData;
         return (
             <div>
-                <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
+                <nav className="navbar navbar-expand-sm navbar-dark mb-5" style={{backgroundColor: "#003554"}}>
                     <div className="container">
                         <Link to="/" className="navbar-brand">
                             PlanApp - Trip planner
