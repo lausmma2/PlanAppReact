@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { login } from "../../actions/securityActions";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
     constructor() {
@@ -52,11 +53,11 @@ class Login extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h1 className="display-4 text-center" style={{color: "#003554"}}>Log In</h1>
+                            <h1 className="display-4 text-center" style={{ color: "#003554" }}>Log In</h1>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input
-                                        type="text"
+                                        type="email"
                                         className={classnames("form-control form-control-lg", {
                                             "is-invalid": errors.username
                                         })}
@@ -84,7 +85,10 @@ class Login extends Component {
                                         <div className="invalid-feedback">{errors.password}</div>
                                     )}
                                 </div>
-                                <input type="submit" className="btn btn-info btn-block mt-4" style={{backgroundColor: "#003554"}}/>
+                                <div className="form-group">
+                                    <Link to="/register">Don't have an account? Create one!</Link>
+                                </div>
+                                <input type="submit" className="btn btn-info btn-block mt-4" style={{ backgroundColor: "#003554" }} />
                             </form>
                         </div>
                     </div>

@@ -20,9 +20,10 @@ class ChooseTripPage extends Component {
     }
 
     render() {
+        const { latitude } = this.props.coords.coords;
         return (
             <div className="container">
-                <div className="row">
+                {latitude ? (<div className="row">
                     <div className="col-sm-6">
                         <button onClick={this.onClick.bind(this)} className="btn btn-lg btn-success mr-2">Back</button>
                         <WrappedMap
@@ -38,7 +39,8 @@ class ChooseTripPage extends Component {
                     <div className="col-sm-6">
                         <TablePage props={this.props} />
                     </div>
-                </div>
+                </div>) : (<div>Please enable your Geo position in browser!</div>)}
+
             </div >
         )
     }

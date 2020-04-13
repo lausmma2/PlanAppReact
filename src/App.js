@@ -13,7 +13,7 @@ import Login from './components/userManagement/Login';
 import AfterRegistrationPage from './components/layout/AfterRegistrationPage';
 import jwt_decode from "jwt-decode";
 import SetJWTToken from "./securityUtils/SetJWTToken";
-import { SET_CURRENT_USER, GET_USER_INFO } from './actions/types';
+import { SET_CURRENT_USER } from './actions/types';
 import { logout } from "./actions/securityActions";
 import UserInfo from './components/userManagement/UserInfo';
 import AddTripGroup from './components/tripGroup/AddTripGroup';

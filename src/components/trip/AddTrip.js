@@ -64,7 +64,7 @@ class AddTrip extends Component {
                                         className={classnames("form-control form-control-lg", {
                                             "is-invalid": errors.name
                                         })}
-                                        placeholder="Trip Name"
+                                        placeholder="Trip to Morava"
                                         name="name"
                                         value={this.state.name}
                                         onChange={this.onChange}
@@ -79,7 +79,7 @@ class AddTrip extends Component {
                                         className={classnames("form-control form-control-lg", {
                                             "is-invalid": errors.tripIdentifier
                                         })}
-                                        placeholder="Unique Trip ID"
+                                        placeholder="Unique Trip ID - např. 1111, MORAVA, 14.02"
                                         name="tripIdentifier"
                                         value={this.state.tripIdentifier}
                                         onChange={this.onChange}

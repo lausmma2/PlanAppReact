@@ -95,7 +95,6 @@ class TripUpdate extends Component {
                                     <input
                                         type="text"
                                         className={classnames("form-control form-control-lg", {
-                                            "is-invalid": errors.tripIdentifier
                                         })}
                                         placeholder="Unique Trip ID"
                                         name="tripIdentifier"
@@ -103,11 +102,7 @@ class TripUpdate extends Component {
                                         onChange={this.onChange}
                                         disabled
                                     />
-                                    {errors.tripIdentifier && (
-                                        <div className="invalid-feedback">{errors.tripIdentifier}</div>
-                                    )}
                                 </div>
-
                                 <div className="form-group">
                                     <textarea
                                         className={classnames("form-control form-control-lg", {

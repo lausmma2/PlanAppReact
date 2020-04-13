@@ -19,14 +19,19 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.props.getTrips();
-        this.props.getTripGroups();
-        this.props.getTripTypes();
-        this.props.getUsersLocation();
-        //this.props.getTripsByTripGroups();
+        if (!this.props.security.validToken) {
+            this.props.history.push("/")
+        } else {
+            this.props.getTrips();
+            this.props.getTripGroups();
+            this.props.getTripTypes();
+            this.props.getUsersLocation();
+            console.log(this.props)
+            //this.props.getTripsByTripGroups();
 
-        fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
-            .then(response => response.json())
+            fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
+                .then(response => response.json())
+        }
         //.then(json => console.log(json))
         /*fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo')
             .then(response => response.json())
@@ -45,8 +50,8 @@ class Dashboard extends Component {
                         <CreateTripButton />
                         <br />
                         <hr />
-                        {trips.map(trip => (
-                            <TripItem key={trip.id} trip={trip} props={this.props} />
+                        {trips.map((trip, index) => (
+                            <TripItem key={index} trip={trip} props={this.props} />
                         ))}
                     </div>
                 </div>
@@ -68,7 +73,8 @@ Dashboard.propTypes = {
 const mapStateToProps = state => ({
     trip: state.trip,
     tripGroup: state.tripGroup,
-    coords: state.coords
+    coords: state.coords,
+    security: state.security
 });
 
 export default connect(

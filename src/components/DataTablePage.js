@@ -11,24 +11,38 @@ class TablePage extends Component {
             headers: [{
                 name: '',
                 add: ''
-            }]
+            }],
+            disabledButtons: []
         }
     }
 
-    onClick(title, latitude, longitude, distance, tripIdentifier) {
+    componentDidMount() {
+        this.setState({
+            disabledButtons: new Array(100).fill(false)
+        })
+        //console.log(this.props)
+    }
+
+    onClick(title, latitude, longitude, distance, tripIdentifier, index) {
         this.props.savePlaceToTrip(title, latitude, longitude, distance, tripIdentifier);
+        this.setState(oldState => {
+            const newDisabledButtons = [...oldState.disabledButtons]
+            newDisabledButtons[index] = true;
+            return {
+                disabledButtons: newDisabledButtons,
+            }
+        })
     }
 
     renderTableHeader() {
         let header = Object.keys(this.state.headers[0])
         return header.map((key, index) => {
-            return <th key={index} style={{backgroundColor: "#003554"}}>{key.toUpperCase()}</th>
+            return <th key={index} style={{ backgroundColor: "#003554" }}>{key.toUpperCase()}</th>
         })
     }
 
     renderTableData() {
         const { items } = this.props.props.places.places.results;
-        console.log(this.props)
         return items.map((item, index) => {
             return (
                 <tr key={index}>
@@ -37,7 +51,10 @@ class TablePage extends Component {
                         item.position[0],
                         item.position[1],
                         item.distance,
-                        this.props.props.trip.trip.tripIdentifier)}>
+                        this.props.props.trip.trip.tripIdentifier, index
+                    )}
+                        disabled={this.state.disabledButtons[index]}
+                    >
                     </button>
                 </tr>
             )

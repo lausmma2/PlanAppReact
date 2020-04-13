@@ -24,7 +24,7 @@ class Landing extends Component {
                         </p>
                                 <hr />
                                 <Link to="/register" className="btn btn-lg btn-primary mr-2" style={{backgroundColor: "#003554"}}>
-                                    Sign Up
+                                    Register
                         </Link>
                                 <Link to="/login" className="btn btn-lg btn-secondary mr-2">
                                     Login

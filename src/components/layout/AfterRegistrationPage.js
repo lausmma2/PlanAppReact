@@ -8,9 +8,9 @@ class AfterRegistrationPage extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12 text-center">
-                                <h1 className="display-3 mb-4">Trip-planning App</h1>
+                                <h1 className="display-3 mb-4">PlanApp - Free Time Planning App</h1>
                                 <p className="lead">
-                                    We've sent you registration confirmation on your registered e-mail. Please confirm your registration.
+                                    We've sent you registration confirmation e-mail. Please confirm your registration.
                         </p>
                             </div>
                         </div>

@@ -8,12 +8,17 @@ import { Row, Col } from "reactstrap";
 
 class TripDetail extends Component {
 
+    componentDidMount() {
+        if (!this.props.security.validToken) {
+            this.props.history.push("/")
+        }
+    }
+
     onClick() {
         this.props.history.goBack();
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className="container">
                 <Row top="xs">
@@ -49,7 +54,8 @@ const mapStateToProps = state => ({
     trip: state.trip,
     places: state.places,
     coords: state.coords,
-    placesFromDb: state.placesFromDb
+    placesFromDb: state.placesFromDb,
+    security: state.security
 });
 
 export default connect(

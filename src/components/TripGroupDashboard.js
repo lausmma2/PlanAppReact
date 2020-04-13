@@ -18,16 +18,13 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        //this.props.getTrips();
         this.props.getTripGroups();
         this.props.getUsersLocation();
-
         fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
             .then(response => response.json())
     }
 
     render() {
-        //console.log(this.props)
         const { trips } = this.props.trip;
         const { id } = this.props.match.params;
         return (

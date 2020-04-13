@@ -20,7 +20,6 @@ class TripGroupDashboardItem extends Component {
 
     render() {
         const { trip } = this.props;
-        //console.log(this.props)
         const { id } = this.props.props.match.params;
         return (
             <div className="container">

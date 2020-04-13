@@ -83,8 +83,8 @@ const DropdownList = (props) => {
         </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem header>Select Trip Group</DropdownItem>
-                {tripGroups.tripGroups.map(tripGroup => (
-                    <DropdownItem onClick={e => onClick(tripGroup.tripGroupIdentifier)}>{tripGroup.tripGroupIdentifier}</DropdownItem>
+                {tripGroups.tripGroups.map((tripGroup, index) => (
+                    <DropdownItem key={index} onClick={e => onClick(tripGroup.tripGroupIdentifier)}>{tripGroup.tripGroupIdentifier}</DropdownItem>
                 ))}
             </DropdownMenu>
         </Dropdown>

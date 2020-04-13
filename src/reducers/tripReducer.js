@@ -3,8 +3,7 @@ import { GET_TRIP, GET_TRIPS, DELETE_TRIP, ADD_TRIP_TO_TRIPGROUP, GET_TRIPS_BY_T
 
 const initialState = {
     trips: [],
-    trip: {},
-    tripsByTripGroup: []
+    trip: {}
 };
 
 export default function (state = initialState, action) {

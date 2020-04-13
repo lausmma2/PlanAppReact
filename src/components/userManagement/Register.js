@@ -46,7 +46,6 @@ class Register extends Component {
             confirmPassword: this.state.confirmPassword,
             isConfirmed: ""
         }
-
         this.props.createNewUser(newUser, this.props.history);
     }
 
@@ -57,8 +56,8 @@ class Register extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h1 className="display-4 text-center" style={{color: "#003554"}}>Sign Up</h1>
-                            <p className="lead text-center">Create your Account</p>
+                            <h1 className="display-4 text-center" style={{ color: "#003554" }}>Registration</h1>
+                            <p className="lead text-center">Create your account to get full access to PlanApp</p>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input
@@ -70,6 +69,7 @@ class Register extends Component {
                                         name="firstname"
                                         value={this.state.firstname}
                                         onChange={this.onChange}
+
                                     />
                                     {errors.firstname && (
                                         <div className="invalid-feedback">{errors.firstname}</div>
@@ -85,6 +85,7 @@ class Register extends Component {
                                         name="lastname"
                                         value={this.state.lastname}
                                         onChange={this.onChange}
+
                                     />
                                     {errors.lastname && (
                                         <div className="invalid-feedback">{errors.lastname}</div>
@@ -100,6 +101,7 @@ class Register extends Component {
                                         name="username"
                                         value={this.state.username}
                                         onChange={this.onChange}
+
                                     />
                                     {errors.username && (
                                         <div className="invalid-feedback">{errors.username}</div>
@@ -115,6 +117,7 @@ class Register extends Component {
                                         name="password"
                                         value={this.state.password}
                                         onChange={this.onChange}
+
                                     />
                                     {errors.password && (
                                         <div className="invalid-feedback">{errors.password}</div>
@@ -130,6 +133,7 @@ class Register extends Component {
                                         name="confirmPassword"
                                         value={this.state.confirmPassword}
                                         onChange={this.onChange}
+
                                     />
                                     {errors.confirmPassword && (
                                         <div className="invalid-feedback">
@@ -137,7 +141,11 @@ class Register extends Component {
                                         </div>
                                     )}
                                 </div>
-                                <input type="submit" className="btn btn-info btn-block mt-4" style={{backgroundColor: "#003554"}}/>
+                                <div className="form-group">
+                                    <input type="checkbox" id="termsOfUse" style={{ width: "3%" }} required />
+                                    <label htmlFor="termsOfUse">I accept the <a href="https://www.termsfeed.com/blog/sample-terms-of-use-template/">Terms of Use</a> & <a href="https://www.termsfeed.com/blog/sample-terms-of-use-template/">Privacy Policy</a></label>
+                                </div>
+                                <input type="submit" className="btn btn-info btn-block mt-4" style={{ backgroundColor: "#003554" }} />
                             </form>
                         </div>
                     </div>

@@ -12,7 +12,7 @@ class TripSelectionCard extends Component {
     }
 
     onClick(tripTypeIdentifier) {
-        if (this.state.value == "") {
+        if (this.state.value === "") {
             window.alert("Please fill the radius!")
         } else {
             this.props.getPlacesFromAPI(tripTypeIdentifier, this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude, this.state.value, this.props.props.history);

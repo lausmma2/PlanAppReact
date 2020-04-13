@@ -34,10 +34,12 @@ class DataTableDetail extends Component {
             return (
                 <tr key={index}>
                     <td id='name'>{item.title} - {item.distance}m</td>
-                    <button class="fas fa-minus-circle" onClick={this.onDeleteClick.bind(this,
-                        item.latitude,
-                        item.longitude,
-                        this.props.props.trip.trip.tripIdentifier)}>
+                    <button
+                        className="fas fa-minus-circle"
+                        onClick={this.onDeleteClick.bind(this,
+                            item.latitude,
+                            item.longitude,
+                            this.props.props.trip.trip.tripIdentifier)}>
                     </button>
                 </tr>
             )
@@ -60,8 +62,6 @@ class DataTableDetail extends Component {
 };
 
 DataTableDetail.propTypes = {
-    places: PropTypes.object.isRequired,
-    security: PropTypes.object.isRequired,
     deletePlace: PropTypes.func.isRequired
 };
 

@@ -12,21 +12,21 @@ class ChooseTripType extends Component {
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
-        }
-        this.props.getUsersLocation();
+        } else {
+            this.props.getUsersLocation();
 
-        const { id } = this.props.match.params;
-        this.props.getTrip(id, this.props.history);
+            const { id } = this.props.match.params;
+            this.props.getTrip(id, this.props.history);
+        }
     }
 
     render() {
         const { tripType } = this.props.tripType;
-        console.log(this.props)
         return (
             <div>
                 <div className="card-columns">
-                    {tripType.map(triptype => (
-                        <TripSelectionCard key={triptype.id} triptype={triptype} props={this.props} />
+                    {tripType.map((triptype, index) => (
+                        <TripSelectionCard key={index} triptype={triptype} props={this.props} />
                     ))}
                 </div>
                 <Link to="/dashboard" className="btn btn-lg btn-success" style={{ width: "31.7%", marginLeft: "0.5%", marginBottom: "0.7%" }}>Back to Dashboard</Link>

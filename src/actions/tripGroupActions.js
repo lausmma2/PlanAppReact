@@ -43,15 +43,15 @@ export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => 
     }
 };
 
-/*export const getTripGroupToDashboard = (tripGroupIdentifier, history) => async dispatch => {
+export const addUserToTripGroup = (tripGroupIdentifier, username, history) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:8081/api/trip-group/${tripGroupIdentifier}`);
-        dispatch({
-            type: GET_TRIP_GROUP,
-            payload: res.data
-        });
-        history.push(`/update-trip-group/${tripGroupIdentifier}`);
+        const res = await axios.post(`http://localhost:8081/api/trip-group/${tripGroupIdentifier}/${username}`)
+        console.log(history)
+        //history.push("/dashboard")
     } catch (error) {
-        history.push("/dashboard");
+        dispatch({
+            type: GET_ERRORS,
+            payload: error.response.data
+        })
     }
-};*/
+}

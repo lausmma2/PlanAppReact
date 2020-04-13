@@ -28,7 +28,8 @@ class UserInfo extends Component {
             lastname: "",
             phone: "",
             country: "",
-            aboutMe: ""
+            aboutMe: "",
+            visible: false
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -76,11 +77,6 @@ class UserInfo extends Component {
     render() {
         const { userData } = this.props.userData;
         const { tripGroups } = this.props.tripGroup;
-        /*<img
-        alt="..."
-        className="avatar border-gray"
-        src={require("../../images/cina.jpg")}
-        />*/
         return (
             <div className="content">
                 <Row>
@@ -137,8 +133,8 @@ class UserInfo extends Component {
                             </CardHeader>
                             <CardBody>
                                 <ul className="list-unstyled team-members">
-                                    {tripGroups.map(tripGroup => (
-                                        <TripGroupItem key={tripGroup.id} tripGroup={tripGroup} props={this.props} />
+                                    {tripGroups.map((tripGroup, index) => (
+                                        <TripGroupItem key={index} /*key={tripGroup.id}*/ tripGroup={tripGroup} props={this.props} />
                                     ))}
                                 </ul>
                                 <Row>
