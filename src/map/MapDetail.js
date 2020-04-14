@@ -12,13 +12,24 @@ class MapGoogle extends Component {
         this.state = {
             selectedMyLocationMarker: null,
             selectedPlace: null,
-            directions: null
+            places: props.placesFromDb.placesFromDb,
+            directions: null,
+            isClicked: false
         }
     }
 
+    onClick() {
+        this.setState({
+            isClicked: true
+        })
+    }
+
     componentDidMount() {
-        //this.props.getUsersLocation();
         const { placesFromDb } = this.props.placesFromDb;
+        /*console.log("state")
+        console.log(this.state.places)
+        console.log("props")
+        console.log(placesFromDb)*/
 
         const directionsService = new window.google.maps.DirectionsService();
         var destination = null;
@@ -34,12 +45,10 @@ class MapGoogle extends Component {
             origin = { location: new window.google.maps.LatLng(50.034309, 15.781199) }
             destination = { location: new window.google.maps.LatLng(50.034309, 15.781199) }
         }
-        console.log(this.props)
 
         var waypoints = [];
-
         {
-            placesFromDb.map(place => (
+            this.state.places.map(place => (
                 waypoints.push({ location: new window.google.maps.LatLng(place.latitude, place.longitude) })
             ))
         }
@@ -92,7 +101,7 @@ class MapGoogle extends Component {
                             style={{ size: "200px" }}
                         />
 
-                        <DirectionsRenderer directions={this.state.directions} />
+                        <DirectionsRenderer directions={this.state.directions} options={{ suppressMarkers: true }} />
 
                         {this.state.selectedPlace && (
                             <InfoWindow position={{
@@ -127,8 +136,8 @@ class MapGoogle extends Component {
                             defaultZoom={14}
                             defaultCenter={{ lat: 50.034309, lng: 15.781199 }}
                         >
-                            {placesFromDb.map(place => (
-                                <Marker key={place} position={{
+                            {placesFromDb.map((place, index) => (
+                                <Marker key={index} position={{
                                     lat: place.latitude,
                                     lng: place.longitude
                                 }}

@@ -18,7 +18,6 @@ class DataTableDetail extends Component {
 
     onDeleteClick = (latitude, longitude, tripIdentifier) => {
         this.props.deletePlace(latitude, longitude, tripIdentifier);
-        console.log(this.props)
     };
 
     renderTableHeader() {

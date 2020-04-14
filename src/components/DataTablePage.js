@@ -3,6 +3,7 @@ import "../css/dataTable.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { savePlaceToTrip } from "../actions/placesActions";
+import { getAllPlacesAfterAdd } from "../actions/placesDbActions";
 
 class TablePage extends Component {
     constructor(props) {
@@ -12,26 +13,39 @@ class TablePage extends Component {
                 name: '',
                 add: ''
             }],
-            disabledButtons: []
+            disabledButtons: [],
+            numberOfChosenPlaces: props.placesFromDb.placesFromDb.length + 1
         }
     }
 
     componentDidMount() {
+        this.props.getAllPlacesAfterAdd(this.props.props.trip.trip.tripIdentifier);
         this.setState({
             disabledButtons: new Array(100).fill(false)
         })
-        //console.log(this.props)
+        if (this.state.numberOfChosenPlaces >= 10) {
+            this.setState({
+                disabledButtons: Array(100).fill(true)
+            })
+        }
+        this.props.getAllPlacesAfterAdd(this.props.props.trip.trip.tripIdentifier);
     }
 
     onClick(title, latitude, longitude, distance, tripIdentifier, index) {
-        this.props.savePlaceToTrip(title, latitude, longitude, distance, tripIdentifier);
         this.setState(oldState => {
             const newDisabledButtons = [...oldState.disabledButtons]
             newDisabledButtons[index] = true;
             return {
                 disabledButtons: newDisabledButtons,
+                numberOfChosenPlaces: oldState.numberOfChosenPlaces + 1
             }
         })
+        if (this.state.numberOfChosenPlaces >= 10) {
+            this.setState({
+                disabledButtons: Array(100).fill(true)
+            })
+        }
+        this.props.savePlaceToTrip(title, latitude, longitude, distance, tripIdentifier);
     }
 
     renderTableHeader() {
@@ -47,7 +61,7 @@ class TablePage extends Component {
             return (
                 <tr key={index}>
                     <td id='name'>{item.title} - {item.distance}m</td>
-                    <button class="fas fa-check" onClick={this.onClick.bind(this, item.title,
+                    <button className="fas fa-check" onClick={this.onClick.bind(this, item.title,
                         item.position[0],
                         item.position[1],
                         item.distance,
@@ -77,11 +91,16 @@ class TablePage extends Component {
 };
 
 TablePage.propTypes = {
-    places: PropTypes.object.isRequired,
-    security: PropTypes.object.isRequired
+    placesFromDb: PropTypes.object.isRequired,
+    getAllPlacesAfterAdd: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+    placesFromDb: state.placesFromDb,
+    //numberOfChosenPlaces: state.numberOfChosenPlaces
+})
+
 export default connect(
-    null,
-    { savePlaceToTrip }
+    mapStateToProps,
+    { savePlaceToTrip, getAllPlacesAfterAdd }
 )(TablePage);

@@ -1,21 +1,20 @@
 import { GET_PLACES, DELETE_PLACE } from "../actions/types";
 
 const initialState = {
-    placesFromDb: {},
-    placeFromDb: {}
+    placesFromDb: {}
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
 
         case GET_PLACES:
+            console.log(action.payload)
             return {
                 ...state,
                 placesFromDb: action.payload
             };
 
         case DELETE_PLACE:
-            console.log(action.payload)
             return {
                 ...state,
                 placesFromDb: state.placesFromDb.filter(
