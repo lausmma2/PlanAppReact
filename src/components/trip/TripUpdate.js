@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 class TripUpdate extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             tripId: "",
             name: "",
@@ -64,7 +63,6 @@ class TripUpdate extends Component {
             description: this.state.description
         };
         this.props.createTrip(updatedTrip, this.props.history);
-        console.log(updatedTrip)
     }
     render() {
         const { errors } = this.state;

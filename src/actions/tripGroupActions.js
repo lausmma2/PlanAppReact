@@ -46,7 +46,7 @@ export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => 
 export const addUserToTripGroup = (tripGroupIdentifier, username, history) => async dispatch => {
     try {
         const res = await axios.post(`http://localhost:8081/api/trip-group/${tripGroupIdentifier}/${username}`)
-        console.log(history)
+        //console.log(history)
         //history.push("/dashboard")
     } catch (error) {
         dispatch({

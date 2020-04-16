@@ -62,7 +62,6 @@ class UpdateTripGroup extends Component {
             tripGroupIdentifier: this.state.tripGroupIdentifier,
             description: this.state.description
         };
-        console.log(updatedTripGroup)
         this.props.createTripGroup(updatedTripGroup, this.props.history);
     }
     render() {

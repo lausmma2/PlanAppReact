@@ -13,7 +13,6 @@ class TripGroupDashboardItem extends Component {
     };
 
     onDetailClick = (tripIdentifier, tripGroupIdentifier) => {
-        //console.log(this.props)
         this.props.getTripByTripIdentifierAndTripGroupIdentifier(tripIdentifier, tripGroupIdentifier);
         this.props.getAllPlacesByTripIdentifierAndTripGroupIdentifier(tripIdentifier, tripGroupIdentifier, this.props.props.history);
     }

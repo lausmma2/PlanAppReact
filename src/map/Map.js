@@ -49,62 +49,62 @@ class MapGoogle extends Component {
         const { latitude } = this.props.props.coords.coords;
         return (
             <div>
-                {latitude ? (<GoogleMap
-                    defaultZoom={14}
-                    defaultCenter={{ lat: this.props.props.coords.coords.latitude, lng: this.props.props.coords.coords.longitude }}
-                    defaultOptions={{
-                        styles: exampleMapStyles,
-                    }}
-                >
-                    {data.map(place => (
-                        <Marker key={place} position={{
-                            lat: place.position[0],
-                            lng: place.position[1]
+                {latitude ? (
+                    <GoogleMap
+                        defaultZoom={14}
+                        defaultCenter={{ lat: this.props.props.coords.coords.latitude, lng: this.props.props.coords.coords.longitude }}
+                        defaultOptions={{
+                            styles: exampleMapStyles,
                         }}
-                            onClick={() => this.setState({ selectedPlace: place })}
+                    >
+                        {data.map((place, index) => (
+                            <Marker key={index} position={{
+                                lat: place.position[0],
+                                lng: place.position[1]
+                            }}
+                                onClick={() => this.setState({ selectedPlace: place })}
+                            />
+                        ))}
+
+                        <Marker
+                            position={{
+                                lat: this.props.props.coords.coords.latitude,
+                                lng: this.props.props.coords.coords.longitude
+                            }}
+                            icon={"http://maps.google.com/mapfiles/ms/icons/green.png"}
+                            onClick={() => this.setState({ selectedMyLocationMarker: "place" })}
+                            style={{ size: "200px" }}
                         />
-                    ))}
 
-                    <Marker
-                        position={{
-                            lat: this.props.props.coords.coords.latitude,
-                            lng: this.props.props.coords.coords.longitude
-                        }}
-                        icon={"http://maps.google.com/mapfiles/ms/icons/green.png"}
-                        onClick={() => this.setState({ selectedMyLocationMarker: "place" })}
-                        style={{ size: "200px" }}
-                    />
+                        {this.state.selectedPlace && (
+                            <InfoWindow position={{
+                                lat: this.state.selectedPlace.position[0],
+                                lng: this.state.selectedPlace.position[1]
+                            }}
+                                onCloseClick={() => { this.setState({ selectedPlace: null }); }}
+                            >
+                                <div>
+                                    <div>{this.state.selectedPlace.title}</div>
+                                    <div>{this.state.selectedPlace.distance}m from your position</div>
+                                </div>
+                            </InfoWindow>
+                        )}
 
-                    {this.state.selectedPlace && (
-                        <InfoWindow position={{
-                            lat: this.state.selectedPlace.position[0],
-                            lng: this.state.selectedPlace.position[1]
-                        }}
-                            onCloseClick={() => { this.setState({ selectedPlace: null }); }}
-                        >
-                            <div>
-                                <div>{this.state.selectedPlace.title}</div>
-                                <div>{this.state.selectedPlace.vicinity}</div>
-                                <div>{this.state.selectedPlace.distance}m from your position</div>
-                            </div>
-                        </InfoWindow>
-                    )}
-
-                    {this.state.selectedMyLocationMarker && (
-                        <InfoWindow position={{
-                            lat: this.props.props.coords.coords.latitude,
-                            lng: this.props.props.coords.coords.longitude
-                        }}
-                            onCloseClick={() => { this.setState({ selectedMyLocationMarker: null }); }}
-                        >
-                            <div>
-                                <div>Your location</div>
-                            </div>
-                        </InfoWindow>
-                    )}
-                </GoogleMap>) : (
+                        {this.state.selectedMyLocationMarker && (
+                            <InfoWindow position={{
+                                lat: this.props.props.coords.coords.latitude,
+                                lng: this.props.props.coords.coords.longitude
+                            }}
+                                onCloseClick={() => { this.setState({ selectedMyLocationMarker: null }); }}
+                            >
+                                <div>
+                                    <div>Your location</div>
+                                </div>
+                            </InfoWindow>
+                        )}
+                    </GoogleMap>) : (
                         <div>
-                        You have to enable Geo position in Chrome... Then refresh the page
+                            You have to enable Geo position in Chrome... Then refresh the page
                         </div>
                     )}
             </div>

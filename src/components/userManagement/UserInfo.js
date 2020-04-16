@@ -18,6 +18,12 @@ import {
     Row,
     Col
 } from "reactstrap";
+import {
+    AvForm,
+    AvGroup,
+    AvInput,
+    AvFeedback,
+} from 'availity-reactstrap-validation';
 import TripGroupItem from '../tripGroup/TripGroupItem';
 
 class UserInfo extends Component {
@@ -29,7 +35,8 @@ class UserInfo extends Component {
             phone: "",
             country: "",
             aboutMe: "",
-            visible: false
+            visible: false,
+            isLoading: false
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -46,7 +53,11 @@ class UserInfo extends Component {
     }
 
     onSubmit(e) {
-        e.preventDefault();
+        //e.preventDefault();
+        e.persist();
+        this.setState({
+            isLoading: true
+        })
 
         const updatedUser = {
             firstname: this.state.firstname,
@@ -55,19 +66,12 @@ class UserInfo extends Component {
             country: this.state.country,
             aboutMe: this.state.aboutMe
         };
+        setTimeout(() => {
+            this.setState({
+                isLoading: false
+            })
+        }, 1500)
         this.props.updateUser(updatedUser, this.props.history);
-
-        this.props.userData.userData.firstname = this.state.firstname;
-        this.props.userData.userData.lastname = this.state.lastname;
-        this.props.userData.userData.phone = this.state.phone;
-        this.props.userData.userData.country = this.state.country;
-        this.props.userData.userData.aboutMe = this.state.aboutMe;
-
-        this.props.security.user.firstname = this.state.firstname;
-        this.props.security.user.lastname = this.state.lastname;
-        this.props.security.user.phone = this.state.phone;
-        this.props.security.user.country = this.state.country;
-        this.props.security.user.aboutMe = this.state.aboutMe;
     }
 
     onChange(e) {
@@ -85,11 +89,11 @@ class UserInfo extends Component {
                             <CardBody>
                                 <div className="author">
                                     <a href="#user" onClick={e => e.preventDefault()}>
-
                                         <img
                                             alt="..."
                                             className="avatar border-gray"
-                                            src={require("../../images/cina.jpg")}
+                                            src={require("../../images/male.png")}
+                                            style={{ height: "350px" }}
                                         />
 
                                         <h5 className="title" style={{ color: "#003554" }}>{userData.firstname} {userData.lastname}
@@ -157,14 +161,14 @@ class UserInfo extends Component {
                                 <CardTitle tag="h5">Edit Profile</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <Form onSubmit={this.onSubmit}>
+                                <AvForm onSubmit={this.onSubmit}>
                                     <Row>
                                         <Col className="pr-1" md="5">
                                             <FormGroup>
                                                 <label>Visible ID (disabled)</label>
                                                 <Input
                                                     disabled
-                                                    placeholder="Company"
+                                                    placeholder="Visible ID"
                                                     type="text"
                                                     value={userData.visibleId}
                                                 />
@@ -186,9 +190,9 @@ class UserInfo extends Component {
                                     </Row>
                                     <Row>
                                         <Col className="pr-1" md="6">
-                                            <FormGroup>
+                                            <AvGroup>
                                                 <label>First Name</label>
-                                                <Input
+                                                <AvInput
                                                     placeholder="Firstname"
                                                     type="text"
                                                     value={this.state.firstname}
@@ -196,12 +200,13 @@ class UserInfo extends Component {
                                                     required
                                                     name="firstname"
                                                 />
-                                            </FormGroup>
+                                                <AvFeedback>First Name cannot be blank!</AvFeedback>
+                                            </AvGroup>
                                         </Col>
                                         <Col className="pl-1" md="6">
-                                            <FormGroup>
+                                            <AvGroup>
                                                 <label>Last Name</label>
-                                                <Input
+                                                <AvInput
                                                     placeholder="Lastname"
                                                     type="text"
                                                     value={this.state.lastname}
@@ -209,7 +214,8 @@ class UserInfo extends Component {
                                                     required
                                                     name="lastname"
                                                 />
-                                            </FormGroup>
+                                                <AvFeedback>Last Name cannot be blank!</AvFeedback>
+                                            </AvGroup>
                                         </Col>
                                     </Row>
                                     <Row>
@@ -260,11 +266,11 @@ class UserInfo extends Component {
                                                 type="submit"
                                                 style={{ backgroundColor: "#003554" }}
                                             >
-                                                Update Profile
-                        </Button>
+                                                {this.state.isLoading ? "Loading..." : "Update Profile"}
+                                            </Button>
                                         </div>
                                     </Row>
-                                </Form>
+                                </AvForm>
                             </CardBody>
                         </Card>
                     </Col>

@@ -18,6 +18,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         this.props.getTripGroups();
         this.props.getUsersLocation();
         fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
@@ -33,8 +34,8 @@ class Dashboard extends Component {
                     <div className="col-md-12">
                         <h1 className="display-4 text-center">{id} trips dashboard</h1>
                         <hr />
-                        {trips.map(trip => (
-                            <TripGroupDashboardItem key={trip.id} trip={trip} props={this.props} />
+                        {trips.map((trip, index) => (
+                            <TripGroupDashboardItem key={index} trip={trip} props={this.props} />
                         ))}
                     </div>
                 </div>

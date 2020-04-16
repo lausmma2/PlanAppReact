@@ -75,7 +75,7 @@ class TripGroupItem extends Component {
                                 <img
                                     alt="..."
                                     className="img-circle img-no-padding img-responsive"
-                                    src={require("../../images/cina.jpg")}
+                                    src={require("../../images/group3.png")}
                                 />
                             </div>
                         </Col>

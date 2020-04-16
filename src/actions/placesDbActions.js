@@ -21,6 +21,7 @@ export const getAllPlacesAfterAdd = (tripIdentifier) => async dispatch => {
 
 export const deletePlace = (latitude, longitude, tripIdentifier) => async dispatch => {
     await axios.delete(`http://localhost:8081/api/place/delete/${latitude}/${longitude}/${tripIdentifier}`);
+    //const latLong = {latitude, longitude}
     dispatch({
         type: DELETE_PLACE,
         payload: latitude

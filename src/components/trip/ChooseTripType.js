@@ -18,7 +18,7 @@ class ChooseTripType extends Component {
             const { id } = this.props.match.params;
             this.props.getTrip(id, this.props.history);
         }
-        console.log(this.props)
+        //console.log(this.props)
     }
 
     render() {

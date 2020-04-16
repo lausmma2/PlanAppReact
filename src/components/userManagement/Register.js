@@ -15,7 +15,8 @@ class Register extends Component {
             password: "",
             confirmPassword: "",
             isConfirmed: "",
-            errors: {}
+            errors: {},
+            isLoading: false
         }
 
         this.onChange = this.onChange.bind(this);
@@ -36,8 +37,11 @@ class Register extends Component {
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
-    onSubmit(e) {
+    async onSubmit(e) {
         e.preventDefault();
+        this.setState({
+            isLoading: true
+        })
         const newUser = {
             username: this.state.username,
             firstname: this.state.firstname,
@@ -46,7 +50,18 @@ class Register extends Component {
             confirmPassword: this.state.confirmPassword,
             isConfirmed: ""
         }
-        this.props.createNewUser(newUser, this.props.history);
+        await this.props.createNewUser(newUser, this.props.history);
+        this.setState({
+            isLoading: false
+        })
+        /*this.setState({
+            isLoading: false
+        })*/
+        //setTimeout(() => {
+        /*this.setState({
+            isLoading: false
+        })*/
+        //}, this.props.createNewUser(newUser, this.props.history)) //2000
     }
 
     render() {
@@ -145,7 +160,9 @@ class Register extends Component {
                                     <input type="checkbox" id="termsOfUse" style={{ width: "3%" }} required />
                                     <label htmlFor="termsOfUse">I accept the <a href="https://www.termsfeed.com/blog/sample-terms-of-use-template/">Terms of Use</a> & <a href="https://www.termsfeed.com/blog/sample-terms-of-use-template/">Privacy Policy</a></label>
                                 </div>
-                                <input type="submit" className="btn btn-info btn-block mt-4" style={{ backgroundColor: "#003554" }} />
+                                <button type="submit" className="btn btn-info btn-block mt-4" style={{ backgroundColor: "#003554" }} disabled={this.state.isLoading}>
+                                    {this.state.isLoading ? "Loading..." : "Odeslat"}
+                                </button>
                             </form>
                         </div>
                     </div>

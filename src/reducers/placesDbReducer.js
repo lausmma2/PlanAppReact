@@ -8,13 +8,13 @@ export default function (state = initialState, action) {
     switch (action.type) {
 
         case GET_PLACES:
-            console.log(action.payload)
             return {
                 ...state,
                 placesFromDb: action.payload
             };
 
         case DELETE_PLACE:
+            console.log(action.payload)
             return {
                 ...state,
                 placesFromDb: state.placesFromDb.filter(

@@ -13,8 +13,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             error: null,
-            //isLoading: true,
-            data: []
+            data: [],
         };
     }
 
@@ -30,17 +29,16 @@ class Dashboard extends Component {
             fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
                 .then(response => response.json())
         }
-        //.then(json => console.log(json))
-        /*fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo')
-            .then(response => response.json())
-            .then(json => console.log(json))*
-        console.log("test")*/
+    }
+    componentWillMount() {
+        this.props.getUsersLocation();
     }
 
     render() {
         const { trips } = this.props.trip;
+        const { coords } = this.props.coords;
         return (
-            <div className="container">
+            <div className="container" >
                 <div className="row">
                     <div className="col-md-12">
                         <h1 className="display-4 text-center">Your Trip Dashboard</h1>
@@ -53,7 +51,7 @@ class Dashboard extends Component {
                         ))}
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

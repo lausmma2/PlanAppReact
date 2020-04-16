@@ -21,5 +21,4 @@ class AfterRegistrationPage extends Component {
     }
 }
 
-
 export default AfterRegistrationPage;

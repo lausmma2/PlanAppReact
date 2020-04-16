@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, Polyline, DirectionsRenderer } from "react-google-maps";
+import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getPlacesFromAPI } from "../actions/placesActions";
@@ -26,10 +26,7 @@ class MapGoogle extends Component {
 
     componentDidMount() {
         const { placesFromDb } = this.props.placesFromDb;
-        /*console.log("state")
-        console.log(this.state.places)
-        console.log("props")
-        console.log(placesFromDb)*/
+        this.props.getUsersLocation();
 
         const directionsService = new window.google.maps.DirectionsService();
         var destination = null;
@@ -81,12 +78,12 @@ class MapGoogle extends Component {
                         defaultZoom={14}
                         defaultCenter={{ lat: this.props.props.coords.coords.latitude, lng: this.props.props.coords.coords.longitude }}
                     >
-                        {placesFromDb.map(place => (
-                            <Marker key={place} position={{
+                        {placesFromDb.map((place, index) => (
+                            <Marker key={index} position={{
                                 lat: place.latitude,
                                 lng: place.longitude
                             }}
-                                icon={"http://maps.google.com/mapfiles/ms/icons/yellow.png"}
+
                                 onClick={() => this.setState({ selectedPlace: place })}
                             />
                         ))}
@@ -141,21 +138,12 @@ class MapGoogle extends Component {
                                     lat: place.latitude,
                                     lng: place.longitude
                                 }}
+
                                     onClick={() => this.setState({ selectedPlace: place })}
                                 />
                             ))}
 
-                            <Marker
-                                position={{
-                                    lat: 50.034309,
-                                    lng: 15.781199
-                                }}
-                                icon={"http://maps.google.com/mapfiles/ms/icons/yellow.png"}
-                                onClick={() => this.setState({ selectedMyLocationMarker: "place" })}
-                                style={{ size: "200px" }}
-                            />
-
-                            <DirectionsRenderer directions={this.state.directions} />
+                            <DirectionsRenderer directions={this.state.directions} options={{ suppressMarkers: true }} />
 
                             {this.state.selectedPlace && (
                                 <InfoWindow position={{

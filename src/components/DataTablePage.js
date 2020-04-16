@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { savePlaceToTrip } from "../actions/placesActions";
 import { getAllPlacesAfterAdd } from "../actions/placesDbActions";
+import { getUsersLocation } from "../actions/locationActions";
 
 class TablePage extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class TablePage extends Component {
     }
 
     componentDidMount() {
+        this.props.getUsersLocation();
         this.props.getAllPlacesAfterAdd(this.props.props.trip.trip.tripIdentifier);
         this.setState({
             disabledButtons: new Array(100).fill(false)
@@ -28,7 +30,6 @@ class TablePage extends Component {
                 disabledButtons: Array(100).fill(true)
             })
         }
-        this.props.getAllPlacesAfterAdd(this.props.props.trip.trip.tripIdentifier);
     }
 
     onClick(title, latitude, longitude, distance, tripIdentifier, index) {
@@ -56,6 +57,7 @@ class TablePage extends Component {
     }
 
     renderTableData() {
+        //console.log(this.props)
         const { items } = this.props.props.places.places.results;
         return items.map((item, index) => {
             return (
@@ -92,15 +94,18 @@ class TablePage extends Component {
 
 TablePage.propTypes = {
     placesFromDb: PropTypes.object.isRequired,
-    getAllPlacesAfterAdd: PropTypes.func.isRequired
+    getAllPlacesAfterAdd: PropTypes.func.isRequired,
+    getUsersLocation: PropTypes.func.isRequired,
+    places: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     placesFromDb: state.placesFromDb,
-    //numberOfChosenPlaces: state.numberOfChosenPlaces
+    places: state.places,
+    coords: state.coords
 })
 
 export default connect(
     mapStateToProps,
-    { savePlaceToTrip, getAllPlacesAfterAdd }
+    { savePlaceToTrip, getAllPlacesAfterAdd, getUsersLocation }
 )(TablePage);
