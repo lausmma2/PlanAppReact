@@ -4,7 +4,7 @@ import { GET_ERRORS, GET_TRIP_GROUPS, DELETE_TRIP_GROUP, GET_TRIP_GROUP } from "
 
 export const createTripGroup = (tripGroup, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
     try {
-        const res = await axios.post("http://localhost:8081/api/trip-group/create-trip-group", tripGroup)
+        const res = await axios.post("https://planapp-spring.herokuapp.com/api/trip-group/create-trip-group", tripGroup)
         history.push("/user-info")
     } catch (err) {
         dispatch({
@@ -15,7 +15,7 @@ export const createTripGroup = (tripGroup, history) => async dispatch => { //Thi
 }
 
 export const getTripGroups = () => async dispatch => {
-    const res = await axios.get("http://localhost:8081/api/trip-group/all")
+    const res = await axios.get("https://planapp-spring.herokuapp.com/api/trip-group/all")
     dispatch({
         type: GET_TRIP_GROUPS,
         payload: res.data
@@ -23,7 +23,7 @@ export const getTripGroups = () => async dispatch => {
 };
 
 export const deleteTripGroup = id => async dispatch => {
-    await axios.delete(`http://localhost:8081/api/trip-group/${id}`);
+    await axios.delete(`https://planapp-spring.herokuapp.com/api/trip-group/${id}`);
     dispatch({
         type: DELETE_TRIP_GROUP,
         payload: id
@@ -32,7 +32,7 @@ export const deleteTripGroup = id => async dispatch => {
 
 export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:8081/api/trip-group/${tripGroupIdentifier}`);
+        const res = await axios.get(`https://planapp-spring.herokuapp.com/api/trip-group/${tripGroupIdentifier}`);
         dispatch({
             type: GET_TRIP_GROUP,
             payload: res.data
@@ -45,7 +45,7 @@ export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => 
 
 export const addUserToTripGroup = (tripGroupIdentifier, username, history) => async dispatch => {
     try {
-        const res = await axios.post(`http://localhost:8081/api/trip-group/${tripGroupIdentifier}/${username}`)
+        const res = await axios.post(`https://planapp-spring.herokuapp.com/api/trip-group/${tripGroupIdentifier}/${username}`)
         //console.log(history)
         //history.push("/dashboard")
     } catch (error) {

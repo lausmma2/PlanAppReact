@@ -30,13 +30,9 @@ class Dashboard extends Component {
                 .then(response => response.json())
         }
     }
-    componentWillMount() {
-        this.props.getUsersLocation();
-    }
 
     render() {
         const { trips } = this.props.trip;
-        const { coords } = this.props.coords;
         return (
             <div className="container" >
                 <div className="row">
@@ -62,8 +58,7 @@ Dashboard.propTypes = {
     getTripGroups: PropTypes.func.isRequired,
     getTripTypes: PropTypes.func.isRequired,
     coords: PropTypes.object.isRequired,
-    getUsersLocation: PropTypes.func.isRequired,
-    getTripsByTripGroupIdentifier: PropTypes.func.isRequired
+    getUsersLocation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -75,5 +70,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getTrips, getTripGroups, getTripTypes, getUsersLocation, getTripsByTripGroupIdentifier }
+    { getTrips, getTripGroups, getTripTypes, getUsersLocation }
 )(Dashboard);

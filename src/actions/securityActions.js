@@ -7,7 +7,7 @@ import { getTripGroups } from './tripGroupActions';
 
 export const createNewUser = (newUser, history) => async dispatch => {
   try {
-    await axios.post("http://localhost:8081/register", newUser)
+    await axios.post("https://planapp-spring.herokuapp.com/register", newUser)
     //možná tady udělat nějakou boolean proměnnou?
     history.push("/confirmation");
     dispatch({

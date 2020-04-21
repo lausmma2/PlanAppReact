@@ -27,15 +27,15 @@ function loadFromLocalStorage() {
     }
 }
 const persistedState = loadFromLocalStorage()
+const ReactReduxDevTools =
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-if (window.navigator.userAgent.includes("Chrome") && localStorage.getItem("jwtToken")) {
+if (window.navigator.userAgent.includes("Chrome") && ReactReduxDevTools && localStorage.getItem("jwtToken")) {
     store = createStore(
         rootReducer,
         persistedState,
         compose(
-            applyMiddleware(...middleware),
-            window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__()))
+            applyMiddleware(...middleware), ReactReduxDevTools));
 } else {
     store = createStore(
         rootReducer,

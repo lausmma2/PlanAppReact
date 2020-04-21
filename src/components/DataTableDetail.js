@@ -12,12 +12,14 @@ class DataTableDetail extends Component {
             headers: [{
                 name: '',
                 delete: ''
-            }]
+            }],
+            test: "test"
         }
     }
 
     onDeleteClick = (latitude, longitude, tripIdentifier) => {
         this.props.deletePlace(latitude, longitude, tripIdentifier);
+        //console.log(this.props)
     };
 
     renderTableHeader() {
@@ -28,6 +30,7 @@ class DataTableDetail extends Component {
     }
 
     renderTableData() {
+        console.log(this.props)
         const { placesFromDb } = this.props.props.placesFromDb;
         return placesFromDb.map((item, index) => {
             return (
@@ -38,7 +41,7 @@ class DataTableDetail extends Component {
                         onClick={this.onDeleteClick.bind(this,
                             item.latitude,
                             item.longitude,
-                            this.props.props.trip.trip.tripIdentifier)}>
+                            this.props.props.match.params.id)}>
                     </button>
                 </tr>
             )
@@ -48,7 +51,7 @@ class DataTableDetail extends Component {
     render() {
         return (
             <div style={{ height: "500px", marginTop: "25px" }}>
-                <h1 id='title'>Your chosen places</h1>
+                <h1 id='title'>Chosen places</h1>
                 <table id='items'>
                     <tbody>
                         <tr>{this.renderTableHeader()}</tr>
@@ -63,6 +66,7 @@ class DataTableDetail extends Component {
 DataTableDetail.propTypes = {
     deletePlace: PropTypes.func.isRequired
 };
+
 
 export default connect(
     null,

@@ -59,5 +59,6 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/runtime": "^7.8.7"
-  }
+  },
+  "proxy": "https://planapp-spring.herokuapp.com"
 }

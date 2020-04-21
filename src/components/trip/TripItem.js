@@ -22,17 +22,17 @@ class TripItem extends Component {
         const { trip } = this.props;
         return (
             <div className="container">
-                <div className="card card-body bg-light mb-3">
+                <div className="card card-body bg-light mb-4">
                     <div className="row">
-                        <div className="col-2">
+                        <div className="col-sm-2">
                             <span className="card-subtitle mb-2 text-muted">{trip.tripIdentifier}</span>
                         </div>
-                        <div className="col-lg-6 col-md-4 col-8">
+                        <div className="col-lg-6 col-md-4 col-sm-2">
                             <h3>{trip.name}</h3>
                             <p>{trip.description}</p>
                             <p>This trip belongs to group with ID: {trip.tripGroup ? "'" + trip.tripGroup.tripGroupIdentifier + "'" : ""}</p>
                         </div>
-                        <div className="col-md-4 d-none d-lg-block">
+                        <div className="col-md-4 col-sm-8 col-lg-4 d-lg-block">
                             <ul className="list-group">
                                 <a>
                                     <li className="list-group-item board" onClick={this.onDetailClick.bind(this, trip.tripIdentifier)}>
@@ -70,10 +70,11 @@ const DropdownList = (props) => {
     const toggle = () => setDropdownOpen(prevState => !prevState);
 
     const tripGroups = props.props.tripGroup;
-    const trips = props.props;
+    const trip = props.props;
 
     const onClick = (tripGroupIdentifier) => {
-        props.props.addTripToTripGroup(trips.trip.tripIdentifier, tripGroupIdentifier);
+        console.log(props.props.trip.tripIdentifier)
+        props.props.addTripToTripGroup(props.props.trip.tripIdentifier, tripGroupIdentifier);
     }
 
     return (

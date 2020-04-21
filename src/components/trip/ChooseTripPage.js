@@ -5,6 +5,7 @@ import { getPlacesFromAPI } from "../../actions/placesActions";
 import WrappedMap from "../../map/Map";
 import TablePage from '../DataTablePage';
 import { getUsersLocation } from "../../actions/locationActions";
+import { Row, Col } from "reactstrap";
 
 class ChooseTripPage extends Component {
 
@@ -14,12 +15,12 @@ class ChooseTripPage extends Component {
         }
         this.props.getUsersLocation();
 
-        if (this.props.places.places.status === 400) {
+        /*if (this.props.places.places.status === 400) {
             console.log("píp")
             //setTimeout(() => {
             this.props.history.goBack();
             //}, 7000)
-        }
+        }*/
     }
 
     onClick() {
@@ -27,27 +28,27 @@ class ChooseTripPage extends Component {
     }
 
     render() {
-        console.log(this.props)
+        //console.log(this.props)
         const { latitude } = this.props.coords.coords;
         return (
             <div className="container">
                 {latitude ? (
-                    <div className="row">
-                        <div className="col-sm-6">
+                    <Row top="xs">
+                        <Col md={6} xs={12}>
                             <button onClick={this.onClick.bind(this)} className="btn btn-lg btn-success mr-2">Back</button>
                             <WrappedMap
                                 googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo"}
                                 loadingElement={<div style={{ height: "100%" }} />}
                                 containerElement={<div style={{ height: "80%", width: "90%" }} />}
-                                mapElement={<div style={{ height: "118%", width: "110%" }} />}
+                                mapElement={<div style={{ minHeight: "200px", height: "118%", width: "110%" }} />}
                                 props={this.props}
                             />
-                        </div>
+                        </Col>
 
-                        <div className="col-sm-6">
+                        <Col md={6} xs={12}>
                             <TablePage props={this.props} />
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                 ) : (
                         <div>Please enable your Geo position in browser! <a href="https://nordvpn.com/blog/change-location-google-chrome/">See a Guide for CHROME here</a></div>
                     )}

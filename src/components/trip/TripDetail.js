@@ -5,12 +5,15 @@ import { getTrip } from "../../actions/tripActions";
 import WrappedMapDetail from "../../map/MapDetail";
 import DataTableDetail from "../DataTableDetail";
 import { Row, Col } from "reactstrap";
+import { getUsersLocation } from "../../actions/locationActions";
 
 class TripDetail extends Component {
 
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
+        } else {
+            this.props.getUsersLocation();
         }
     }
 
@@ -47,7 +50,8 @@ TripDetail.propTypes = {
     getTrip: PropTypes.func.isRequired,
     places: PropTypes.object.isRequired,
     coords: PropTypes.object.isRequired,
-    placesFromDb: PropTypes.object.isRequired
+    placesFromDb: PropTypes.object.isRequired,
+    getUsersLocation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -60,5 +64,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getTrip }
+    { getTrip, getUsersLocation }
 )(TripDetail);

@@ -41,7 +41,6 @@ class TripSelectionCard extends Component {
                     <h5 className="card-title">{triptype.name}</h5>
                     <p className="card-text">{triptype.description}</p>
                     Choose radius (m)... <input type="number" min="300" value={this.state.value} onChange={this.handleChange.bind(this)} placeholder="300" required /><br /><br />
-                    <p>Pro pokračování je nutné mít <a href="https://nordvpn.com/blog/change-location-google-chrome/">povolenou POLOHU</a> a <a style={{ color: "red" }}>vyplnit RADIUS</a></p>
                     <button disabled={this.state.isDisabled} className="btn btn-primary" style={{ backgroundColor: "#003554" }} onClick={this.onClick.bind(this, triptype.tripTypeIdentifier)} >Show nearby places</button>
                 </div>
             </ div>

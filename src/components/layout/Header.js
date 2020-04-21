@@ -14,22 +14,19 @@ class Header extends Component {
         const { userData } = this.props.userData;
         return (
             <div>
-                <nav className="navbar navbar-expand-sm navbar-dark mb-5" style={{backgroundColor: "#003554"}}>
+                <nav className="navbar navbar-expand-sm navbar-dark mb-5" style={{ backgroundColor: "#003554" }}>
                     <div className="container">
                         <Link to="/" className="navbar-brand">
                             PlanApp - Trip planner
             </Link>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-                            <span className="navbar-toggler-icon" />
-                        </button>
                         {validToken && userData ?
                             (
-                                <div className="collapse navbar-collapse" id="mobile-nav">
+                                <div className="navbar-collapse" >
                                     <ul className="navbar-nav mr-auto">
                                         <li className="nav-item">
-                                            <a className="nav-link" href="/dashboard">
+                                            <Link className="nav-link" to="/">
                                                 Dashboard
-                        </a>
+                        </Link>
                                         </li>
                                     </ul>
 
@@ -48,7 +45,7 @@ class Header extends Component {
                                     </ul>
                                 </div>
                             ) : (
-                                <div className="collapse navbar-collapse" id="mobile-nav">
+                                <div className="navbar-collapse" id="mobile-nav">
 
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
@@ -67,6 +64,7 @@ class Header extends Component {
                     </div>
                 </nav>
             </div >
+
         )
     }
 }

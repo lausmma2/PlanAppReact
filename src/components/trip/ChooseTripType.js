@@ -8,6 +8,12 @@ import { Link } from "react-router-dom";
 import { getTrip } from "../../actions/tripActions";
 
 class ChooseTripType extends Component {
+    constructor(props) {
+        super(props);
+        this.state = ({
+            isGeoLocationEnabled: false
+        })
+    }
 
     componentDidMount() {
         if (!this.props.security.validToken) {
@@ -17,20 +23,44 @@ class ChooseTripType extends Component {
 
             const { id } = this.props.match.params;
             this.props.getTrip(id, this.props.history);
+
+            if (this.props.coords.coords !== null) {
+                this.setState({
+                    isGeoLocationEnabled: true
+                })
+            } else {
+                this.setState({
+                    isGeoLocationEnabled: false
+                })
+            }
         }
-        //console.log(this.props)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.setState({
+                isGeoLocationEnabled: !this.state.isGeoLocationEnabled
+            })
+        }
     }
 
     render() {
         const { tripType } = this.props.tripType;
         return (
             <div>
-                <div className="card-columns">
-                    {tripType.map((triptype, index) => (
-                        <TripSelectionCard key={index} triptype={triptype} props={this.props} />
-                    ))}
-                </div>
-                <Link to="/dashboard" className="btn btn-lg btn-success" style={{ width: "31.7%", marginLeft: "0.5%", marginBottom: "0.7%" }}>Back to Dashboard</Link>
+                {this.state.isGeoLocationEnabled ? (
+                    <div>
+                        <div className="card-columns">
+                            {tripType.map((triptype, index) => (
+                                <TripSelectionCard key={index} triptype={triptype} props={this.props} />
+                            ))}
+                        </div>
+                        <Link to="/dashboard" className="btn btn-lg btn-success" style={{ width: "31.7%", marginLeft: "0.5%", marginBottom: "0.7%" }}>Back to Dashboard</Link>
+                    </div>
+                ) : (
+                        <div className="container">Please enable your Geo position in browser! <a href="https://nordvpn.com/blog/change-location-google-chrome/">See a Guide for CHROME here</a></div>
+                    )}
+
             </div>
         )
     }

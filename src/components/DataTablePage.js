@@ -79,7 +79,7 @@ class TablePage extends Component {
 
     render() {
         return (
-            <div style={{ height: "500px" }}>
+            <div style={{ height: "500px", marginTop: "25px" }}>
                 <h1 id='title'>Found places</h1>
                 <table id='items'>
                     <tbody>

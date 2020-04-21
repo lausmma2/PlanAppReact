@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Header from './components/layout/Header';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AddTrip from './components/trip/AddTrip';
 import { Provider } from "react-redux";
 import store from './store';
@@ -23,6 +23,7 @@ import UpdateTripGroup from './components/tripGroup/UpdateTripGroup';
 import TripDetail from './components/trip/TripDetail';
 import TripUpdate from './components/trip/TripUpdate';
 import TripGroupDashboard from './components/TripGroupDashboard';
+import SecuredRoute from "./securityUtils/SecureRoute";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -41,37 +42,41 @@ if (jwtToken) {
   }
 }
 
-function App() {
-  return (
-    <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Header />
-          {
-            //Public routes
-          }
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Header />
+            {
+              //Public routes
+            }
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
 
-          {
-            //Private routes
-          }
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/addTrip" component={AddTrip} />
-          <Route exact path="/confirmation" component={AfterRegistrationPage} />
-          <Route exact path="/user-info" component={UserInfo} />
-          <Route exact path="/add-trip-group" component={AddTripGroup} />
-          <Route exact path="/choose-trip-type/:id" component={ChooseTripType} />
-          <Route exact path="/choose-trip" component={ChooseTripPage} />
-          <Route exact path="/update-trip-group/:id" component={UpdateTripGroup} />
-          <Route exact path="/tripDetail/:id" component={TripDetail} />
-          <Route exact path="/update-trip/:id" component={TripUpdate} />
-          <Route exact path="/trip-group/dashboard/:id" component={TripGroupDashboard} />
-        </div>
-      </Router>
-    </Provider>
-  );
+            {
+              //Private routes
+            }
+            <Switch>
+              <SecuredRoute exact path="/dashboard" component={Dashboard} />
+              <SecuredRoute exact path="/addTrip" component={AddTrip} />
+              <SecuredRoute exact path="/confirmation" component={AfterRegistrationPage} />
+              <SecuredRoute exact path="/user-info" component={UserInfo} />
+              <SecuredRoute exact path="/add-trip-group" component={AddTripGroup} />
+              <SecuredRoute exact path="/choose-trip-type/:id" component={ChooseTripType} />
+              <SecuredRoute exact path="/choose-trip" component={ChooseTripPage} />
+              <SecuredRoute exact path="/update-trip-group/:id" component={UpdateTripGroup} />
+              <SecuredRoute exact path="/tripDetail/:id" component={TripDetail} />
+              <SecuredRoute exact path="/update-trip/:id" component={TripUpdate} />
+              <SecuredRoute exact path="/trip-group/dashboard/:id" component={TripGroupDashboard} />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;

@@ -17,7 +17,7 @@ export const getPlacesFromAPI = (id, latitude, longitude, radius, history) => as
 
 export const savePlaceToTrip = (title, latitude, longitude, distance, tripIdentifier) => async dispatch => {
     try {
-        const res = await axios.post(`http://localhost:8081/api/place/${title}/${latitude}/${longitude}/${distance}/${tripIdentifier}`)
+        const res = await axios.post(`https://planapp-spring.herokuapp.com/api/place/${title}/${latitude}/${longitude}/${distance}/${tripIdentifier}`)
     } catch (err) {
         dispatch({
             type: GET_ERRORS,

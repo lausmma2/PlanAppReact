@@ -24,7 +24,16 @@ class MapGoogle extends Component {
         })
     }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps) {
+        if (prevProps.props.placesFromDb.placesFromDb.length !== this.props.placesFromDb.placesFromDb.length) {
+            this.setState({
+                places: prevProps.props.placesFromDb.placesFromDb
+            })
+            this.drawRoutesAfterDelete(this.props.placesFromDb.placesFromDb);
+        }
+    }
+
+    drawRoutesAfterDelete(places) {
         const { placesFromDb } = this.props.placesFromDb;
         this.props.getUsersLocation();
 
@@ -44,6 +53,54 @@ class MapGoogle extends Component {
         }
 
         var waypoints = [];
+        //console.log(this.state.places)
+        {
+            places.map(place => (
+                waypoints.push({ location: new window.google.maps.LatLng(place.latitude, place.longitude) })
+            ))
+        }
+        directionsService.route(
+            {
+                origin: origin,
+                destination: destination,
+                travelMode: window.google.maps.TravelMode.DRIVING,
+                waypoints: waypoints
+            },
+            (result, status) => {
+                if (status === window.google.maps.DirectionsStatus.OK) {
+                    this.setState({
+                        directions: result
+                    });
+                } else {
+                    console.error(`error fetching directions ${result}`);
+                }
+            }
+        )
+    }
+
+    drawRoutes() {
+        const { placesFromDb } = this.props.placesFromDb;
+        this.props.getUsersLocation();
+
+        const directionsService = new window.google.maps.DirectionsService();
+        var destination = null;
+        var origin = null;
+
+        //Dát nejspíš celé do metody a tu volat
+
+        if (placesFromDb.length - 1 >= 0) {
+            var destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
+            var origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
+        } else if (this.props.props.coords.coords.latitude != null) {
+            origin = { location: new window.google.maps.LatLng(this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude) }
+            destination = { location: new window.google.maps.LatLng(this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude) }
+        } else if (this.props.props.coords.coords.latitude == null) {
+            origin = { location: new window.google.maps.LatLng(50.034309, 15.781199) }
+            destination = { location: new window.google.maps.LatLng(50.034309, 15.781199) }
+        }
+
+        var waypoints = [];
+        //console.log(this.state.places)
         {
             this.state.places.map(place => (
                 waypoints.push({ location: new window.google.maps.LatLng(place.latitude, place.longitude) })
@@ -68,6 +125,10 @@ class MapGoogle extends Component {
         )
     }
 
+    componentDidMount() {
+        this.drawRoutes();
+    }
+
     render() {
         const { placesFromDb } = this.props.placesFromDb;
         const { latitude } = this.props.props.coords.coords;
@@ -83,7 +144,6 @@ class MapGoogle extends Component {
                                 lat: place.latitude,
                                 lng: place.longitude
                             }}
-
                                 onClick={() => this.setState({ selectedPlace: place })}
                             />
                         ))}
