@@ -25,7 +25,7 @@ export const createNewUser = (newUser, history) => async dispatch => {
 export const login = LoginRequest => async dispatch => {
   try {
     // post => Login Request
-    const res = await axios.post("http://localhost:8081/login", LoginRequest);
+    const res = await axios.post("https://planapp-spring.herokuapp.com/login", LoginRequest);
     // extract token from res.data
     const { token } = res.data;
     // store the token in the localStorage
