@@ -16,7 +16,7 @@ class Header extends Component {
             <div>
                 <nav className="navbar navbar-expand-sm navbar-dark mb-5" style={{ backgroundColor: "#003554" }}>
                     <div className="container">
-                        <Link to="/" className="navbar-brand">
+                        <Link to="/" className="navbar-brand" >
                             PlanApp - Trip planner
             </Link>
                         {validToken && userData ?

@@ -111,19 +111,19 @@ class UserInfo extends Component {
                                     <Row>
                                         <Col className="ml-auto" lg="3" md="6" xs="6">
                                             <h5>
-                                                56 <br />
+                                                0 <br />
                                                 <small>Places visited</small>
                                             </h5>
                                         </Col>
                                         <Col className="ml-auto mr-auto" lg="4" md="6" xs="6">
                                             <h5>
-                                                12 <br />
+                                                0 <br />
                                                 <small>Kilometers</small>
                                             </h5>
                                         </Col>
                                         <Col className="mr-auto" lg="3">
                                             <h5>
-                                                283 Kč <br />
+                                                0 Kč <br />
                                                 <small>Spent</small>
                                             </h5>
                                         </Col>

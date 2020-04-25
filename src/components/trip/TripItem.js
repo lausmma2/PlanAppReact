@@ -28,34 +28,34 @@ class TripItem extends Component {
                             <span className="card-subtitle mb-2 text-muted">{trip.tripIdentifier}</span>
                         </div>
                         <div className="col-lg-6 col-md-4 col-sm-2">
-                            <h3>{trip.name}</h3>
-                            <p>{trip.description}</p>
-                            <p>This trip belongs to group with ID: {trip.tripGroup ? "'" + trip.tripGroup.tripGroupIdentifier + "'" : ""}</p>
+                            <h3 style={{ fontFamily: "Times New Roman" }}>{trip.name}</h3>
+                            <p style={{ fontFamily: "Times New Roman" }}>{trip.description}</p>
+                            <p style={{ fontFamily: "Times New Roman" }}>This trip belongs to group with ID: {trip.tripGroup ? "'" + trip.tripGroup.tripGroupIdentifier + "'" : ""}</p>
                         </div>
-                        <div className="col-md-4 col-sm-8 col-lg-4 d-lg-block">
+                        <div className="col-md-4 col-sm-8 col-lg-4 d-lg-block" >
                             <ul className="list-group">
                                 <a>
                                     <li className="list-group-item board" onClick={this.onDetailClick.bind(this, trip.tripIdentifier)}>
-                                        <i className="fas fa-info-circle" style={{ color: "#1C7C54" }}> Trip Detail</i>
+                                        <span className="fas fa-info-circle" style={{ color: "#1C7C54" }}><span style={{ fontFamily: "Times New Roman" }}> Trip Detail</span></span>
                                     </li>
                                 </a>
                                 <Link to={`/choose-trip-type/${trip.tripIdentifier}`}>
                                     <li className="list-group-item update">
-                                        <i className="fas fa-map-marked-alt" style={{ color: "#324A5F" }} title="Choose places"> Choose places</i>
+                                        <span className="fas fa-map-marked-alt" style={{ color: "#324A5F" }} title="Choose places"><span style={{ fontFamily: "Times New Roman" }}> Choose places</span></span>
                                     </li>
                                 </Link>
                                 <Link to={`/update-trip/${trip.tripIdentifier}`}>
                                     <li className="list-group-item update">
-                                        <i className="fas fa-edit" style={{ color: "#0582CA" }} title="Update Trip"> Edit Trip Info</i>
+                                        <span className="fas fa-edit" style={{ color: "#0582CA" }} title="Update Trip"><span style={{ fontFamily: "Times New Roman" }}> Edit Trip Info</span></span>
                                     </li>
                                 </Link>
                                 <li className="list-group-item delete" onClick={this.onDeleteClick.bind(this, trip.tripIdentifier)}>
-                                    <i className="fa fa-trash-alt" style={{ color: "red" }} title="Delete Trip"> Delete Trip</i>
+                                    <span className="fa fa-trash-alt" style={{ color: "red" }} title="Delete Trip"><span style={{ fontFamily: "Times New Roman" }}> Delete Trip</span></span>
                                 </li>
                                 <a>
-                                    <li className="list-group-item update">
+                                    <span className="list-group-item update">
                                         <DropdownList props={this.props} />
-                                    </li>
+                                    </span>
                                 </a>
                             </ul>
                         </div>
