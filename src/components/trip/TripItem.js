@@ -73,7 +73,6 @@ const DropdownList = (props) => {
     const trip = props.props;
 
     const onClick = (tripGroupIdentifier) => {
-        console.log(props.props.trip.tripIdentifier)
         props.props.addTripToTripGroup(props.props.trip.tripIdentifier, tripGroupIdentifier);
     }
 

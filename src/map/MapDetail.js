@@ -53,7 +53,6 @@ class MapGoogle extends Component {
         }
 
         var waypoints = [];
-        //console.log(this.state.places)
         {
             places.map(place => (
                 waypoints.push({ location: new window.google.maps.LatLng(place.latitude, place.longitude) })
@@ -86,8 +85,6 @@ class MapGoogle extends Component {
         var destination = null;
         var origin = null;
 
-        //Dát nejspíš celé do metody a tu volat
-
         if (placesFromDb.length - 1 >= 0) {
             var destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
             var origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
@@ -100,7 +97,6 @@ class MapGoogle extends Component {
         }
 
         var waypoints = [];
-        //console.log(this.state.places)
         {
             this.state.places.map(place => (
                 waypoints.push({ location: new window.google.maps.LatLng(place.latitude, place.longitude) })

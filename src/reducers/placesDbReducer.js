@@ -14,7 +14,6 @@ export default function (state = initialState, action) {
             };
 
         case DELETE_PLACE:
-            console.log(action.payload)
             return {
                 ...state,
                 placesFromDb: state.placesFromDb.filter(

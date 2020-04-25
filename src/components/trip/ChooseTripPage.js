@@ -14,13 +14,6 @@ class ChooseTripPage extends Component {
             this.props.history.push("/")
         }
         this.props.getUsersLocation();
-
-        /*if (this.props.places.places.status === 400) {
-            console.log("píp")
-            //setTimeout(() => {
-            this.props.history.goBack();
-            //}, 7000)
-        }*/
     }
 
     onClick() {
@@ -28,7 +21,6 @@ class ChooseTripPage extends Component {
     }
 
     render() {
-        //console.log(this.props)
         const { latitude } = this.props.coords.coords;
         return (
             <div className="container">

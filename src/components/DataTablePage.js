@@ -57,7 +57,6 @@ class TablePage extends Component {
     }
 
     renderTableData() {
-        //console.log(this.props)
         const { items } = this.props.props.places.places.results;
         return items.map((item, index) => {
             return (
