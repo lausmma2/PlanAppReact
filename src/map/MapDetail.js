@@ -199,7 +199,7 @@ class MapGoogle extends Component {
                                 />
                             ))}
 
-                            <DirectionsRenderer directions={this.state.directions} options={{ suppressMarkers: true }} />
+                            <DirectionsRenderer directions={this.state.directions} options={{ suppressMarkers: true, preserveViewport: true }} />
 
                             {this.state.selectedPlace && (
                                 <InfoWindow position={{
