@@ -23,11 +23,17 @@ export const getTripGroups = () => async dispatch => {
 };
 
 export const deleteTripGroup = id => async dispatch => {
-    await axios.delete(`https://planapp-spring.herokuapp.com/api/trip-group/${id}`);
-    dispatch({
-        type: DELETE_TRIP_GROUP,
-        payload: id
-    });
+    if (
+        window.confirm(
+            "Are you sure? This will delete the group and all the data related to it!"
+        )
+    ) {
+        await axios.delete(`https://planapp-spring.herokuapp.com/api/trip-group/${id}`);
+        dispatch({
+            type: DELETE_TRIP_GROUP,
+            payload: id
+        });
+    }
 };
 
 export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => {

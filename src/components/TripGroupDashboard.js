@@ -12,7 +12,6 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             error: null,
-            //isLoading: true,
             data: []
         };
     }

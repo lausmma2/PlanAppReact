@@ -25,7 +25,7 @@ export const getTrips = () => async dispatch => {
 export const deleteTrip = id => async dispatch => {
     if (
         window.confirm(
-            "Are you sure? This will delete the trip and all the data related to it"
+            "Are you sure? This will delete the trip and all the data related to it!"
         )
     ) {
         await axios.delete(`https://planapp-spring.herokuapp.com/api/trip/${id}`);
@@ -39,7 +39,7 @@ export const deleteTrip = id => async dispatch => {
 export const addTripToTripGroup = (tripIdentifier, tripGroupIdentifier) => async dispatch => {
     if (
         window.confirm(
-            "Are you sure? This add trip to the trip group..."
+            "Are you sure? This will add trip to the trip group..."
         )
     ) {
         const res = await axios.post(`https://planapp-spring.herokuapp.com/api/trip-group/add-trip-to-group/${tripIdentifier}/${tripGroupIdentifier}`);
