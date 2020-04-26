@@ -20,6 +20,7 @@ class ChooseTripType extends Component {
             this.props.history.push("/")
         } else {
             this.props.getUsersLocation();
+            this.props.getTripTypes();
 
             const { id } = this.props.match.params;
             this.props.getTrip(id, this.props.history);
@@ -48,7 +49,7 @@ class ChooseTripType extends Component {
         const { tripType } = this.props.tripType;
         return (
             <div>
-                {this.state.isGeoLocationEnabled ? (
+                {!this.state.isGeoLocationEnabled ? (
                     <div>
                         <div className="card-columns">
                             {tripType.map((triptype, index) => (
@@ -72,7 +73,8 @@ ChooseTripType.propTypes = {
     coords: PropTypes.object.isRequired,
     getUsersLocation: PropTypes.func.isRequired,
     trip: PropTypes.object.isRequired,
-    getTrip: PropTypes.func.isRequired
+    getTrip: PropTypes.func.isRequired,
+    getTripTypes: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

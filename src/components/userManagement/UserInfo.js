@@ -80,7 +80,6 @@ class UserInfo extends Component {
 
     render() {
         const { userData } = this.props.userData;
-        const { tripGroups } = this.props.tripGroup;
         return (
             <div className="content">
                 <Row>
@@ -130,29 +129,6 @@ class UserInfo extends Component {
                                     </Row>
                                 </div>
                             </CardFooter>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle tag="h4">Groups I am in</CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <ul className="list-unstyled team-members">
-                                    {tripGroups.map((tripGroup, index) => (
-                                        <TripGroupItem key={index} /*key={tripGroup.id}*/ tripGroup={tripGroup} props={this.props} />
-                                    ))}
-                                </ul>
-                                <Row>
-                                    <div className="update ml-auto mr-auto">
-                                        <Link to="add-trip-group"
-                                            className="btn-round"
-                                            style={{ color: "#003554" }}
-                                            type="submit"
-                                        >
-                                            Create a Group
-                                            </Link>
-                                    </div>
-                                </Row>
-                            </CardBody>
                         </Card>
                     </Col>
                     <Col md="8">
