@@ -64,7 +64,6 @@ class TripGroupItem extends Component {
     }
 
     render() {
-        console.log(this.props)
         const { tripGroup } = this.props;
         return (
             <div>

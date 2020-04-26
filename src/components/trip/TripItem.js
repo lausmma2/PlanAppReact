@@ -20,13 +20,12 @@ class TripItem extends Component {
 
     render() {
         const { trip } = this.props;
-        //console.log(this.props)
         return (
             <div className="container">
                 <div className="card card-body bg-light mb-4">
                     <div className="row">
                         <div className="col-sm-2">
-                            <span className="card-subtitle mb-2 text-muted">{trip.tripIdentifier}</span>
+                            <span className="card-subtitle mb-2 text-muted" style={{ fontFamily: "Times New Roman" }}>{trip.tripIdentifier}</span>
                         </div>
                         <div className="col-lg-6 col-md-4 col-sm-2">
                             <h3 style={{ fontFamily: "Times New Roman" }}>{trip.name}</h3>

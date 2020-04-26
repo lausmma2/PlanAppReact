@@ -39,7 +39,6 @@ export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => 
         });
         history.push(`/update-trip-group/${tripGroupIdentifier}`);
     } catch (error) {
-        console.log("error?")
         history.push("/groupDashboard");
     }
 };

@@ -25,7 +25,6 @@ class ChooseTripType extends Component {
             this.props.getTrip(id, this.props.history);
 
             if (this.props.coords.coords !== null) {
-                console.log("yapa")
                 this.setState({
                     isGeoLocationEnabled: true
                 })

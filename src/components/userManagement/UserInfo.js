@@ -49,7 +49,6 @@ class UserInfo extends Component {
             this.props.getUsersInfo();
             this.props.getTripGroups();
             this.setState({ ...this.props.userData.userData });
-            console.log(this.props)
         }
     }
 

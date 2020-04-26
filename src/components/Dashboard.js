@@ -28,8 +28,6 @@ class Dashboard extends Component {
             this.props.getUsersLocation();
             this.props.getUsersInfo();
 
-            console.log(this.props)
-
             fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
                 .then(response => response.json())
         }

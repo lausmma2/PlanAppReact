@@ -30,8 +30,6 @@ class GroupDashboard extends Component {
             this.props.getTripTypes();
             this.props.getUsersLocation();
             this.props.getUsersInfo();
-
-            //console.log(this.props)
         }
     }
 
