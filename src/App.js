@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
+import GroupDashboard from './components/GroupDashboard';
 import Header from './components/layout/Header';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -61,6 +62,7 @@ class App extends Component {
             }
             <Switch>
               <SecuredRoute exact path="/dashboard" component={Dashboard} />
+              <SecuredRoute exact path="/groupDashboard" component={GroupDashboard} />
               <SecuredRoute exact path="/addTrip" component={AddTrip} />
               <SecuredRoute exact path="/confirmation" component={AfterRegistrationPage} />
               <SecuredRoute exact path="/user-info" component={UserInfo} />

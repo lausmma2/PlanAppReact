@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createTripGroup } from "../../actions/tripGroupActions";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class AddTripGroup extends Component {
     constructor() {
@@ -102,8 +103,12 @@ class AddTripGroup extends Component {
                                 </div>
                                 <input
                                     type="submit"
-                                    className="btn btn-primary btn-block mt-4" 
-                                    style={{backgroundColor: "#003554"}} />
+                                    className="btn btn-primary btn-block mt-4"
+                                    style={{ backgroundColor: "#003554" }} />
+                                <Link to="/groupDashboard"
+                                    className="btn btn-primary btn-block btn-success mt-2">
+                                    Back
+                                    </Link>
                             </form>
                         </div>
                     </div>

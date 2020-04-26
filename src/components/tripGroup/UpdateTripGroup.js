@@ -125,7 +125,7 @@ class UpdateTripGroup extends Component {
                                     type="submit"
                                     className="btn btn-primary btn-block mt-4"
                                     style={{ backgroundColor: "#003554" }} />
-                                <Link to="/user-info"
+                                <Link to="/groupDashboard"
                                     className="btn btn-primary btn-block btn-success mt-2">
                                     Back
                                     </Link>

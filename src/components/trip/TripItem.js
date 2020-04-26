@@ -20,6 +20,7 @@ class TripItem extends Component {
 
     render() {
         const { trip } = this.props;
+        //console.log(this.props)
         return (
             <div className="container">
                 <div className="card card-body bg-light mb-4">

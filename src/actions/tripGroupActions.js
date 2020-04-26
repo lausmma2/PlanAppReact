@@ -5,7 +5,7 @@ import { GET_ERRORS, GET_TRIP_GROUPS, DELETE_TRIP_GROUP, GET_TRIP_GROUP } from "
 export const createTripGroup = (tripGroup, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
     try {
         const res = await axios.post("https://planapp-spring.herokuapp.com/api/trip-group/create-trip-group", tripGroup)
-        history.push("/user-info")
+        history.push("/groupDashboard")
     } catch (err) {
         dispatch({
             type: GET_ERRORS,
@@ -39,7 +39,8 @@ export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => 
         });
         history.push(`/update-trip-group/${tripGroupIdentifier}`);
     } catch (error) {
-        history.push("/dashboard");
+        console.log("error?")
+        history.push("/groupDashboard");
     }
 };
 

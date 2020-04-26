@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button, Row, Col } from "reactstrap";
 import Modal from 'react-awesome-modal';
-import classnames from "classnames";
 
 class TripGroupItem extends Component {
 
@@ -65,7 +64,8 @@ class TripGroupItem extends Component {
     }
 
     render() {
-        const { tripGroup } = this.props
+        console.log(this.props)
+        const { tripGroup } = this.props;
         return (
             <div>
                 <li>

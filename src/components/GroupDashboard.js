@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import TripItem from './trip/TripItem';
+import TripGroupItem from './tripGroup/TripGroupItem';
+import TripGroupDashboardItem from './tripGroup/TripGroupDashboardItem';
 import CreateTripButton from './trip/CreateTripButton';
 import { connect } from "react-redux";
 import { getTrips } from "../actions/tripActions";
@@ -8,8 +10,9 @@ import PropTypes from "prop-types";
 import { getTripTypes } from "../actions/tripTypeActions";
 import { getUsersLocation } from "../actions/locationActions";
 import { getUsersInfo } from "../actions/userActions";
+import CreateGroupButton from './tripGroup/CreateGroupButton';
 
-class Dashboard extends Component {
+class GroupDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,25 +32,22 @@ class Dashboard extends Component {
             this.props.getUsersInfo();
 
             //console.log(this.props)
-
-            fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
-                .then(response => response.json())
         }
     }
 
     render() {
-        const { trips } = this.props.trip;
+        const { tripGroups } = this.props.tripGroup;
         return (
             <div className="container" >
                 <div className="row">
                     <div className="col-md-12">
-                        <h1 className="display-4 text-center">Your Trip Dashboard</h1>
+                        <h1 className="display-4 text-center">Group Dashboard</h1>
                         <br />
-                        <CreateTripButton />
+                        <CreateGroupButton />
                         <br />
                         <hr />
-                        {trips.map((trip, index) => (
-                            <TripItem key={index} trip={trip} props={this.props} />
+                        {tripGroups.map((tripGroup, index) => (
+                            <TripGroupDashboardItem key={index} tripGroup={tripGroup} props={this.props} />
                         ))}
                     </div>
                 </div>
@@ -56,7 +56,7 @@ class Dashboard extends Component {
     }
 }
 
-Dashboard.propTypes = {
+GroupDashboard.propTypes = {
     trip: PropTypes.object.isRequired,
     getTrips: PropTypes.func.isRequired,
     getTripGroups: PropTypes.func.isRequired,
@@ -64,12 +64,13 @@ Dashboard.propTypes = {
     coords: PropTypes.object.isRequired,
     getUsersLocation: PropTypes.func.isRequired,
     userData: PropTypes.object.isRequired,
-    getUsersInfo: PropTypes.func.isRequired
+    getUsersInfo: PropTypes.func.isRequired,
+    tripGroup: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     trip: state.trip,
-    tripGroup: state.tripGroup,
+    tripGroup: state.tripGroups,
     coords: state.coords,
     security: state.security,
     userData: state.userData
@@ -78,4 +79,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { getTrips, getTripGroups, getTripTypes, getUsersLocation, getUsersInfo }
-)(Dashboard);
+)(GroupDashboard);
