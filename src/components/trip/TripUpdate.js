@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { getTrip, createTrip } from "../../actions/tripActions";
 import { Link } from "react-router-dom";
+import { getUsersInfo } from "../../actions/userActions";
 
 class TripUpdate extends Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class TripUpdate extends Component {
         }
         const { id } = this.props.match.params;
         this.props.getTrip(id, this.props.history);
+        this.props.getUsersInfo();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -149,5 +151,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getTrip, createTrip })
+    { getTrip, createTrip, getUsersInfo })
     (TripUpdate);

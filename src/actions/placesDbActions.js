@@ -12,6 +12,7 @@ export const getAllPlaces = (tripIdentifier, history) => async dispatch => {
 }
 
 export const getAllPlacesAfterAdd = (tripIdentifier) => async dispatch => {
+    console.log(tripIdentifier)
     const res = await axios.get(`https://planapp-spring.herokuapp.com/api/place/all/${tripIdentifier}`);
     dispatch({
         type: GET_PLACES,

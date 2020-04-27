@@ -6,6 +6,7 @@ import WrappedMapDetail from "../../map/MapDetail";
 import DataTableDetail from "../DataTableDetail";
 import { Row, Col } from "reactstrap";
 import { getUsersLocation } from "../../actions/locationActions";
+import { getUsersInfo } from "../../actions/userActions";
 
 class TripDetail extends Component {
 
@@ -14,11 +15,12 @@ class TripDetail extends Component {
             this.props.history.push("/")
         } else {
             this.props.getUsersLocation();
+            this.props.getUsersInfo();
         }
     }
 
     onClick() {
-        this.props.history.goBack();
+        this.props.history.push("/dashboard");
     }
 
     render() {
@@ -64,5 +66,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getTrip, getUsersLocation }
+    { getTrip, getUsersLocation, getUsersInfo }
 )(TripDetail);

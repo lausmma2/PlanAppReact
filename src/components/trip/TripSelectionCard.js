@@ -17,14 +17,15 @@ class TripSelectionCard extends Component {
         this.setState({
             isDisabled: false
         })
-    }
+    };
 
     onClick(tripTypeIdentifier) {
         if (this.state.value === "" || this.state.value == 0) {
             window.alert("Please fill the radius!")
         } else {
-            this.props.getPlacesFromAPI(tripTypeIdentifier, this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude, this.state.value, this.props.props.history);
+            this.props.getPlacesFromAPI(this.props.props.match.params.id, tripTypeIdentifier, this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude, this.state.value, this.props.props.history);
             this.props.getAllPlacesAfterAdd(this.props.trip.trip.tripIdentifier)
+            //console.log(this.props)
         }
     }
 
@@ -55,7 +56,7 @@ TripSelectionCard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    places: state.tripType,
+    places: state.places,
     security: state.security,
     trip: state.trip
 });

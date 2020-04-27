@@ -4,6 +4,7 @@ import { connect } from "react-redux"; // This is going to connect to the state
 import { createTrip } from "../../actions/tripActions";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
+import { getUsersInfo } from "../../actions/userActions";
 
 class AddTrip extends Component {
     constructor() {
@@ -24,6 +25,8 @@ class AddTrip extends Component {
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
+        } else {
+            this.props.getUsersInfo();
         }
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -155,5 +158,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { createTrip })
+    { createTrip, getUsersInfo })
     (AddTrip);

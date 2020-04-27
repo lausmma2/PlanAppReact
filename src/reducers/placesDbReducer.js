@@ -1,7 +1,7 @@
 import { GET_PLACES, DELETE_PLACE } from "../actions/types";
 
 const initialState = {
-    placesFromDb: {}
+    placesFromDb: []
 };
 
 export default function (state = initialState, action) {

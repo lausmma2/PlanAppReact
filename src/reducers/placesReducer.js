@@ -1,7 +1,7 @@
 import { GET_PLACES_DATA_FROM_API } from "../actions/types";
 
 const initialState = {
-    places: {}
+    places: []
 };
 
 export default function (state = initialState, action) {

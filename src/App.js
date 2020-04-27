@@ -68,7 +68,7 @@ class App extends Component {
               <SecuredRoute exact path="/user-info" component={UserInfo} />
               <SecuredRoute exact path="/add-trip-group" component={AddTripGroup} />
               <SecuredRoute exact path="/choose-trip-type/:id" component={ChooseTripType} />
-              <SecuredRoute exact path="/choose-trip" component={ChooseTripPage} />
+              <SecuredRoute exact path="/choose-trip/:tripId/:id/:lat/:lng/:rad" component={ChooseTripPage} />
               <SecuredRoute exact path="/update-trip-group/:id" component={UpdateTripGroup} />
               <SecuredRoute exact path="/tripDetail/:id" component={TripDetail} />
               <SecuredRoute exact path="/update-trip/:id" component={TripUpdate} />

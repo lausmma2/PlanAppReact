@@ -6,14 +6,30 @@ import WrappedMap from "../../map/Map";
 import TablePage from '../DataTablePage';
 import { getUsersLocation } from "../../actions/locationActions";
 import { Row, Col } from "reactstrap";
+import { getUsersInfo } from "../../actions/userActions";
 
 class ChooseTripPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = ({
+            isLoading: true
+        })
+    }
 
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
         }
         this.props.getUsersLocation();
+        this.props.getUsersInfo();
+        //this.getPlaces();
+        this.getPlaces();
+    }
+
+    async getPlaces() {
+        //console.log(this.props);
+        await this.props.getPlacesFromAPI(this.props.match.params.tripId, this.props.match.params.id, this.props.match.params.lat, this.props.match.params.lng, this.props.match.params.rad, this.props.history);
+        this.setState({ isLoading: false })
     }
 
     onClick() {
@@ -24,7 +40,7 @@ class ChooseTripPage extends Component {
         const { latitude } = this.props.coords.coords;
         return (
             <div className="container">
-                {latitude ? (
+                {latitude && !this.state.isLoading ? (
                     <Row top="xs">
                         <Col md={6} xs={12}>
                             <button onClick={this.onClick.bind(this)} className="btn btn-lg btn-success mr-2">Back</button>
@@ -68,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getPlacesFromAPI, getUsersLocation }
+    { getPlacesFromAPI, getUsersLocation, getUsersInfo }
 )(ChooseTripPage);

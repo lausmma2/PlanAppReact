@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "../css/dataTable.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { savePlaceToTrip } from "../actions/placesActions";
+import { savePlaceToTrip, getPlacesFromAPI } from "../actions/placesActions";
 import { getAllPlacesAfterAdd } from "../actions/placesDbActions";
 import { getUsersLocation } from "../actions/locationActions";
 
@@ -21,7 +21,8 @@ class TablePage extends Component {
 
     componentDidMount() {
         this.props.getUsersLocation();
-        this.props.getAllPlacesAfterAdd(this.props.props.trip.trip.tripIdentifier);
+        //console.log(this.props)
+        this.props.getAllPlacesAfterAdd(this.props.props.match.params.tripId);
         this.setState({
             disabledButtons: new Array(100).fill(false)
         })
@@ -66,7 +67,7 @@ class TablePage extends Component {
                         item.position[0],
                         item.position[1],
                         item.distance,
-                        this.props.props.trip.trip.tripIdentifier, index
+                        this.props.props.match.params.tripId, index
                     )}
                         disabled={this.state.disabledButtons[index]}
                     >
@@ -95,7 +96,8 @@ TablePage.propTypes = {
     placesFromDb: PropTypes.object.isRequired,
     getAllPlacesAfterAdd: PropTypes.func.isRequired,
     getUsersLocation: PropTypes.func.isRequired,
-    places: PropTypes.object.isRequired
+    places: PropTypes.object.isRequired,
+    getPlacesFromAPI: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -106,5 +108,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { savePlaceToTrip, getAllPlacesAfterAdd, getUsersLocation }
+    { savePlaceToTrip, getAllPlacesAfterAdd, getUsersLocation, getPlacesFromAPI }
 )(TablePage);

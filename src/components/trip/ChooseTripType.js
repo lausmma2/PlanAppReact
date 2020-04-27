@@ -6,6 +6,7 @@ import { getTripTypes } from "../../actions/tripTypeActions";
 import { getUsersLocation } from "../../actions/locationActions";
 import { Link } from "react-router-dom";
 import { getTrip } from "../../actions/tripActions";
+import { getUsersInfo } from "../../actions/userActions";
 
 class ChooseTripType extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class ChooseTripType extends Component {
         } else {
             this.props.getUsersLocation();
             this.props.getTripTypes();
+            this.props.getUsersInfo();
 
             const { id } = this.props.match.params;
             this.props.getTrip(id, this.props.history);
@@ -38,7 +40,7 @@ class ChooseTripType extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
+        if (prevProps.coords.coords !== this.props.coords.coords) {
             this.setState({
                 isGeoLocationEnabled: !this.state.isGeoLocationEnabled
             })
@@ -46,13 +48,13 @@ class ChooseTripType extends Component {
     }
 
     render() {
-        const { tripType } = this.props.tripType;
+        const { tripTypes } = this.props.tripType;
         return (
             <div>
                 {!this.state.isGeoLocationEnabled ? (
                     <div>
                         <div className="card-columns">
-                            {tripType.map((triptype, index) => (
+                            {tripTypes.map((triptype, index) => (
                                 <TripSelectionCard key={index} triptype={triptype} props={this.props} />
                             ))}
                         </div>
@@ -86,5 +88,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getTripTypes, getUsersLocation, getTrip }
+    { getTripTypes, getUsersLocation, getTrip, getUsersInfo }
 )(ChooseTripType);

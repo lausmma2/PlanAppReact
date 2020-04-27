@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { createTripGroup } from "../../actions/tripGroupActions";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
+import { getUsersInfo } from "../../actions/userActions";
 
 class AddTripGroup extends Component {
     constructor() {
@@ -22,6 +23,8 @@ class AddTripGroup extends Component {
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
+        } else {
+            this.props.getUsersInfo();
         }
     }
 
@@ -131,5 +134,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { createTripGroup })
+    { createTripGroup, getUsersInfo })
     (AddTripGroup);

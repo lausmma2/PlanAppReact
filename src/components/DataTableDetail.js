@@ -3,7 +3,7 @@ import "../css/dataTable.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { savePlaceToTrip } from "../actions/placesActions";
-import { deletePlace } from "../actions/placesDbActions";
+import { deletePlace, getAllPlaces } from "../actions/placesDbActions";
 
 class DataTableDetail extends Component {
     constructor(props) {
@@ -15,6 +15,9 @@ class DataTableDetail extends Component {
             }],
             test: "test"
         }
+    }
+    componentDidMount() {
+        this.props.getAllPlaces(this.props.props.match.params.id, this.props.props.history)
     }
 
     onDeleteClick = (latitude, longitude, tripIdentifier) => {
@@ -68,5 +71,5 @@ DataTableDetail.propTypes = {
 
 export default connect(
     null,
-    { savePlaceToTrip, deletePlace }
+    { savePlaceToTrip, deletePlace, getAllPlaces }
 )(DataTableDetail);

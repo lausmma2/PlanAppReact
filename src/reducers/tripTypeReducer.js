@@ -1,6 +1,7 @@
 import { GET_TRIP_TYPE, GET_TRIP_TYPES } from "../actions/types";
 
 const initialState = {
+    tripTypes: [],
     tripType: {}
 };
 
@@ -10,7 +11,7 @@ export default function (state = initialState, action) {
         case GET_TRIP_TYPES:
             return {
                 ...state,
-                tripType: action.payload
+                tripTypes: action.payload
             };
 
         case GET_TRIP_TYPE:

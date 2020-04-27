@@ -2,7 +2,7 @@
 import { GET_PLACES_DATA_FROM_API, GET_ERRORS } from "./types";
 import axios from "axios";
 
-export const getPlacesFromAPI = (id, latitude, longitude, radius, history) => async dispatch => {
+export const getPlacesFromAPI = (tripId, id, latitude, longitude, radius, history) => async dispatch => {
     return await fetch(`https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&in=${latitude},${longitude};r=${radius}&cat=${id}`)
         .then(res => res.json())
         .then(json => {
@@ -10,7 +10,8 @@ export const getPlacesFromAPI = (id, latitude, longitude, radius, history) => as
                 type: GET_PLACES_DATA_FROM_API,
                 payload: json
             });
-            history.push("/choose-trip");
+            console.log("funkceee")
+            history.push(`/choose-trip/${tripId}/${id}/${latitude}/${longitude}/${radius}`);
             return json;
         })
 }

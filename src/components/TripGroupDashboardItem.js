@@ -11,7 +11,7 @@ class TripGroupDashboardItem extends Component {
     constructor() {
         super();
         this.state = ({
-            isTripCreator: true
+            isTripCreator: null
         })
     }
 
