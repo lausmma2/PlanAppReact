@@ -6,6 +6,7 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { getUsersInfo } from "../../actions/userActions";
 
+//Form to create new group
 class AddTripGroup extends Component {
     constructor() {
         super();
@@ -20,6 +21,7 @@ class AddTripGroup extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //Check if the token is valid or not
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -32,12 +34,14 @@ class AddTripGroup extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    //info about errors before getting new props
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
         }
     }
 
+    //after form submit - createTripGroup will be called with specific user's parameters
     onSubmit(e) {
         e.preventDefault();
         const newTripGroup = {
@@ -121,12 +125,14 @@ class AddTripGroup extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 AddTripGroup.propTypes = {
     createTripGroup: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 }
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     security: state.security,
     errors: state.errors

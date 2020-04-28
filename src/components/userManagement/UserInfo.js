@@ -3,7 +3,6 @@ import { getUsersInfo } from "../../actions/userActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { updateUser } from "../../actions/userActions";
-import { Link } from "react-router-dom";
 import { getTripGroups } from "../../actions/tripGroupActions";
 import {
     Button,
@@ -24,8 +23,8 @@ import {
     AvInput,
     AvFeedback,
 } from 'availity-reactstrap-validation';
-import TripGroupItem from '../tripGroup/TripGroupItem';
 
+//Component that expresses user's profile
 class UserInfo extends Component {
     constructor() {
         super();
@@ -42,6 +41,7 @@ class UserInfo extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //Check if the token is valid or not
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -52,6 +52,7 @@ class UserInfo extends Component {
         }
     }
 
+    //sending modified user's data to backend
     onSubmit(e) {
         e.persist();
         this.setState({
@@ -255,6 +256,7 @@ class UserInfo extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 UserInfo.propTypes = {
     userData: PropTypes.object.isRequired,
     getUsersInfo: PropTypes.func.isRequired,
@@ -264,6 +266,7 @@ UserInfo.propTypes = {
     getTripGroups: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     userData: state.userData,
     security: state.security,

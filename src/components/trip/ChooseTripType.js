@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { getTrip } from "../../actions/tripActions";
 import { getUsersInfo } from "../../actions/userActions";
 
+//Page where user can choose between
 class ChooseTripType extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +17,7 @@ class ChooseTripType extends Component {
         })
     }
 
+    //Controls if token is valid
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -39,6 +41,7 @@ class ChooseTripType extends Component {
         }
     }
 
+    //method to check if user changes geolocation state in browser
     componentDidUpdate(prevProps) {
         if (prevProps.coords.coords !== this.props.coords.coords) {
             this.setState({
@@ -47,6 +50,7 @@ class ChooseTripType extends Component {
         }
     }
 
+    //if geo location is not enabled => user won't be able to choose trips if geo locaiton is not enabled
     render() {
         const { tripTypes } = this.props.tripType;
         return (
@@ -69,6 +73,7 @@ class ChooseTripType extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 ChooseTripType.propTypes = {
     tripType: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
@@ -79,6 +84,7 @@ ChooseTripType.propTypes = {
     getTripTypes: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     tripType: state.tripType,
     security: state.security,

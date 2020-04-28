@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+//Component that expresses button for creating trip
 const CreateTripButton = () => {
     return (
         <React.Fragment>

@@ -6,6 +6,7 @@ import { getTripGroup, createTripGroup } from "../../actions/tripGroupActions";
 import { Link } from "react-router-dom";
 import { getUsersInfo } from "../../actions/userActions";
 
+//Component that expresses group edit form
 class UpdateTripGroup extends Component {
     constructor(props) {
         super(props);
@@ -21,15 +22,18 @@ class UpdateTripGroup extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //check if the token is valid or not
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
+        } else {
+            const { id } = this.props.match.params;
+            this.props.getTripGroup(id, this.props.history);
+            this.props.getUsersInfo();
         }
-        const { id } = this.props.match.params;
-        this.props.getTripGroup(id, this.props.history);
-        this.props.getUsersInfo();
     }
 
+    //inicializing initial values
     componentWillReceiveProps(nextProps) {
         const {
             tripGroupId,
@@ -50,12 +54,14 @@ class UpdateTripGroup extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    //info about errors before getting new props  
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
         }
     }
 
+    //submitting the form will send data to backend
     onSubmit(e) {
         e.preventDefault();
         const updatedTripGroup = {
@@ -140,6 +146,7 @@ class UpdateTripGroup extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 UpdateTripGroup.propTypes = {
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
@@ -147,6 +154,7 @@ UpdateTripGroup.propTypes = {
     getTripGroup: PropTypes.func.isRequired
 }
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     security: state.security,
     errors: state.errors,

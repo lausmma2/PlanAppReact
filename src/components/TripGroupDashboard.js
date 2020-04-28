@@ -8,6 +8,7 @@ import { getUsersLocation } from "../actions/locationActions";
 import TripGroupDashboardItem from './TripGroupDashboardItem';
 import { getUsersInfo } from "../actions/userActions";
 
+//Expresses trip dashboard inside specific group
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -17,13 +18,13 @@ class Dashboard extends Component {
         };
     }
 
+    //async function to wait until all trips are loaded
     async getTripByGroupId() {
         await this.props.getTripsByTripGroupIdentifier(this.props.match.params.id, this.props.history);
         this.setState({ isLoading: false })
     }
 
     componentDidMount() {
-        //this.props.getTripsByTripGroupIdentifier(this.props.match.params.id, this.props.history);
         this.getTripByGroupId();
         this.props.getTripGroups();
         this.props.getUsersLocation();
@@ -54,6 +55,7 @@ class Dashboard extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 Dashboard.propTypes = {
     trip: PropTypes.object.isRequired,
     getTrips: PropTypes.func.isRequired,
@@ -64,6 +66,7 @@ Dashboard.propTypes = {
     getTripsByTripGroupIdentifier: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     trip: state.trip,
     tripGroup: state.tripGroup,

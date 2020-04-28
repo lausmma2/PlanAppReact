@@ -2,6 +2,7 @@
 import axios from "axios";
 import { GET_TRIP_TYPE, GET_TRIP_TYPES } from "./types";
 
+//returns one specific trip type by its id
 export const getTripType = (id, history) => async dispatch => {
     try {
         const res = await axios.get(`https://planapp-spring.herokuapp.com/api/trip/trip-type/${id}`);
@@ -14,6 +15,7 @@ export const getTripType = (id, history) => async dispatch => {
     }
 };
 
+//returns all trip types
 export const getTripTypes = () => async dispatch => {
     const res = await axios.get("https://planapp-spring.herokuapp.com/api/trip/trip-type/all");
     dispatch({

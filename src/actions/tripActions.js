@@ -2,7 +2,8 @@
 import axios from "axios";
 import { GET_ERRORS, GET_TRIPS, DELETE_TRIP, ADD_TRIP_TO_TRIPGROUP, GET_TRIP, GET_TRIPS_BY_TRIPGROUP, GET_TRIP_BY_TRIPGROUP } from "./types";
 
-export const createTrip = (trip, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
+//creates a trip and send user to /dashboard page
+export const createTrip = (trip, history) => async dispatch => {
     try {
         const res = await axios.post("https://planapp-spring.herokuapp.com/api/trip/create-trip", trip)
         history.push("/dashboard")
@@ -14,6 +15,7 @@ export const createTrip = (trip, history) => async dispatch => { //This is gonna
     }
 }
 
+//get all trips based on user's username... controlled by principal.getName() on backend
 export const getTrips = () => async dispatch => {
     const res = await axios.get("https://planapp-spring.herokuapp.com/api/trip/all");
     dispatch({
@@ -22,6 +24,7 @@ export const getTrips = () => async dispatch => {
     });
 };
 
+//ask user to delete confirmation, then deletes the specific trip by id
 export const deleteTrip = id => async dispatch => {
     if (
         window.confirm(
@@ -36,6 +39,7 @@ export const deleteTrip = id => async dispatch => {
     }
 };
 
+//ask user to add trip to group, then add trip to group by tripId and groupId
 export const addTripToTripGroup = (tripIdentifier, tripGroupIdentifier) => async dispatch => {
     if (
         window.confirm(
@@ -51,6 +55,7 @@ export const addTripToTripGroup = (tripIdentifier, tripGroupIdentifier) => async
     }
 }
 
+//get the specific trip by its id
 export const getTrip = (id, history) => async dispatch => {
     try {
         const res = await axios.get(`https://planapp-spring.herokuapp.com/api/trip/${id}`);
@@ -63,6 +68,7 @@ export const getTrip = (id, history) => async dispatch => {
     }
 };
 
+//returns all trips connected to some specific group
 export const getTripsByTripGroupIdentifier = (tripGroupIdentifier, history) => async dispatch => {
     const res = await axios.get(`https://planapp-spring.herokuapp.com/api/trip/group/${tripGroupIdentifier}`);
     dispatch({
@@ -72,6 +78,7 @@ export const getTripsByTripGroupIdentifier = (tripGroupIdentifier, history) => a
     history.push(`/trip-group/dashboard/${tripGroupIdentifier}`)
 };
 
+//returns specific trip by tripId and groupId
 export const getTripByTripIdentifierAndTripGroupIdentifier = (tripIdentifier, tripGroupIdentifier) => async dispatch => {
     const res = await axios.get(`https://planapp-spring.herokuapp.com/api/trip/${tripIdentifier}/${tripGroupIdentifier}`);
     dispatch({

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { getPlacesFromAPI } from "../actions/placesActions";
 import { getUsersLocation } from "../actions/locationActions";
 
+//Expresses map in trip detail, with chosen places
 class MapGoogle extends Component {
 
     constructor(props) {
@@ -24,6 +25,8 @@ class MapGoogle extends Component {
         })
     }
 
+    //Redrawing routes between places after one place delete
+    //Check if stored places changed in db or not
     componentDidUpdate(prevProps) {
         if (prevProps.props.placesFromDb.placesFromDb.length !== this.props.placesFromDb.placesFromDb.length) {
             this.setState({
@@ -33,6 +36,7 @@ class MapGoogle extends Component {
         }
     }
 
+    //Redraw routes between places after one place delete
     drawRoutesAfterDelete(places) {
         const { placesFromDb } = this.props.placesFromDb;
         this.props.getUsersLocation();
@@ -77,6 +81,7 @@ class MapGoogle extends Component {
         )
     }
 
+    //Draw routes between first and last chosen place
     drawRoutes() {
         const { placesFromDb } = this.props.placesFromDb;
         this.props.getUsersLocation();
@@ -85,6 +90,8 @@ class MapGoogle extends Component {
         var destination = null;
         var origin = null;
 
+        //To see user's trip routes and places I selected attitude, that if geo position is not enabled 
+        //=> it will be set to 50.034309, 15.781199 so user can see his map with places and routes
         if (placesFromDb.length - 1 >= 0) {
             destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
             origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
@@ -96,12 +103,15 @@ class MapGoogle extends Component {
             destination = { location: new window.google.maps.LatLng(50.034309, 15.781199) }
         }
 
+        //Setting waypoints (places between origin and destination)
         var waypoints = [];
         {
             this.state.places.map(place => (
                 waypoints.push({ location: new window.google.maps.LatLng(place.latitude, place.longitude) })
             ))
         }
+
+        //Setting routes info and draw routes
         directionsService.route(
             {
                 origin: origin,
@@ -121,6 +131,7 @@ class MapGoogle extends Component {
         )
     }
 
+    //when component mounts, routes will be drawn
     componentDidMount() {
         this.drawRoutes();
     }
@@ -234,8 +245,9 @@ class MapGoogle extends Component {
         );
     }
 }
-
 var WrappedMapDetail;
+
+//Exports range of validators that can be used to make sure the recieved data is valid
 MapGoogle.propTypes = {
     places: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
@@ -244,6 +256,7 @@ MapGoogle.propTypes = {
     getUsersLocation: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     places: state.places,
     security: state.security,
@@ -251,7 +264,6 @@ const mapStateToProps = state => ({
     coords: state.coords
 });
 
-//export default WrappedMap = withScriptjs(withGoogleMap(Map))
 export default connect(
     mapStateToProps,
     { getPlacesFromAPI, getUsersLocation }

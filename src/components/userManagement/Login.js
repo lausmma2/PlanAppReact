@@ -5,6 +5,7 @@ import classnames from "classnames";
 import { login } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
 
+//Expresses login form
 class Login extends Component {
     constructor() {
         super();
@@ -17,12 +18,14 @@ class Login extends Component {
         this.onChange = this.onChange.bind(this);
     }
 
+    //check if the token is valid or not
     componentDidMount() {
         if (this.props.security.validToken) {
             this.props.history.push("/dashboard")
         }
     }
 
+    //info about errors before getting new props and if token is valid it will send user to dashboard
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.security.validToken) {
             this.props.history.push("/dashboard");
@@ -32,6 +35,7 @@ class Login extends Component {
         }
     }
 
+    //submitting the form button will send data to backend, verify user and block him or sign him in
     onSubmit(e) {
         e.preventDefault();
         const LoginRequest = {
@@ -98,12 +102,14 @@ class Login extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 Login.propTypes = {
     login: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 }
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     security: state.security,
     errors: state.errors

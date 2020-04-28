@@ -9,6 +9,7 @@ import { getTripTypes } from "../actions/tripTypeActions";
 import { getUsersLocation } from "../actions/locationActions";
 import { getUsersInfo } from "../actions/userActions";
 
+//Main trip dashboard of the app
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ class Dashboard extends Component {
         };
     }
 
+    //Check if the token is valid or not
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -54,6 +56,7 @@ class Dashboard extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 Dashboard.propTypes = {
     trip: PropTypes.object.isRequired,
     getTrips: PropTypes.func.isRequired,
@@ -65,6 +68,7 @@ Dashboard.propTypes = {
     getUsersInfo: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     trip: state.trip,
     tripGroup: state.tripGroup,

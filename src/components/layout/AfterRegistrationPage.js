@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+//Component displayed after registration is performed successfully
 class AfterRegistrationPage extends Component {
     render() {
         return (

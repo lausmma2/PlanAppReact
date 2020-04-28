@@ -136,6 +136,7 @@ class TripUpdate extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 TripUpdate.propTypes = {
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
@@ -143,6 +144,7 @@ TripUpdate.propTypes = {
     getTrip: PropTypes.func.isRequired
 }
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     security: state.security,
     errors: state.errors,

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getPlacesFromAPI } from "../actions/placesActions";
 
+//Styles of the map
 const exampleMapStyles = [
     {
         featureType: "poi",
@@ -34,6 +35,7 @@ const exampleMapStyles = [
     },
 ];
 
+//Google Map component in choose places page
 class MapGoogle extends Component {
 
     constructor(props) {
@@ -44,6 +46,8 @@ class MapGoogle extends Component {
         }
     }
 
+    //Configures user's marker and places markers, info windows of individual places
+    //If user doesn't have enabled geo position => it won't let him choose places and see the map
     render() {
         const data = this.props.places.places.results.items;
         const { latitude } = this.props.props.coords.coords;
@@ -111,13 +115,15 @@ class MapGoogle extends Component {
         );
     }
 }
-
 var WrappedMap;
+
+//Exports range of validators that can be used to make sure the recieved data is valid
 MapGoogle.propTypes = {
     places: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     places: state.places,
     security: state.security

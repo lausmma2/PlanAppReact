@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+//Button for creating new groups
 const CreateGroupButton = () => {
     return (
         <React.Fragment>

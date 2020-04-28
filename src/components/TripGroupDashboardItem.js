@@ -6,6 +6,7 @@ import { getTripGroups } from "../actions/tripGroupActions";
 import { getAllPlaces, getAllPlacesByTripIdentifierAndTripGroupIdentifier } from "../actions/placesDbActions";
 import { getUsersInfo } from "../actions/userActions";
 
+//Expresses individual trip items in specific group
 class TripGroupDashboardItem extends Component {
 
     constructor() {
@@ -15,9 +16,9 @@ class TripGroupDashboardItem extends Component {
         })
     }
 
+    //Check if the user's username is equal to creator's trip username
     componentDidMount() {
         this.props.getUsersInfo();
-        //console.log(this.props)
         if (this.props.userData.userData.username === this.props.trip.tripCreator) {
             this.setState({
                 isTripCreator: true
@@ -29,10 +30,12 @@ class TripGroupDashboardItem extends Component {
         }
     }
 
+    //Clicking on delete button will delete the whole trip
     onDeleteClick = id => {
         this.props.deleteTrip(id);
     };
 
+    //Clicking on detail will display places and map in the specific trip in the group
     onDetailClick = (tripIdentifier, tripGroupIdentifier) => {
         this.props.getTripByTripIdentifierAndTripGroupIdentifier(tripIdentifier, tripGroupIdentifier);
         this.props.getAllPlacesByTripIdentifierAndTripGroupIdentifier(tripIdentifier, tripGroupIdentifier, this.props.props.history);
@@ -96,6 +99,7 @@ class TripGroupDashboardItem extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 TripGroupDashboardItem.propTypes = {
     security: PropTypes.object.isRequired,
     deleteTrip: PropTypes.func.isRequired,
@@ -107,6 +111,8 @@ TripGroupDashboardItem.propTypes = {
     getTripByTripIdentifierAndTripGroupIdentifier: PropTypes.func.isRequired,
     getAllPlacesByTripIdentifierAndTripGroupIdentifier: PropTypes.func.isRequired
 }
+
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     security: state.security,
     tripGroup: state.tripGroups,

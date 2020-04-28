@@ -2,6 +2,7 @@
 import axios from "axios";
 import { GET_ERRORS, GET_TRIP_GROUPS, DELETE_TRIP_GROUP, GET_TRIP_GROUP } from "./types";
 
+//creates new group, then sends user to /groupDashboard page
 export const createTripGroup = (tripGroup, history) => async dispatch => { //This is gonna allow us to redirect once we submit the form
     try {
         const res = await axios.post("https://planapp-spring.herokuapp.com/api/trip-group/create-trip-group", tripGroup)
@@ -14,6 +15,7 @@ export const createTripGroup = (tripGroup, history) => async dispatch => { //Thi
     }
 }
 
+//returns all groups based on user's username... controlled by principal.getName() on backend
 export const getTripGroups = () => async dispatch => {
     const res = await axios.get("https://planapp-spring.herokuapp.com/api/trip-group/all")
     dispatch({
@@ -22,6 +24,7 @@ export const getTripGroups = () => async dispatch => {
     });
 };
 
+//ask user to delete confirmation, then deletes the specific group by id
 export const deleteTripGroup = id => async dispatch => {
     if (
         window.confirm(
@@ -36,6 +39,7 @@ export const deleteTripGroup = id => async dispatch => {
     }
 };
 
+//returns specific group by its id
 export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => {
     try {
         const res = await axios.get(`https://planapp-spring.herokuapp.com/api/trip-group/${tripGroupIdentifier}`);
@@ -49,7 +53,8 @@ export const getTripGroup = (tripGroupIdentifier, history) => async dispatch => 
     }
 };
 
-export const addUserToTripGroup = (tripGroupIdentifier, username, history) => async dispatch => {
+//send request to add user to group by groupId and username
+export const addUserToTripGroup = (tripGroupIdentifier, username) => async dispatch => {
     try {
         const res = await axios.post(`https://planapp-spring.herokuapp.com/api/trip-group/${tripGroupIdentifier}/${username}`)
     } catch (error) {

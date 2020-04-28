@@ -7,12 +7,15 @@ import { getTripGroups } from "../../actions/tripGroupActions";
 import { Link } from "react-router-dom";
 import { getAllPlaces } from "../../actions/placesDbActions";
 
+//Components that expresses individual trip items in the dashboard
 class TripItem extends Component {
 
+    //if user click on delete button
     onDeleteClick = id => {
         this.props.deleteTrip(id);
     };
 
+    //if user click on detail button
     onDetailClick = id => {
         this.props.getTrip(id);
         this.props.getAllPlaces(id, this.props.props.history);
@@ -65,6 +68,7 @@ class TripItem extends Component {
         )
     }
 }
+//Dropdown to choose groups => to add trip to group
 const DropdownList = (props) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -91,6 +95,7 @@ const DropdownList = (props) => {
     );
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 TripItem.propTypes = {
     deleteTrip: PropTypes.func.isRequired,
     tripGroup: PropTypes.object.isRequired,
@@ -99,6 +104,8 @@ TripItem.propTypes = {
     getTrip: PropTypes.func.isRequired,
     placesFromDb: PropTypes.object.isRequired
 }
+
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     tripGroup: state.tripGroups,
     placesFromDb: state.placesFromDb

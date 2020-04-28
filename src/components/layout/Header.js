@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logout } from "../../actions/securityActions";
 
+//Component to display header through the whole app... if token is not valid and userData are not available, user is not probably identified
 class Header extends Component {
     logout() {
         this.props.logout();

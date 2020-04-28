@@ -1,4 +1,5 @@
 //Redux
+//Important constants for actions and reducers
 export const GET_ERRORS = "GET_ERRORS";
 
 export const GET_TRIPS = "GET_TRIPS";

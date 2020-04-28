@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 
+//Registration form
 class Register extends Component {
 
     constructor() {
@@ -23,12 +24,14 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //Check if the token is valid or not
     componentDidMount() {
         if (this.props.security.validToken) {
             this.props.history.push("/dashboard")
         }
     }
 
+    //info about errors before getting new props
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
@@ -37,6 +40,8 @@ class Register extends Component {
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
+
+    //sends registration data to backend => after submitting the form app waits until the user is created
     async onSubmit(e) {
         e.preventDefault();
         this.setState({
@@ -164,16 +169,19 @@ class Register extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 Register.propTypes = {
     createNewUser: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     errors: state.errors,
     security: state.security
 });
+
 export default connect(
     mapStateToProps,
     { createNewUser }

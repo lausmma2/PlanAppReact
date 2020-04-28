@@ -9,6 +9,7 @@ import { Button } from "reactstrap";
 import Modal from 'react-awesome-modal';
 import { getUsersInfo } from "../../actions/userActions";
 
+//Component that expresses individual group items in GroupDashboard
 class TripGroupDashboardItem extends Component {
 
     constructor(props) {
@@ -22,6 +23,9 @@ class TripGroupDashboardItem extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+
+    //Check if the username of logged user is the same as tripGroupCreator
+    // => if yes => user sees more features than user who is not trip group creator
     componentDidMount() {
         if (this.props.props.security.user.username === this.props.tripGroup.tripGroupCreator) {
             this.setState({
@@ -34,31 +38,36 @@ class TripGroupDashboardItem extends Component {
         }
     }
 
+    //Function to open modal to add user to specific group
     openModal() {
         this.setState({
             visible: true
         });
     }
 
+    //Function to close modal
     closeModal() {
         this.setState({
             visible: false
         });
     }
 
+    //When clicking on delete item => group should be deleted
     onDeleteClick = id => {
         this.props.deleteTripGroup(id);
     }
 
+    //When clicking on edit item => edit form will open
     onEditClick = id => {
         this.props.getTripGroup(id, this.props.props.history);
     }
 
+    //When clicking on detail => user will see specific trips in specific group
     onDetailClick = id => {
         this.props.getTripsByTripGroupIdentifier(id, this.props.props.history);
     }
 
-
+    //Submit function inside modal
     onSubmit(e) {
         e.preventDefault();
         this.props.addUserToTripGroup(this.props.tripGroup.tripGroupIdentifier, this.state.username, this.props.props.history);
@@ -170,14 +179,16 @@ class TripGroupDashboardItem extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 TripGroupDashboardItem.propTypes = {
-    //tripGroup: PropTypes.object.isRequired,
     getTripGroups: PropTypes.func.isRequired,
     placesFromDb: PropTypes.object.isRequired,
     getTripsByTripGroupIdentifier: PropTypes.func.isRequired,
     addUserToTripGroup: PropTypes.func.isRequired,
     getTripGroup: PropTypes.func.isRequired
 }
+
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     placesFromDb: state.placesFromDb
 });

@@ -6,6 +6,7 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { getUsersInfo } from "../../actions/userActions";
 
+//Component that expresses trip adding form
 class AddTrip extends Component {
     constructor() {
         super();
@@ -17,11 +18,11 @@ class AddTrip extends Component {
             end_date: "",
             errors: {}
         };
-
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //when component mounts - this will check if the token is valid or not
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -29,6 +30,8 @@ class AddTrip extends Component {
             this.props.getUsersInfo();
         }
     }
+    
+    //info about errors before getting new props
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
@@ -39,6 +42,7 @@ class AddTrip extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    //after form submit - createTrip will be called with specific user's parameters
     onSubmit(e) {
         e.preventDefault();
         const newTrip = {
@@ -144,13 +148,13 @@ class AddTrip extends Component {
         )
     }
 }
-
+//Exports range of validators that can be used to make sure the recieved data is valid
 AddTrip.propTypes = {
     createTrip: PropTypes.func.isRequired,
     security: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
-
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     security: state.security,
     errors: state.errors

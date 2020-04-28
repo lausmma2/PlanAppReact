@@ -5,10 +5,10 @@ import jwt_decode from "jwt-decode";
 import { getUsersInfo } from './userActions';
 import { getTripGroups } from './tripGroupActions';
 
+//creates new user and send user to /confirmation page
 export const createNewUser = (newUser, history) => async dispatch => {
   try {
     await axios.post("https://planapp-spring.herokuapp.com/register", newUser)
-    //možná tady udělat nějakou boolean proměnnou?
     history.push("/confirmation");
     dispatch({
       type: GET_ERRORS,
@@ -22,19 +22,18 @@ export const createNewUser = (newUser, history) => async dispatch => {
   }
 }
 
+//sign in user
 export const login = LoginRequest => async dispatch => {
   try {
-    // post => Login Request
     const res = await axios.post("https://planapp-spring.herokuapp.com/login", LoginRequest);
-    // extract token from res.data
+    //get token from res
     const { token } = res.data;
-    // store the token in the localStorage
+    //store the token in the localStorage
     localStorage.setItem("jwtToken", token);
-    // set our token in header ***
+    //set the token in header
     SetJWTToken(token);
-    // decode token on React
+    //decode token
     const decoded = jwt_decode(token);
-    // dispatch to our securityReducer
     dispatch({
       type: SET_CURRENT_USER,
       payload: decoded
@@ -49,10 +48,10 @@ export const login = LoginRequest => async dispatch => {
   }
 };
 
+//method to logout
 export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken"); //remove jwtToken from localStorage
-  //localStorage.removeItem("state");
-  SetJWTToken(false); //deletes the axios header...
+  SetJWTToken(false); //deletes the header setted in login method
   dispatch({
     type: SET_CURRENT_USER,
     payload: {}

@@ -8,8 +8,10 @@ import { Row, Col } from "reactstrap";
 import { getUsersLocation } from "../../actions/locationActions";
 import { getUsersInfo } from "../../actions/userActions";
 
+//Component that expresses trip detail - chosen places and the route between them
 class TripDetail extends Component {
 
+    //Controls if the token is valid or not
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -48,6 +50,7 @@ class TripDetail extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 TripDetail.propTypes = {
     trip: PropTypes.object.isRequired,
     getTrip: PropTypes.func.isRequired,
@@ -57,6 +60,7 @@ TripDetail.propTypes = {
     getUsersLocation: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     trip: state.trip,
     places: state.places,

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { savePlaceToTrip } from "../actions/placesActions";
 import { deletePlace, getAllPlaces } from "../actions/placesDbActions";
 
+//Expresses table in trip detail => containts stored places in the specific trip
 class DataTableDetail extends Component {
     constructor(props) {
         super(props);
@@ -16,14 +17,17 @@ class DataTableDetail extends Component {
             test: "test"
         }
     }
+    //after component mounts => returns all stored places
     componentDidMount() {
         this.props.getAllPlaces(this.props.props.match.params.id, this.props.props.history)
     }
 
+    //on delete button clicking => clicked place will be deleted
     onDeleteClick = (latitude, longitude, tripIdentifier) => {
         this.props.deletePlace(latitude, longitude, tripIdentifier);
     };
 
+    //method to render header of the table
     renderTableHeader() {
         let header = Object.keys(this.state.headers[0])
         return header.map((key, index) => {
@@ -31,6 +35,7 @@ class DataTableDetail extends Component {
         })
     }
 
+    //method to render table body
     renderTableData() {
         const { placesFromDb } = this.props.props.placesFromDb;
         return placesFromDb.map((item, index) => {
@@ -64,10 +69,10 @@ class DataTableDetail extends Component {
     }
 };
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 DataTableDetail.propTypes = {
     deletePlace: PropTypes.func.isRequired
 };
-
 
 export default connect(
     null,

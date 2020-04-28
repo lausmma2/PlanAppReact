@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getAllPlacesAfterAdd } from '../../actions/placesDbActions';
 
+//Component that expresses individual trip type items where it is necessary to set radius of nearby places from user's position
 class TripSelectionCard extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +20,9 @@ class TripSelectionCard extends Component {
         })
     };
 
+    //when clicking the button => check if the radius is filled 
+    //=> if yes => returns all places from developer.here.api and returns all places already stored in db 
+    //=> to check how many places are chosen
     onClick(tripTypeIdentifier) {
         if (this.state.value === "" || this.state.value == 0) {
             window.alert("Please fill the radius!")
@@ -47,13 +51,14 @@ class TripSelectionCard extends Component {
         )
     }
 }
-
+//Exports range of validators that can be used to make sure the recieved data is valid
 TripSelectionCard.propTypes = {
     places: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
     trip: PropTypes.object.isRequired,
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     places: state.places,
     security: state.security,

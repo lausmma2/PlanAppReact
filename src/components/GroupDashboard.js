@@ -9,6 +9,7 @@ import { getUsersLocation } from "../actions/locationActions";
 import { getUsersInfo } from "../actions/userActions";
 import CreateGroupButton from './tripGroup/CreateGroupButton';
 
+//Component that expresses main dashboard of groups
 class GroupDashboard extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ class GroupDashboard extends Component {
         };
     }
 
+    //Check if the token is valid or not => if not => calling all necessary functions
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -51,6 +53,7 @@ class GroupDashboard extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 GroupDashboard.propTypes = {
     trip: PropTypes.object.isRequired,
     getTrips: PropTypes.func.isRequired,
@@ -63,6 +66,7 @@ GroupDashboard.propTypes = {
     tripGroup: PropTypes.object.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     trip: state.trip,
     tripGroup: state.tripGroups,

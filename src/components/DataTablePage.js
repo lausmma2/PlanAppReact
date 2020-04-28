@@ -6,6 +6,7 @@ import { savePlaceToTrip, getPlacesFromAPI } from "../actions/placesActions";
 import { getAllPlacesAfterAdd } from "../actions/placesDbActions";
 import { getUsersLocation } from "../actions/locationActions";
 
+//Expresses table in choosing places page
 class TablePage extends Component {
     constructor(props) {
         super(props);
@@ -14,11 +15,12 @@ class TablePage extends Component {
                 name: '',
                 add: ''
             }],
-            disabledButtons: [],
-            numberOfChosenPlaces: props.placesFromDb.placesFromDb.length + 1
+            disabledButtons: [], //to disable already chosen places
+            numberOfChosenPlaces: props.placesFromDb.placesFromDb.length + 1 //to count chosen places
         }
     }
 
+    //get user's coords and places stored in the database => checking number of places
     componentDidMount() {
         this.props.getUsersLocation();
         this.props.getAllPlacesAfterAdd(this.props.props.match.params.tripId);
@@ -32,6 +34,7 @@ class TablePage extends Component {
         }
     }
 
+    //clicking on place's choose button => disabling buttons and checking how many places is already stored
     onClick(title, latitude, longitude, distance, tripIdentifier, index) {
         this.setState(oldState => {
             const newDisabledButtons = [...oldState.disabledButtons]
@@ -49,6 +52,7 @@ class TablePage extends Component {
         this.props.savePlaceToTrip(title, latitude, longitude, distance, tripIdentifier);
     }
 
+    //rendering header of the table
     renderTableHeader() {
         let header = Object.keys(this.state.headers[0])
         return header.map((key, index) => {
@@ -56,6 +60,7 @@ class TablePage extends Component {
         })
     }
 
+    //rendering body of the table
     renderTableData() {
         const { items } = this.props.props.places.places.results;
         return items.map((item, index) => {
@@ -91,6 +96,7 @@ class TablePage extends Component {
     }
 };
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 TablePage.propTypes = {
     placesFromDb: PropTypes.object.isRequired,
     getAllPlacesAfterAdd: PropTypes.func.isRequired,
@@ -99,6 +105,7 @@ TablePage.propTypes = {
     getPlacesFromAPI: PropTypes.func.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     placesFromDb: state.placesFromDb,
     places: state.places,

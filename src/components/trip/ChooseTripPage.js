@@ -8,6 +8,7 @@ import { getUsersLocation } from "../../actions/locationActions";
 import { Row, Col } from "reactstrap";
 import { getUsersInfo } from "../../actions/userActions";
 
+//Page where is the map and table - user can choose places here
 class ChooseTripPage extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +17,7 @@ class ChooseTripPage extends Component {
         })
     }
 
+    //if token is not valid... push user to "/" page
     componentDidMount() {
         if (!this.props.security.validToken) {
             this.props.history.push("/")
@@ -25,6 +27,7 @@ class ChooseTripPage extends Component {
         this.getPlaces();
     }
 
+    //async method to get places from developer.here.api
     async getPlaces() {
         await this.props.getPlacesFromAPI(this.props.match.params.tripId, this.props.match.params.id, this.props.match.params.lat, this.props.match.params.lng, this.props.match.params.rad, this.props.history);
         this.setState({ isLoading: false })
@@ -64,6 +67,7 @@ class ChooseTripPage extends Component {
     }
 }
 
+//Exports range of validators that can be used to make sure the recieved data is valid
 ChooseTripPage.propTypes = {
     places: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired,
@@ -73,6 +77,7 @@ ChooseTripPage.propTypes = {
     trip: PropTypes.object.isRequired
 };
 
+//Necessary to connect function... selecting parts of the data from the store that this component needs
 const mapStateToProps = state => ({
     places: state.places,
     security: state.security,

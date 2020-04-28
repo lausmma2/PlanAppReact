@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+//Component that displays the first page user can see - landing page
 class Landing extends Component {
 
     componentDidMount() {
@@ -23,7 +24,7 @@ class Landing extends Component {
                                     Create your account to join active trips or start your own trips
                         </p>
                                 <hr />
-                                <Link to="/register" className="btn btn-lg btn-primary mr-2" style={{backgroundColor: "#003554"}}>
+                                <Link to="/register" className="btn btn-lg btn-primary mr-2" style={{ backgroundColor: "#003554" }}>
                                     Register
                         </Link>
                                 <Link to="/login" className="btn btn-lg btn-secondary mr-2">
