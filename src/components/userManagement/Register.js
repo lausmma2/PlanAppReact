@@ -54,14 +54,6 @@ class Register extends Component {
         this.setState({
             isLoading: false
         })
-        /*this.setState({
-            isLoading: false
-        })*/
-        //setTimeout(() => {
-        /*this.setState({
-            isLoading: false
-        })*/
-        //}, this.props.createNewUser(newUser, this.props.history)) //2000
     }
 
     render() {

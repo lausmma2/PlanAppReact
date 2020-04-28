@@ -53,7 +53,6 @@ class UserInfo extends Component {
     }
 
     onSubmit(e) {
-        //e.preventDefault();
         e.persist();
         this.setState({
             isLoading: true

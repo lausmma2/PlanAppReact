@@ -51,7 +51,7 @@ class DataTableDetail extends Component {
 
     render() {
         return (
-            <div style={{ height: "500px", marginTop: "25px" }}>
+            <div style={{ height: "500px", marginTop: "15%" }}>
                 <h1 id='title'>Chosen places</h1>
                 <table id='items'>
                     <tbody>
