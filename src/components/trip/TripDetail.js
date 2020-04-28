@@ -22,7 +22,7 @@ class TripDetail extends Component {
     }
 
     onClick() {
-        this.props.history.push("/dashboard");
+        this.props.history.goBack();
     }
 
     render() {
@@ -31,7 +31,7 @@ class TripDetail extends Component {
                 <Row top="xs">
                     <Col md={6} xs={12}>
                         <button onClick={this.onClick.bind(this)} className="btn btn-lg btn-success mr-2">Back</button>
-                        <p><b>Distance is from where you chose your places!!!</b></p>
+                        <p><b>Distance is from where you chosen your places!!!</b></p>
                         <WrappedMapDetail
                             googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo"}
                             loadingElement={<div style={{ height: "100%" }} />}

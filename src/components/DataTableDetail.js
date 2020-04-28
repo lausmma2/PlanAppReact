@@ -3,7 +3,7 @@ import "../css/dataTable.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { savePlaceToTrip } from "../actions/placesActions";
-import { deletePlace, getAllPlaces } from "../actions/placesDbActions";
+import { deletePlace } from "../actions/placesDbActions";
 
 //Expresses table in trip detail => containts stored places in the specific trip
 class DataTableDetail extends Component {
@@ -16,10 +16,6 @@ class DataTableDetail extends Component {
             }],
             test: "test"
         }
-    }
-    //after component mounts => returns all stored places
-    componentDidMount() {
-        this.props.getAllPlaces(this.props.props.match.params.id, this.props.props.history)
     }
 
     //on delete button clicking => clicked place will be deleted
@@ -76,5 +72,5 @@ DataTableDetail.propTypes = {
 
 export default connect(
     null,
-    { savePlaceToTrip, deletePlace, getAllPlaces }
+    { savePlaceToTrip, deletePlace }
 )(DataTableDetail);
