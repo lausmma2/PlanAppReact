@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import TripItem from './trip/TripItem';
-import TripGroupItem from './tripGroup/TripGroupItem';
 import TripGroupDashboardItem from './tripGroup/TripGroupDashboardItem';
-import CreateTripButton from './trip/CreateTripButton';
 import { connect } from "react-redux";
 import { getTrips } from "../actions/tripActions";
 import { getTripGroups } from "../actions/tripGroupActions";

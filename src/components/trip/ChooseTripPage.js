@@ -22,18 +22,16 @@ class ChooseTripPage extends Component {
         }
         this.props.getUsersLocation();
         this.props.getUsersInfo();
-        //this.getPlaces();
         this.getPlaces();
     }
 
     async getPlaces() {
-        //console.log(this.props);
         await this.props.getPlacesFromAPI(this.props.match.params.tripId, this.props.match.params.id, this.props.match.params.lat, this.props.match.params.lng, this.props.match.params.rad, this.props.history);
         this.setState({ isLoading: false })
     }
 
-    onClick() {
-        this.props.history.goBack();
+    onClick(tripIdentifier) {
+        this.props.history.push(`/choose-trip-type/${tripIdentifier}`);
     }
 
     render() {
@@ -43,7 +41,7 @@ class ChooseTripPage extends Component {
                 {latitude && !this.state.isLoading ? (
                     <Row top="xs">
                         <Col md={6} xs={12}>
-                            <button onClick={this.onClick.bind(this)} className="btn btn-lg btn-success mr-2">Back</button>
+                            <button onClick={this.onClick.bind(this, this.props.match.params.tripId)} className="btn btn-lg btn-success mr-2">Back</button>
                             <WrappedMap
                                 googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDmo2q7z3voxlodY1OkKSeTTIAJ9vIMrQo"}
                                 loadingElement={<div style={{ height: "100%" }} />}

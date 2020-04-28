@@ -1,10 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { deleteTrip, addTripToTripGroup, getTrip, getTripByTripIdentifierAndTripGroupIdentifier } from "../actions/tripActions";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { getTripGroups } from "../actions/tripGroupActions";
 import { getAllPlaces, getAllPlacesByTripIdentifierAndTripGroupIdentifier } from "../actions/placesDbActions";
+import { getUsersInfo } from "../actions/userActions";
 
 class TripGroupDashboardItem extends Component {
 
@@ -16,7 +16,13 @@ class TripGroupDashboardItem extends Component {
     }
 
     componentDidMount() {
-        if (this.props.security.user.username === this.props.trip.tripCreator) {
+        this.props.getUsersInfo();
+        //console.log(this.props)
+        if (this.props.userData.userData.username === this.props.trip.tripCreator) {
+            this.setState({
+                isTripCreator: true
+            })
+        } else {
             this.setState({
                 isTripCreator: false
             })
@@ -37,7 +43,7 @@ class TripGroupDashboardItem extends Component {
         const { id } = this.props.props.match.params;
         return (
             <div className="container">
-                {!this.state.isTripCreator ? (
+                {this.state.isTripCreator ? (
                     <div className="card card-body bg-light mb-4">
                         <div className="row">
                             <div className="col-sm-2">
@@ -104,10 +110,11 @@ TripGroupDashboardItem.propTypes = {
 const mapStateToProps = state => ({
     security: state.security,
     tripGroup: state.tripGroups,
-    placesFromDb: state.placesFromDb
+    placesFromDb: state.placesFromDb,
+    userData: state.userData
 });
 
 export default connect(mapStateToProps, {
     deleteTrip, getTripGroups, addTripToTripGroup, getTrip, getAllPlaces,
-    getTripByTripIdentifierAndTripGroupIdentifier, getAllPlacesByTripIdentifierAndTripGroupIdentifier
+    getTripByTripIdentifierAndTripGroupIdentifier, getAllPlacesByTripIdentifierAndTripGroupIdentifier, getUsersInfo
 })(TripGroupDashboardItem);

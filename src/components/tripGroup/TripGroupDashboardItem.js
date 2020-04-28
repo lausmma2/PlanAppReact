@@ -7,13 +7,14 @@ import { deleteTripGroup, addUserToTripGroup, getTripGroup } from "../../actions
 import { getTripsByTripGroupIdentifier } from "../../actions/tripActions";
 import { Button } from "reactstrap";
 import Modal from 'react-awesome-modal';
+import { getUsersInfo } from "../../actions/userActions";
 
 class TripGroupDashboardItem extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isTripGroupCreator: false,
+            isTripGroupCreator: null,
             username: "",
             errors: {}
         }
@@ -21,11 +22,14 @@ class TripGroupDashboardItem extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-
     componentDidMount() {
-        if (this.props.props.userData.userData.username === this.props.tripGroup.tripGroupCreator) {
+        if (this.props.props.security.user.username === this.props.tripGroup.tripGroupCreator) {
             this.setState({
                 isTripGroupCreator: true
+            })
+        } else {
+            this.setState({
+                isTripGroupCreator: false
             })
         }
     }
@@ -175,9 +179,11 @@ TripGroupDashboardItem.propTypes = {
     getTripGroup: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
-    //tripGroup: state.tripGroups,
     placesFromDb: state.placesFromDb
 });
 
-export default connect(mapStateToProps, { deleteTripGroup, getTripGroups, getTripGroup, getTripsByTripGroupIdentifier, addUserToTripGroup })
+export default connect(mapStateToProps, {
+    deleteTripGroup, getUsersInfo, getTripGroups,
+    getTripGroup, getTripsByTripGroupIdentifier, addUserToTripGroup
+})
     (TripGroupDashboardItem);

@@ -42,8 +42,8 @@ class MapGoogle extends Component {
         var origin = null;
 
         if (placesFromDb.length - 1 >= 0) {
-            var destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
-            var origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
+            destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
+            origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
         } else if (this.props.props.coords.coords.latitude != null) {
             origin = { location: new window.google.maps.LatLng(this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude) }
             destination = { location: new window.google.maps.LatLng(this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude) }
@@ -86,8 +86,8 @@ class MapGoogle extends Component {
         var origin = null;
 
         if (placesFromDb.length - 1 >= 0) {
-            var destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
-            var origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
+            destination = { lat: placesFromDb[0].latitude, lng: placesFromDb[0].longitude };
+            origin = { lat: placesFromDb[placesFromDb.length - 1].latitude, lng: placesFromDb[placesFromDb.length - 1].longitude };
         } else if (this.props.props.coords.coords.latitude != null) {
             origin = { location: new window.google.maps.LatLng(this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude) }
             destination = { location: new window.google.maps.LatLng(this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude) }

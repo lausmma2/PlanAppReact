@@ -25,7 +25,6 @@ class TripSelectionCard extends Component {
         } else {
             this.props.getPlacesFromAPI(this.props.props.match.params.id, tripTypeIdentifier, this.props.props.coords.coords.latitude, this.props.props.coords.coords.longitude, this.state.value, this.props.props.history);
             this.props.getAllPlacesAfterAdd(this.props.trip.trip.tripIdentifier)
-            //console.log(this.props)
         }
     }
 

@@ -10,7 +10,6 @@ export const getPlacesFromAPI = (tripId, id, latitude, longitude, radius, histor
                 type: GET_PLACES_DATA_FROM_API,
                 payload: json
             });
-            console.log("funkceee")
             history.push(`/choose-trip/${tripId}/${id}/${latitude}/${longitude}/${radius}`);
             return json;
         })

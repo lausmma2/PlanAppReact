@@ -21,7 +21,6 @@ class TablePage extends Component {
 
     componentDidMount() {
         this.props.getUsersLocation();
-        //console.log(this.props)
         this.props.getAllPlacesAfterAdd(this.props.props.match.params.tripId);
         this.setState({
             disabledButtons: new Array(100).fill(false)

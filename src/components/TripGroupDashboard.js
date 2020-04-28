@@ -6,21 +6,28 @@ import PropTypes from "prop-types";
 import { getTripTypes } from "../actions/tripTypeActions";
 import { getUsersLocation } from "../actions/locationActions";
 import TripGroupDashboardItem from './TripGroupDashboardItem';
+import { getUsersInfo } from "../actions/userActions";
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             error: null,
-            data: []
+            isLoading: true
         };
     }
 
+    async getTripByGroupId() {
+        await this.props.getTripsByTripGroupIdentifier(this.props.match.params.id, this.props.history);
+        this.setState({ isLoading: false })
+    }
+
     componentDidMount() {
+        //this.props.getTripsByTripGroupIdentifier(this.props.match.params.id, this.props.history);
+        this.getTripByGroupId();
         this.props.getTripGroups();
         this.props.getUsersLocation();
-        fetch('https://places.sit.ls.hereapi.com/places/v1/discover/explore?apiKey=ty6GaIKaFnt0PLnQivodJThmvmIJ1twrSUI675NnebA&at=50.034309,15.781199&cat=sights-museums')
-            .then(response => response.json())
+        this.props.getUsersInfo();
     }
 
     render() {
@@ -28,15 +35,20 @@ class Dashboard extends Component {
         const { id } = this.props.match.params;
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h1 className="display-4 text-center">{id} trips dashboard</h1>
-                        <hr />
-                        {trips.map((trip, index) => (
-                            <TripGroupDashboardItem key={index} trip={trip} props={this.props} />
-                        ))}
+                {!this.state.isLoading ? (
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h1 className="display-4 text-center">{id} trips dashboard</h1>
+                            <hr />
+                            {trips.map((trip, index) => (
+                                <TripGroupDashboardItem key={index} trip={trip} props={this.props} />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                ) : (
+                        <div>Loading...</div>
+                    )}
+
             </div>
         );
     }
@@ -60,5 +72,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getTrips, getTripGroups, getTripTypes, getUsersLocation, getTripsByTripGroupIdentifier }
+    { getTrips, getTripGroups, getTripTypes, getUsersLocation, getTripsByTripGroupIdentifier, getUsersInfo }
 )(Dashboard);
