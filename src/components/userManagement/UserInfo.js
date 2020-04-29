@@ -12,7 +12,6 @@ import {
     CardFooter,
     CardTitle,
     FormGroup,
-    Form,
     Input,
     Row,
     Col
@@ -48,6 +47,16 @@ class UserInfo extends Component {
         } else {
             this.props.getUsersInfo();
             this.props.getTripGroups();
+        }
+        this.setState({ ...this.props.userData.userData });
+    }
+
+    setPropsToState() {
+        this.setState({ firstname: this.props.userData.userData.firstname })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
             this.setState({ ...this.props.userData.userData });
         }
     }
@@ -58,7 +67,6 @@ class UserInfo extends Component {
         this.setState({
             isLoading: true
         })
-
         const updatedUser = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
@@ -95,13 +103,12 @@ class UserInfo extends Component {
                                             style={{ height: "350px" }}
                                         />
 
-                                        <h5 className="title" style={{ color: "#003554" }}>{userData.firstname} {userData.lastname}
-                                        </h5>
+                                        <h5 className="title" style={{ color: "#003554" }}>{userData.firstname} {userData.lastname}</h5>
                                     </a>
                                 </div>
                                 <p className="description text-center">
-                                    "I like the way you work it <br />
-                                    No diggity <br />I wanna bag it up"
+                                    "Never put off till tomorrow<br />
+                                    what you can do today"
                   </p>
                             </CardBody>
                             <CardFooter>
@@ -230,6 +237,7 @@ class UserInfo extends Component {
                                                     onChange={this.onChange}
                                                     name="aboutMe"
                                                     value={this.state.aboutMe}
+                                                    maxLength={70}
                                                 />
                                             </FormGroup>
                                         </Col>
@@ -256,7 +264,7 @@ class UserInfo extends Component {
     }
 }
 
-//Exports range of validators that can be used to make sure the recieved data is valid
+//Exports range of validators that can be used to make sure the received data is valid
 UserInfo.propTypes = {
     userData: PropTypes.object.isRequired,
     getUsersInfo: PropTypes.func.isRequired,
