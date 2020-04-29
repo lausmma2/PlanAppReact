@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getTripGroups } from "../../actions/tripGroupActions";
 import { Link } from "react-router-dom";
-import { deleteTripGroup, addUserToTripGroup, getTripGroup } from "../../actions/tripGroupActions";
+import { deleteTripGroup, addUserToTripGroup, getTripGroup, getTripGroups } from "../../actions/tripGroupActions";
 import { getTripsByTripGroupIdentifier } from "../../actions/tripActions";
 import { Button } from "reactstrap";
 import Modal from 'react-awesome-modal';
@@ -40,9 +39,13 @@ class TripGroupDashboardItem extends Component {
 
     //Function to open modal to add user to specific group
     openModal() {
+        //if (this.props.props.security.user.username === this.props.tripGroup.tripGroupCreator) {
         this.setState({
             visible: true
         });
+        /*} else {
+            console.log("nemas prava")
+        }*/
     }
 
     //Function to close modal
@@ -55,6 +58,7 @@ class TripGroupDashboardItem extends Component {
     //When clicking on delete item => group should be deleted
     onDeleteClick = id => {
         this.props.deleteTripGroup(id);
+        this.props.getTripGroups();
     }
 
     //When clicking on edit item => edit form will open
@@ -67,11 +71,15 @@ class TripGroupDashboardItem extends Component {
         this.props.getTripsByTripGroupIdentifier(id, this.props.props.history);
     }
 
-    //Submit function inside modal
+    //Submit function inside modal... if user is not owner - nothing will happen
     onSubmit(e) {
         e.preventDefault();
-        this.props.addUserToTripGroup(this.props.tripGroup.tripGroupIdentifier, this.state.username, this.props.props.history);
-        this.closeModal();
+        if (this.props.props.security.user.username === this.props.tripGroup.tripGroupCreator) {
+            this.props.addUserToTripGroup(this.props.tripGroup.tripGroupIdentifier, this.state.username, this.props.props.history);
+            this.closeModal();
+        } else {
+            this.closeModal();
+        }
     }
 
     onChange(e) {
