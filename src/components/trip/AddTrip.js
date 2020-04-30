@@ -48,9 +48,7 @@ class AddTrip extends Component {
         const newTrip = {
             name: this.state.name,
             tripIdentifier: this.state.tripIdentifier,
-            description: this.state.description,
-            start_date: this.state.start_date,
-            end_date: this.state.end_date
+            description: this.state.description
         };
         this.props.createTrip(newTrip, this.props.history);
     }
@@ -110,26 +108,6 @@ class AddTrip extends Component {
                                             <div className="invalid-feedback">{errors.description}</div>
                                         )}
                                     </textarea>
-                                </div>
-                                <h6>Start Date</h6>
-                                <div className="form-group">
-                                    <input
-                                        type="date"
-                                        className="form-control form-control-lg"
-                                        name="start_date"
-                                        value={this.state.start_date}
-                                        onChange={this.onChange}
-                                    />
-                                </div>
-                                <h6>Estimated End Date</h6>
-                                <div className="form-group">
-                                    <input
-                                        type="date"
-                                        className="form-control form-control-lg"
-                                        name="end_date"
-                                        value={this.state.end_date}
-                                        onChange={this.onChange}
-                                    />
                                 </div>
                                 <input
                                     type="submit"
