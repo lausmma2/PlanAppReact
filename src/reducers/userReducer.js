@@ -8,8 +8,6 @@ export default function (state = initialState, action) {
     switch (action.type) {
 
         case GET_USER_INFO:
-            //console.log("reducer")
-            //console.log(action.payload)
             return {
                 ...state,
                 userData: action.payload

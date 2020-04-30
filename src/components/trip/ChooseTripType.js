@@ -65,7 +65,7 @@ class ChooseTripType extends Component {
                         <Link to="/dashboard" className="btn btn-lg btn-success" style={{ width: "31.7%", marginLeft: "0.5%", marginBottom: "0.7%" }}>Back to Dashboard</Link>
                     </div>
                 ) : (
-                        <div className="container">Please enable your Geo position in browser! <a href="https://nordvpn.com/blog/change-location-google-chrome/">See a Guide for CHROME here</a></div>
+                        <div className="container">Please enable your Geo position in browser! <a href="https://nordvpn.com/blog/change-location-google-chrome/" target="_blank">See a Guide for CHROME here</a></div>
                     )}
 
             </div>

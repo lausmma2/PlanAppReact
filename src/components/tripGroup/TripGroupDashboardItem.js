@@ -39,13 +39,9 @@ class TripGroupDashboardItem extends Component {
 
     //Function to open modal to add user to specific group
     openModal() {
-        //if (this.props.props.security.user.username === this.props.tripGroup.tripGroupCreator) {
         this.setState({
             visible: true
         });
-        /*} else {
-            console.log("nemas prava")
-        }*/
     }
 
     //Function to close modal

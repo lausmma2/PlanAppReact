@@ -9,6 +9,7 @@ export const getUsersInfo = () => async dispatch => {
         type: GET_USER_INFO,
         payload: res.data
     });
+
 };
 
 //sends request to change user's data => update user, then sends user to /user-info page

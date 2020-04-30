@@ -59,7 +59,7 @@ class ChooseTripPage extends Component {
                         </Col>
                     </Row>
                 ) : (
-                        <div>Please enable your Geo position in browser! <a href="https://nordvpn.com/blog/change-location-google-chrome/">See a Guide for CHROME here</a></div>
+                        <div>Please enable your Geo position in browser! <a href="https://nordvpn.com/blog/change-location-google-chrome/" target="_blank">See a Guide for CHROME here</a></div>
                     )}
 
             </div >
